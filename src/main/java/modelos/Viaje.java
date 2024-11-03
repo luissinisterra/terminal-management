@@ -1,7 +1,8 @@
 package modelos;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Viaje {
+public class Viaje implements Serializable {
     private int idViaje;
     private String origen;
     private String destino;

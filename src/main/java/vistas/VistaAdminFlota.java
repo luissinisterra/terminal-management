@@ -4,9 +4,11 @@
  */
 package vistas;
 
-import controladores.ControladorPrincipal;
-import controladores.ControladorVistaLogin;
-import modelos.Usuario;
+import controladores.ControladorVistaAdminFlota;
+import modelos.AdministradorFlota;
+import modelos.Caseta;
+
+import javax.swing.*;
 
 /**
  *
@@ -14,20 +16,33 @@ import modelos.Usuario;
  */
 public class VistaAdminFlota extends javax.swing.JFrame {
 
-    ControladorPrincipal controladorPrincipal;
-    ControladorVistaLogin controladorVistaLogin;
-    Usuario usuario;
+    ControladorVistaAdminFlota controladorVistaAdminFlota;
+    Caseta caseta;
+    AdministradorFlota usuarioLogeado;
 
     /**
      * Creates new form VistaAdminFlota
      */
-    public VistaAdminFlota(ControladorPrincipal controladorPrincipal, ControladorVistaLogin controladorVistaLogin, Usuario usuario) {
+    public VistaAdminFlota(AdministradorFlota usuarioLogeado, Caseta caseta) {
         initComponents();
         setLocationRelativeTo(this);
-        this.controladorPrincipal = controladorPrincipal != null ? controladorPrincipal : new ControladorPrincipal();
-        this.controladorVistaLogin = controladorVistaLogin != null ? controladorVistaLogin : new ControladorVistaLogin();
-        this.usuario = usuario;
+        this.controladorVistaAdminFlota = new ControladorVistaAdminFlota();
+        this.caseta = caseta;
+        this.usuarioLogeado = usuarioLogeado;
     }
+
+    /*private void obtenerCaseta(){
+        Caseta[][] casetas = this.controladorVistaAdminFlota.obtenerCasetas();
+        for(int i = 0; i < casetas.length; i++){
+            for(int j = 0; j < casetas[i].length; j++){
+                if(casetas[i][j] != null){
+                    if(casetas[i][j].getEmpresa().getAdministradorFlota().getDocumento().equals(this.usuarioLogeado.getDocumento())){
+                        this.caseta = casetas[i][j];
+                    }
+                }
+            }
+        }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -135,9 +150,9 @@ public class VistaAdminFlota extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionViajesActionPerformed
 
     private void btnGestionBusesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionBusesActionPerformed
-        /*VistaGestionBuses vgb = new VistaGestionBuses(this.controladorPrincipal, this.controladorBus, this.caseta, this.usuario);
+        VistaGestionBuses vgb = new VistaGestionBuses(this.caseta, this.usuarioLogeado);
         vgb.setVisible(true);
-        this.dispose();*/
+        this.dispose();
     }//GEN-LAST:event_btnGestionBusesActionPerformed
 
     private void btnVentaTiquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaTiquetesActionPerformed
@@ -147,8 +162,8 @@ public class VistaAdminFlota extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVentaTiquetesActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        VistaPrincipal vp = new VistaPrincipal(this.controladorPrincipal, usuario);
-        vp.setVisible(true);
+        VistaLogin vl = new VistaLogin();
+        vl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -182,7 +197,7 @@ public class VistaAdminFlota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAdminFlota(null, null, null).setVisible(true);
+                new VistaAdminFlota(null, null).setVisible(true);
             }
         });
     }

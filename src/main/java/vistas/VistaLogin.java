@@ -4,12 +4,8 @@
  */
 package vistas;
 
-import controladores.ControladorPrincipal;
 import controladores.ControladorVistaLogin;
-import modelos.AdministradorFlota;
-import modelos.AdministradorTerminal;
-import modelos.Cliente;
-import modelos.Usuario;
+import modelos.*;
 
 import javax.swing.*;
 
@@ -20,15 +16,13 @@ import javax.swing.*;
 public class VistaLogin extends javax.swing.JFrame {
 
     ControladorVistaLogin controladorVistaLogin;
-    ControladorPrincipal controladorPrincipal;
 
     /**
      * Creates new form VistaLogin
      */
-    public VistaLogin(ControladorPrincipal controladorPrincipal) {
+    public VistaLogin() {
         initComponents();
         setLocationRelativeTo(this);
-        this.controladorPrincipal = controladorPrincipal != null ? controladorPrincipal : new ControladorPrincipal();
         this.controladorVistaLogin = new ControladorVistaLogin();
     }
 
@@ -166,23 +160,32 @@ public class VistaLogin extends javax.swing.JFrame {
         try{
             String documento = txtDocumento.getText();
             String contrasena = txtContrasena.getText();
-            Usuario usuario = this.controladorVistaLogin.buscarUsuario(documento, contrasena);
+            Usuario usuarioLogeado = this.controladorVistaLogin.buscarUsuario(documento, contrasena);
 
-            if(usuario != null){
-                if(usuario instanceof AdministradorTerminal){
-                    VistaPrincipal vp = new VistaPrincipal(this.controladorPrincipal, (AdministradorTerminal) usuario);
+            if(usuarioLogeado != null){
+                if(usuarioLogeado instanceof AdministradorTerminal){
+                    VistaPrincipal vp = new VistaPrincipal(usuarioLogeado);
                     vp.setVisible(true);
                     this.dispose();
                 }
 
-                if(usuario instanceof AdministradorFlota){
-                    VistaAdminFlota vc = new VistaAdminFlota(this.controladorPrincipal, this.controladorVistaLogin, (AdministradorFlota) usuario);
-                    vc.setVisible(true);
-                    this.dispose();
+                if(usuarioLogeado instanceof AdministradorFlota){
+                    Caseta[][] casetas = this.controladorVistaLogin.obtenerCasetas();
+                    for(int i = 0; i < casetas.length; i++){
+                        for(int j = 0; j < casetas[i].length; j++){
+                            if(casetas[i][j] != null){
+                                if(casetas[i][j].getEmpresa().getAdministradorFlota().getDocumento().equals(usuarioLogeado.getDocumento())){
+                                    VistaAdminFlota vaf = new VistaAdminFlota((AdministradorFlota) usuarioLogeado, casetas[i][j]);
+                                    vaf.setVisible(true);
+                                    this.dispose();
+                                }
+                            }
+                        }
+                    }
                 }
 
-                if(usuario instanceof Cliente){
-                    VistaCliente vc = new VistaCliente(this.controladorPrincipal, this.controladorVistaLogin, (Cliente) usuario);
+                if(usuarioLogeado instanceof Cliente){
+                    VistaCliente vc = new VistaCliente(usuarioLogeado);
                     vc.setVisible(true);
                     this.dispose();
                 }
@@ -198,7 +201,7 @@ public class VistaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContrasenaActionPerformed
 
     private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
-        VistaRegistro vr = new VistaRegistro(this.controladorPrincipal);
+        VistaRegistro vr = new VistaRegistro();
         vr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarseActionPerformed
@@ -233,7 +236,7 @@ public class VistaLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaLogin(null).setVisible(true);
+                new VistaLogin().setVisible(true);
             }
         });
     }

@@ -12,11 +12,21 @@ public class ServicioUsuario {
     private ILista<Usuario> usuarios;
     private ServicioUsuarioDatos servicioUsuarioDatos;
     public ServicioUsuario() {
-        this.usuarios = new Lista<>();
         this.servicioUsuarioDatos = new ServicioUsuarioDatos("DatosUsuarios.bin");
-        this.usuarios.add(new AdministradorTerminal("1111669729", "Luis", "Sinisterra", 18, "Masculino", "3184130924", "luis@", "123", 1350000));
-        //this.agregarDatos();
-        //this.cargarDatos();
+        this.usuarios = new Lista<Usuario>();
+        this.cargarDatos();
+    }
+
+    public void agregarAdmininistradorTerminal(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) throws RuntimeException {
+        //Verifica que el documento no sea repetido
+        if(buscarDocumento(documento)){
+            throw new RuntimeException("El documento ingresado ya existe en la terminal");
+        }
+
+        AdministradorTerminal adminTerminal = new AdministradorTerminal(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
+        this.usuarios.add(adminTerminal);
+
+        this.agregarDatos();
     }
 
     public void agregarAdmininistradorFlota(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) throws RuntimeException {
@@ -28,8 +38,7 @@ public class ServicioUsuario {
         AdministradorFlota adminFlota = new AdministradorFlota(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
         this.usuarios.add(adminFlota);
 
-        //this.agregarDatos();
-        //this.cargarDatos();
+        this.agregarDatos();
     }
 
     public void agregarCliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) throws RuntimeException {
@@ -41,7 +50,6 @@ public class ServicioUsuario {
         Cliente cliente = new Cliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
         this.usuarios.add(cliente);
         this.agregarDatos();
-        //this.cargarDatos();
     }
 
     public void eliminarUsuario(String documento) throws RuntimeException {
@@ -53,7 +61,6 @@ public class ServicioUsuario {
         int indice = obtenerIndiceUsuario(documento);
         this.usuarios.remove(indice);
         this.agregarDatos();
-        //this.cargarDatos();
     }
 
     public void actualizarUsuario(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) throws RuntimeException {
@@ -134,10 +141,4 @@ public class ServicioUsuario {
     private void cargarDatos(){
         this.usuarios = this.servicioUsuarioDatos.cargarUsuariosArchivo();
     }
-
-    public ILista<Usuario> getAdmins() {
-        return this.usuarios;
-    }
-
-
 }

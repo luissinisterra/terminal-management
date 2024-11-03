@@ -3,10 +3,10 @@ package modelos;
 import java.io.Serializable;
 
 public abstract class Usuario extends Persona implements Serializable {
-    protected String contrasena;
-    protected String correo;
-    protected double sueldo;
-    protected static final long serialVersionUID = 1L;
+    private String contrasena;
+    private String correo;
+    private double sueldo;
+    private static final long serialVersionUID = 1L;
 
     public Usuario(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) {
         super(documento, nombre, apellido, edad, genero, telefono);

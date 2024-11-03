@@ -1,6 +1,8 @@
 package modelos;
 
-public class Bus {
+import java.io.Serializable;
+
+public class Bus implements Serializable {
     private String placa;
     private int cantidadPuestos;
     private boolean disponibilidad;

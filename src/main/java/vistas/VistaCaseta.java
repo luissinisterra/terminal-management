@@ -4,8 +4,7 @@
  */
 package vistas;
 
-import controladores.ControladorPrincipal;
-import controladores.ControladorVistaLogin;
+import controladores.ControladorVistaCaseta;
 import modelos.*;
 
 import javax.swing.*;
@@ -16,33 +15,47 @@ import javax.swing.*;
  */
 public class VistaCaseta extends javax.swing.JFrame {
 
-    ControladorPrincipal controladorPrincipal;
-    ControladorVistaLogin controladorVistaLogin;
+    ControladorVistaCaseta controladorVistaCaseta;
     Caseta caseta;
-    Usuario usuario;
+    Usuario usuarioLogeado;
+    AdministradorFlota adminFlota;
     int fila;
     int columna;
 
     /**
      * Creates new form VistaCaseta
      */
-    public VistaCaseta(ControladorPrincipal controladorPrincipal, Usuario usuario, Caseta caseta, int fila, int columna) {
+    public VistaCaseta(Usuario usuarioLogeado, Caseta caseta, int fila, int columna) {
         initComponents();
         setLocationRelativeTo(this);
-        this.controladorPrincipal = controladorPrincipal != null ? controladorPrincipal : new ControladorPrincipal();
-        this.controladorVistaLogin = controladorVistaLogin != null ? controladorVistaLogin : new ControladorVistaLogin();
+        this.controladorVistaCaseta = new ControladorVistaCaseta();
         this.caseta = caseta;
-        this.usuario = usuario;
+        this.usuarioLogeado = usuarioLogeado;
         this.fila = fila;
         this.columna = columna;
-        this.llenarCampos();
+        this.bloquearCampos();
         this.alistarBox();
         this.tieneAdministrador();
     }
 
-    private void mostrarAdmins(){
-        for(int i = 0; i < this.controladorVistaLogin.getAdmins().size(); i++){
-            System.out.println("Documento: " + this.controladorVistaLogin.getAdmins().get(i).getDocumento() );
+    private void bloquearCampos(){
+        if(this.controladorVistaCaseta.obtenerCaseta(fila, columna) != null){
+            this.llenarCampos();
+            txtDocumento.setEnabled(false);
+            txtNombre.setEnabled(false);
+            txtApellido.setEnabled(false);
+            txtEdad.setEnabled(false);
+            txtTelefono.setEnabled(false);
+            cbxGenero.setEnabled(false);
+            txtTelefono.setEnabled(false);
+            txtCorreo.setEnabled(false);
+            txtContrasena.setEnabled(false);
+            txtSueldo.setEnabled(false);
+
+            txtNit.setEnabled(false);
+            txtNombreEmpresa.setEnabled(false);
+            txtCanonArrendamiento.setEnabled(false);
+            txtPlazasEstacionamiento.setEnabled(false);
         }
     }
 
@@ -55,10 +68,10 @@ public class VistaCaseta extends javax.swing.JFrame {
 
     private void tieneAdministrador(){
         if(this.caseta != null && this.caseta.isDisponibilidad()){
-            btnAdministrar.setEnabled(true);
+            btnDesocupar.setEnabled(true);
             btnAsignarCaseta.setEnabled(false);
         } else {
-            btnAdministrar.setEnabled(false);
+            btnDesocupar.setEnabled(false);
             btnAsignarCaseta.setEnabled(true);
         }
     }
@@ -78,8 +91,8 @@ public class VistaCaseta extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtDocumento = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
+        txtDocumento = new javax.swing.JTextField();
         txtContrasena = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
@@ -105,7 +118,7 @@ public class VistaCaseta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtCanonArrendamiento = new javax.swing.JTextField();
         txtPlazasEstacionamiento = new javax.swing.JTextField();
-        btnAdministrar = new javax.swing.JButton();
+        btnDesocupar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -166,11 +179,11 @@ public class VistaCaseta extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(39, 39, 39)
-                        .addComponent(txtDocumento))
+                        .addComponent(txtNombre))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -207,13 +220,13 @@ public class VistaCaseta extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -329,12 +342,7 @@ public class VistaCaseta extends javax.swing.JFrame {
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
-        btnAdministrar.setText("Administrar");
-        btnAdministrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdministrarActionPerformed(evt);
-            }
-        });
+        btnDesocupar.setText("Desocupar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -347,8 +355,9 @@ public class VistaCaseta extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCrudEmpresas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdministrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDesocupar)
+                        .addGap(18, 18, 18)
                         .addComponent(btnAsignarCaseta)
                         .addGap(18, 18, 18)
                         .addComponent(btnRegresar)))
@@ -367,7 +376,7 @@ public class VistaCaseta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAsignarCaseta)
                     .addComponent(btnRegresar)
-                    .addComponent(btnAdministrar))
+                    .addComponent(btnDesocupar))
                 .addContainerGap())
         );
 
@@ -375,8 +384,8 @@ public class VistaCaseta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void llenarCampos(){
-        if(this.controladorPrincipal.entregarCaseta(fila, columna) != null){
-            Caseta caseta = this.controladorPrincipal.entregarCaseta(fila, columna);
+        if(this.controladorVistaCaseta.obtenerCaseta(fila, columna) != null){
+            Caseta caseta = this.controladorVistaCaseta.obtenerCaseta(fila, columna);
             AdministradorFlota admin = caseta.getEmpresa().getAdministradorFlota();
 
             txtDocumento.setText(admin.getDocumento());
@@ -397,8 +406,8 @@ public class VistaCaseta extends javax.swing.JFrame {
     }
 
     private void limpiarCampos(){
-        txtDocumento.setText("");
         txtNombre.setText("");
+        txtDocumento.setText("");
         txtApellido.setText("");
         txtEdad.setText("");
         cbxGenero.setSelectedItem("");
@@ -419,8 +428,8 @@ public class VistaCaseta extends javax.swing.JFrame {
 
     private void btnAsignarCasetaActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         try{
-            if (txtDocumento.getText().trim().isEmpty() ||
-                    txtNombre.getText().trim().isEmpty() ||
+            if (txtNombre.getText().trim().isEmpty() ||
+                    txtDocumento.getText().trim().isEmpty() ||
                     txtApellido.getText().trim().isEmpty() ||
                     txtEdad.getText().trim().isEmpty() ||
                     cbxGenero.getSelectedItem() == null ||
@@ -446,38 +455,34 @@ public class VistaCaseta extends javax.swing.JFrame {
             String contrasena = txtContrasena.getText();
             double sueldo = Double.parseDouble(txtSueldo.getText());
 
-            this.controladorVistaLogin.agregarAdmininistradorFlota(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
+            this.adminFlota = new AdministradorFlota(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
+            this.controladorVistaCaseta.agregarAdmininistradorFlota(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
 
             String nit = txtNit.getText();
             String nombreEmpresa = txtNombreEmpresa.getText();
-            Empresa empresa = new Empresa(nit, nombreEmpresa, new AdministradorFlota(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo));
+            Empresa empresa = new Empresa(nit, nombreEmpresa, this.adminFlota);
 
             double canonArrendamiento = Double.parseDouble(txtCanonArrendamiento.getText());
             int plazasEstablecimiento = Integer.parseInt(txtPlazasEstacionamiento.getText());
             this.caseta = new Caseta(empresa, canonArrendamiento, plazasEstablecimiento);
-            this.controladorPrincipal.asignarCaseta(this.fila, this.columna, caseta);
-            VistaPrincipal vp = new VistaPrincipal(this.controladorPrincipal, this.usuario);
-            vp.setVisible(true);
-            this.dispose();
+            this.controladorVistaCaseta.asignarCaseta(this.fila, this.columna, caseta);
 
             if (!this.caseta.isDisponibilidad()) {
-                btnAdministrar.setEnabled(false);
+                btnDesocupar.setEnabled(false);
                 btnAsignarCaseta.setEnabled(true);
             } else {
-                btnAdministrar.setEnabled(true);
+                btnDesocupar.setEnabled(true);
                 btnAsignarCaseta.setEnabled(false);
             }
-
-            this.limpiarCampos();
-            this.mostrarAdmins();
+            this.bloquearCampos();
+            JOptionPane.showMessageDialog(null, "Caseta asignada con exito.");
         }catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }                                                   
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        VistaPrincipal vp = new VistaPrincipal(this.controladorPrincipal, this.usuario);
+        VistaPrincipal vp = new VistaPrincipal(this.usuarioLogeado);
         vp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -489,12 +494,6 @@ public class VistaCaseta extends javax.swing.JFrame {
     private void txtContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasenaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContrasenaActionPerformed
-
-    private void btnAdministrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdministrarActionPerformed
-        VistaAdminFlota vaf = new VistaAdminFlota(this.controladorPrincipal, this.controladorVistaLogin, this.usuario);
-        vaf.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAdministrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -526,14 +525,14 @@ public class VistaCaseta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaCaseta(null, null, null,  0, 0).setVisible(true);
+                new VistaCaseta(null, null,  0, 0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdministrar;
     private javax.swing.JButton btnAsignarCaseta;
+    private javax.swing.JButton btnDesocupar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cbxGenero;
     private javax.swing.JLabel jLabel1;

@@ -4,10 +4,9 @@
  */
 package vistas;
 
-import controladores.ControladorPrincipal;
 import javax.swing.*;
 
-import controladores.ControladorVistaLogin;
+import controladores.ControladorVistaPrincipal;
 import modelos.Caseta;
 import modelos.Usuario;
 
@@ -21,18 +20,18 @@ import java.awt.event.ActionListener;
 public class VistaPrincipal extends javax.swing.JFrame implements ActionListener {
 
     JButton[][] botonesCasetas;
-    ControladorPrincipal controladorPrincipal;
-    Usuario usuario;
+    ControladorVistaPrincipal controladorVistaPrincipal;
+    Usuario usuarioLogeado;
 
     /**
      * Creates new form VistaPrincipal
      */
-    public VistaPrincipal(ControladorPrincipal controladorPrincipal, Usuario usuario) {
+    public VistaPrincipal(Usuario usuarioLogeado) {
         initComponents();
         setLocationRelativeTo(this);
         this.botonesCasetas = new JButton[4][];
-        this.controladorPrincipal = controladorPrincipal != null ? controladorPrincipal : new ControladorPrincipal();
-        this.usuario = usuario;
+        this.controladorVistaPrincipal = new ControladorVistaPrincipal();
+        this.usuarioLogeado = usuarioLogeado;
         this.dibujarBotones();
     }
 
@@ -77,8 +76,8 @@ public class VistaPrincipal extends javax.swing.JFrame implements ActionListener
                 if (e.getSource().equals(botonesCasetas[i][j])) {
                     int fila = i;
                     int columna = j;
-                    Caseta caseta = this.controladorPrincipal.entregarCaseta(fila, columna);
-                    VistaCaseta vc = new VistaCaseta(this.controladorPrincipal, this.usuario, caseta, fila, columna);
+                    Caseta caseta = this.controladorVistaPrincipal.obtenerCaseta(fila, columna);
+                    VistaCaseta vc = new VistaCaseta(this.usuarioLogeado, caseta, fila, columna);
                     vc.setVisible(true);
                     this.dispose();
                 }
@@ -147,8 +146,8 @@ public class VistaPrincipal extends javax.swing.JFrame implements ActionListener
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        VistaLogin lg = new VistaLogin(this.controladorPrincipal);
-        lg.setVisible(true);
+        VistaLogin vl = new VistaLogin();
+        vl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
@@ -182,7 +181,7 @@ public class VistaPrincipal extends javax.swing.JFrame implements ActionListener
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaPrincipal(null, null).setVisible(true);
+                new VistaPrincipal(null).setVisible(true);
             }
         });
     }

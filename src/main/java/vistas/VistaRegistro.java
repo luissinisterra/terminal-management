@@ -4,8 +4,6 @@
  */
 package vistas;
 
-import controladores.ControladorPrincipal;
-import controladores.ControladorVistaLogin;
 import controladores.ControladorVistaRegistro;
 import modelos.Usuario;
 
@@ -18,15 +16,13 @@ import javax.swing.*;
 public class VistaRegistro extends javax.swing.JFrame {
 
     ControladorVistaRegistro controladorVistaRegistro;
-    ControladorPrincipal controladorPrincipal;
 
     /**
      * Creates new form VistaRegistro
      */
-    public VistaRegistro(ControladorPrincipal controladorPrincipal) {
+    public VistaRegistro() {
         initComponents();
         setLocationRelativeTo(this);
-        this.controladorPrincipal = controladorPrincipal != null ? controladorPrincipal : new ControladorPrincipal();
         this.controladorVistaRegistro = new ControladorVistaRegistro();
         this.alistarBox();
     }
@@ -250,7 +246,7 @@ public class VistaRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        VistaLogin vl = new VistaLogin(this.controladorPrincipal);
+        VistaLogin vl = new VistaLogin();
         vl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
@@ -285,7 +281,7 @@ public class VistaRegistro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaRegistro(null).setVisible(true);
+                new VistaRegistro().setVisible(true);
             }
         });
     }

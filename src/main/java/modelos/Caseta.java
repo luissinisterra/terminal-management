@@ -1,12 +1,13 @@
 package modelos;
 
-import util.interfaces.ILista;
+import java.io.Serializable;
 
-public class Caseta {
+public class Caseta implements Serializable{
     private Empresa empresa;
     private double canonArrendamiento;
     private int plazasEstacionamiento;
     private boolean disponibilidad;
+    private static final long serialVersionUID = 1L;
 
     public Caseta() {}
 

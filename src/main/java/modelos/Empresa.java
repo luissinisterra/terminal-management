@@ -3,7 +3,9 @@ package modelos;
 import util.Lista;
 import util.interfaces.ILista;
 
-public class Empresa {
+import java.io.Serializable;
+
+public class Empresa implements Serializable {
     private String nit;
     private String nombreEmpresa;
     private AdministradorFlota administradorFlota;

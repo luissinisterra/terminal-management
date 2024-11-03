@@ -4,7 +4,6 @@
  */
 package vistas;
 
-import controladores.ControladorPrincipal;
 import controladores.ControladorVistaLogin;
 import modelos.Usuario;
 
@@ -17,17 +16,15 @@ import javax.swing.*;
 public class VistaCliente extends javax.swing.JFrame {
 
     ControladorVistaLogin controladorVistaLogin;
-    ControladorPrincipal controladorPrincipal;
     Usuario usuario;
 
     /**
      * Creates new form VistaCliente
      */
-    public VistaCliente(ControladorPrincipal controladorPrincipal, ControladorVistaLogin controladorVistaLogin, Usuario usuario) {
+    public VistaCliente(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
         this.controladorVistaLogin = controladorVistaLogin != null ? controladorVistaLogin : new ControladorVistaLogin();
-        this.controladorPrincipal = controladorPrincipal != null ? controladorPrincipal : new ControladorPrincipal();
         this.usuario = usuario;
     }
 
@@ -146,7 +143,7 @@ public class VistaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResumenInformacionActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        VistaLogin vl = new VistaLogin(this.controladorPrincipal);
+        VistaLogin vl = new VistaLogin();
         vl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
@@ -181,7 +178,7 @@ public class VistaCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaCliente(null, null, null).setVisible(true);
+                new VistaCliente(null).setVisible(true);
             }
         });
     }
