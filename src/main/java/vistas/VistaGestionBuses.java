@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.ControladorVistaGestionBuses;
+import modelos.AdministradorFlota;
 import modelos.Bus;
 import modelos.Caseta;
 import modelos.Usuario;
@@ -21,18 +22,29 @@ public class VistaGestionBuses extends javax.swing.JFrame {
 
     ControladorVistaGestionBuses controladorVistaGestionBuses;
     Caseta caseta;
-    Usuario usuario;
+    Usuario usuarioLogeado;
+    int fila;
+    int columna;
 
     /**
      * Creates new form VistaGestionBuses
      */
-    public VistaGestionBuses(Caseta caseta, Usuario usuario) {
+    public VistaGestionBuses(Caseta caseta, Usuario usuarioLogeado, int fila, int columna) {
         initComponents();
         setLocationRelativeTo(this);
         this.controladorVistaGestionBuses = new ControladorVistaGestionBuses();
         this.caseta = caseta;
-        this.usuario = usuario;
+        this.usuarioLogeado = usuarioLogeado;
+        this.fila = fila;
+        this.columna = columna;
         this.llenarTabla();
+        this.actualizarPlazasDisponibles();
+    }
+
+    public void actualizarPlazasDisponibles(){
+        int op = this.caseta.getPlazasEstacionamiento() - this.caseta.getEmpresa().getBuses().size();
+        lblPlazasDisponibles.setText(String.valueOf("Plazas disponibles: " + op + "/" + this.caseta.getPlazasEstacionamiento()));
+
     }
 
     public void llenarTabla(){
@@ -68,14 +80,14 @@ public class VistaGestionBuses extends javax.swing.JFrame {
         txtPlaca = new javax.swing.JTextField();
         txtCantidadPuestos = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaBuses = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
-        lblPlazasEstacionamiento = new javax.swing.JLabel();
+        lblPlazasDisponibles = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,7 +102,12 @@ public class VistaGestionBuses extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Editar");
 
@@ -115,7 +132,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
@@ -127,7 +144,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar)
-                    .addComponent(jButton2))
+                    .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -157,7 +174,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
             }
         });
 
-        lblPlazasEstacionamiento.setText("Plazas disponibles: 0/0");
+        lblPlazasDisponibles.setText("Plazas disponibles: 0/0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -168,7 +185,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblPlazasEstacionamiento)
+                        .addComponent(lblPlazasDisponibles)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegresar)))
                 .addContainerGap())
@@ -181,7 +198,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
-                    .addComponent(lblPlazasEstacionamiento))
+                    .addComponent(lblPlazasDisponibles))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,22 +227,40 @@ public class VistaGestionBuses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        /*VistaAdminFlota vaf = new VistaAdminFlota(this.usuario);
+        VistaAdminFlota vaf = new VistaAdminFlota((AdministradorFlota) this.usuarioLogeado, this.caseta, this.fila, this.columna);
         vaf.setVisible(true);
-        this.dispose();*/
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
-            String placa = txtPlaca.getText();
-            int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText());
-            this.controladorVistaGestionBuses.agregarBus(placa, cantidadPuestos);
-            this.caseta.getEmpresa().getBuses().add(new Bus(placa, cantidadPuestos));
-            this.llenarTabla();
+            if(this.caseta.getPlazasEstacionamiento() > this.caseta.getEmpresa().getBuses().size() ){
+                String placa = txtPlaca.getText();
+                int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText());
+                this.controladorVistaGestionBuses.agregarBus(placa, cantidadPuestos);
+                this.caseta.getEmpresa().getBuses().add(new Bus(placa, cantidadPuestos));
+                this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
+                this.llenarTabla();
+                this.actualizarPlazasDisponibles(); 
+            } else {
+                JOptionPane.showMessageDialog(null, "Maximo de plazas asignadas.");
+            }
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+            String placa = txtPlaca.getText();
+            this.controladorVistaGestionBuses.eliminarBus(placa);
+            this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
+            this.llenarTabla();
+            this.actualizarPlazasDisponibles();
+        } catch(RuntimeException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,15 +292,15 @@ public class VistaGestionBuses extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaGestionBuses(null, null).setVisible(true);
+                new VistaGestionBuses(null, null, 0, 0).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
@@ -273,7 +308,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblPlazasEstacionamiento;
+    private javax.swing.JLabel lblPlazasDisponibles;
     private javax.swing.JTable tablaBuses;
     private javax.swing.JTextField txtCantidadPuestos;
     private javax.swing.JTextField txtPlaca;

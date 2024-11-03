@@ -27,6 +27,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioVenta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioViaje.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServiciosReserva.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioBusDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioCasetaDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioUsuarioDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/util/Cola.java

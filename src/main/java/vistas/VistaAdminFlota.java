@@ -19,30 +19,19 @@ public class VistaAdminFlota extends javax.swing.JFrame {
     ControladorVistaAdminFlota controladorVistaAdminFlota;
     Caseta caseta;
     AdministradorFlota usuarioLogeado;
+    int fila;
+    int columna;
 
     /**
      * Creates new form VistaAdminFlota
      */
-    public VistaAdminFlota(AdministradorFlota usuarioLogeado, Caseta caseta) {
+    public VistaAdminFlota(AdministradorFlota usuarioLogeado, Caseta caseta, int fila, int columna) {
         initComponents();
         setLocationRelativeTo(this);
         this.controladorVistaAdminFlota = new ControladorVistaAdminFlota();
         this.caseta = caseta;
         this.usuarioLogeado = usuarioLogeado;
     }
-
-    /*private void obtenerCaseta(){
-        Caseta[][] casetas = this.controladorVistaAdminFlota.obtenerCasetas();
-        for(int i = 0; i < casetas.length; i++){
-            for(int j = 0; j < casetas[i].length; j++){
-                if(casetas[i][j] != null){
-                    if(casetas[i][j].getEmpresa().getAdministradorFlota().getDocumento().equals(this.usuarioLogeado.getDocumento())){
-                        this.caseta = casetas[i][j];
-                    }
-                }
-            }
-        }
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -150,7 +139,7 @@ public class VistaAdminFlota extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionViajesActionPerformed
 
     private void btnGestionBusesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionBusesActionPerformed
-        VistaGestionBuses vgb = new VistaGestionBuses(this.caseta, this.usuarioLogeado);
+        VistaGestionBuses vgb = new VistaGestionBuses(this.caseta, this.usuarioLogeado, this.fila, this.columna);
         vgb.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGestionBusesActionPerformed
@@ -197,7 +186,7 @@ public class VistaAdminFlota extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAdminFlota(null, null).setVisible(true);
+                new VistaAdminFlota(null, null, 0, 0).setVisible(true);
             }
         });
     }

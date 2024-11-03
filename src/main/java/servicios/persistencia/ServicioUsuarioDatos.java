@@ -29,7 +29,7 @@ public class ServicioUsuarioDatos {
             System.out.println("Archivo no encontrotado, creando...");
             ILista<Usuario> usuarios = new Lista<>();
             usuarios.add(new AdministradorTerminal("1111669729", "Luis", "Sinisterra", 18, "Masculino", "3184130924", "luis@", "123", 1350000));
-            agregarUsuariosArchivo(usuarios);
+            this.agregarUsuariosArchivo(usuarios);
             return usuarios;
         }
 

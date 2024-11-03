@@ -25,6 +25,8 @@ vistas/VistaAdminFlota$3.class
 vistas/VistaRegistro$2.class
 util/interfaces/ILista.class
 modelos/Viaje.class
+vistas/VistaGestionBuses$4.class
+servicios/persistencia/ServicioBusDatos.class
 servicios/ServicioTiquete.class
 modelos/Caseta.class
 vistas/VistaAdminFlota.class

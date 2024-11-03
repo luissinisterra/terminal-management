@@ -175,7 +175,9 @@ public class VistaLogin extends javax.swing.JFrame {
                         for(int j = 0; j < casetas[i].length; j++){
                             if(casetas[i][j] != null){
                                 if(casetas[i][j].getEmpresa().getAdministradorFlota().getDocumento().equals(usuarioLogeado.getDocumento())){
-                                    VistaAdminFlota vaf = new VistaAdminFlota((AdministradorFlota) usuarioLogeado, casetas[i][j]);
+                                    int fila = i;
+                                    int columna = j;
+                                    VistaAdminFlota vaf = new VistaAdminFlota((AdministradorFlota) usuarioLogeado, casetas[i][j], fila, columna);
                                     vaf.setVisible(true);
                                     this.dispose();
                                 }

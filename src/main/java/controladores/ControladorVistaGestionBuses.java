@@ -30,5 +30,9 @@ public class ControladorVistaGestionBuses {
         return this.servicioCaseta.obtenerCasetas();
     }
 
+    public void asignarCaseta(int fila, int columna, Caseta caseta) {
+        servicioCaseta.asignarCaseta(fila, columna, caseta);
+    }
+
 
 }
