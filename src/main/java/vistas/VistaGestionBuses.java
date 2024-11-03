@@ -81,7 +81,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
         txtCantidadPuestos = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -109,7 +109,12 @@ public class VistaGestionBuses extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Editar");
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Buscar");
 
@@ -128,7 +133,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                     .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -149,7 +154,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtCantidadPuestos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3)
+                    .addComponent(btnEditar)
                     .addComponent(jButton4))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -227,6 +232,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
         VistaAdminFlota vaf = new VistaAdminFlota((AdministradorFlota) this.usuarioLogeado, this.caseta, this.fila, this.columna);
         vaf.setVisible(true);
         this.dispose();
@@ -239,7 +245,6 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                 int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText());
                 this.controladorVistaGestionBuses.agregarBus(placa, cantidadPuestos);
                 this.caseta.getEmpresa().getBuses().add(new Bus(placa, cantidadPuestos));
-                this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
                 this.llenarTabla();
                 this.actualizarPlazasDisponibles(); 
             } else {
@@ -254,13 +259,38 @@ public class VistaGestionBuses extends javax.swing.JFrame {
         try {
             String placa = txtPlaca.getText();
             this.controladorVistaGestionBuses.eliminarBus(placa);
-            this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
+
+            for(int i = 0; i < this.caseta.getEmpresa().getBuses().size(); i++){
+                if(this.caseta.getEmpresa().getBuses().get(i).getPlaca().equals(placa)){
+                    this.caseta.getEmpresa().getBuses().remove(i);
+                }
+            }
+
             this.llenarTabla();
             this.actualizarPlazasDisponibles();
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+            String placa = txtPlaca.getText();
+            int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText());
+
+            for(int i = 0; i < this.caseta.getEmpresa().getBuses().size(); i++){
+                if(this.caseta.getEmpresa().getBuses().get(i).getPlaca().equals(placa)){
+                    this.caseta.getEmpresa().getBuses().get(i).setCantidadPuestos(cantidadPuestos);
+                }
+            }
+
+            this.controladorVistaGestionBuses.actualizarBus(placa, cantidadPuestos);
+            this.llenarTabla();
+            this.actualizarPlazasDisponibles();
+        } catch(RuntimeException e){
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,9 +329,9 @@ public class VistaGestionBuses extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

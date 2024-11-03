@@ -31,8 +31,7 @@ public class ControladorVistaGestionBuses {
     }
 
     public void asignarCaseta(int fila, int columna, Caseta caseta) {
-        servicioCaseta.asignarCaseta(fila, columna, caseta);
+        this.servicioCaseta.asignarCaseta(fila, columna, caseta);
     }
-
 
 }

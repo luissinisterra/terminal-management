@@ -2,6 +2,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaAdminFlota.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaCaseta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaGestionBuses.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaGestionViajes.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaLogin.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaPrincipal.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaRegistro.java
@@ -30,6 +31,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioBusDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioCasetaDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioUsuarioDatos.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioViajeDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/util/Cola.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/util/Lista.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/util/Nodo.java
@@ -39,6 +41,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaCaseta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaCliente.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaGestionBuses.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaGestionViajes.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaLogin.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaPrincipal.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaRegistro.java

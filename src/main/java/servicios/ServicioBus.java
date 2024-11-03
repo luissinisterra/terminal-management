@@ -22,7 +22,7 @@ public class ServicioBus {
 
         //Agrega el bus a la lista
         Bus bus = new Bus(placa, cantidadPuestos);
-        buses.add(bus);
+        this.buses.add(bus);
         this.agregarDatos();
     }
 

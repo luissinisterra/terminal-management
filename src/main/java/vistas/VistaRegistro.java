@@ -237,9 +237,9 @@ public class VistaRegistro extends javax.swing.JFrame {
             this.controladorVistaRegistro.agregarCliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
             Usuario usuario = this.controladorVistaRegistro.buscarUsuario(documento, contrasena);
 
-            /*VistaCliente vc = new VistaCliente(this.controladorPrincipal, usuario);
+            VistaCliente vc = new VistaCliente(usuario);
             vc.setVisible(true);
-            this.dispose();*/
+            this.dispose();
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

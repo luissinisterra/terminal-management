@@ -1,29 +1,32 @@
 package modelos;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Viaje implements Serializable {
-    private int idViaje;
+    private String idViaje;
     private String origen;
     private String destino;
-    private LocalDateTime horaSalida;
-    private LocalDateTime horaLlegada;
+    private LocalDateTime fechaHoraSalida;
+    private LocalDateTime fechaHoraLlegada;
+    private LocalTime fechaCreacion;
     private Bus bus;
 
-    public Viaje(int idViaje, String origen, String destino, LocalDateTime horaSalida, LocalDateTime horaLlegada, Bus bus) {
+    public Viaje(String idViaje, String origen, String destino, LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Bus bus) {
         this.idViaje = idViaje;
         this.origen = origen;
         this.destino = destino;
-        this.horaSalida = horaSalida;
-        this.horaLlegada = horaLlegada;
+        this.fechaHoraSalida = fechaHoraSalida;
+        this.fechaHoraLlegada = fechaHoraLlegada;
+        this.fechaCreacion = LocalTime.now();
         this.bus = bus;
     }
 
-    public int getIdViaje() {
+    public String getIdViaje() {
         return idViaje;
     }
 
-    public void setIdViaje(int idViaje) {
+    public void setIdViaje(String idViaje) {
         this.idViaje = idViaje;
     }
 
@@ -43,20 +46,28 @@ public class Viaje implements Serializable {
         this.destino = destino;
     }
 
-    public LocalDateTime getHoraSalida() {
-        return horaSalida;
+    public LocalDateTime getFechaHoraSalida() {
+        return fechaHoraSalida;
     }
 
-    public void setHoraSalida(LocalDateTime horaSalida) {
-        this.horaSalida = horaSalida;
+    public void setFechaHoraSalida(LocalDateTime fechaHoraSalida) {
+        this.fechaHoraSalida = fechaHoraSalida;
     }
 
-    public LocalDateTime getHoraLlegada() {
-        return horaLlegada;
+    public LocalDateTime getFechaHoraLlegada() {
+        return fechaHoraLlegada;
     }
 
-    public void setHoraLlegada(LocalDateTime horaLlegada) {
-        this.horaLlegada = horaLlegada;
+    public void setFechaHoraLlegada(LocalDateTime fechaHoraLlegada) {
+        this.fechaHoraLlegada = fechaHoraLlegada;
+    }
+
+    public LocalTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
     public Bus getBus() {
@@ -66,5 +77,4 @@ public class Viaje implements Serializable {
     public void setBus(Bus bus) {
         this.bus = bus;
     }
-
 }

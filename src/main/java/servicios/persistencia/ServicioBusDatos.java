@@ -35,8 +35,7 @@ public class ServicioBusDatos {
             return (ILista<Bus>) ois.readObject();
         } catch(IOException | ClassNotFoundException e){
             e.printStackTrace();
-            ILista<Bus> buses = new Lista<>();
-            return buses;
+            return new Lista<>();
         }
     }
 }
