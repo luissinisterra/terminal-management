@@ -14,7 +14,7 @@ public class ServicioViaje {
 
     public ServicioViaje() {
         this.viajes = new Lista<>();
-        this.servicioViajeDatos = new ServicioViajeDatos("DatosViaje.bin");
+        this.servicioViajeDatos = new ServicioViajeDatos("DatosViajes.bin");
         this.cargarDatos();
     }
 

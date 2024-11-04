@@ -1,4 +1,5 @@
 vistas/VistaCliente$4.class
+vistas/VistaGestionViajes$4.class
 controladores/ControladorVistaPrincipal.class
 controladores/ControladorVistaGestionBuses.class
 servicios/persistencia/ServicioCasetaDatos.class
@@ -73,6 +74,7 @@ vistas/VistaGestionBuses.class
 vistas/VistaLogin$3.class
 vistas/VistaGestionViajes$2.class
 vistas/VistaCaseta$5.class
+vistas/VistaGestionViajes$5.class
 modelos/Notificacion.class
 servicios/ServiciosReserva.class
 modelos/Tiquete.class

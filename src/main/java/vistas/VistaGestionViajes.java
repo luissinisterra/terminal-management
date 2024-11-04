@@ -101,8 +101,8 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         txtFechaHoraLlegada = new javax.swing.JTextField();
         cbxBus = new javax.swing.JComboBox<>();
         btnAgregar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         txtIdViaje = new javax.swing.JTextField();
@@ -134,9 +134,19 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Editar");
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Buscar");
 
@@ -147,29 +157,31 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         panelCrudGestionViajesLayout.setHorizontalGroup(
             panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCrudGestionViajesLayout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(109, 109, 109)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
                     .addComponent(jLabel3)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(44, 44, 44)
-                .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtFechaHoraLlegada)
-                    .addComponent(txtFechaHoraSalida)
-                    .addComponent(txtDestino)
-                    .addComponent(txtOrigen)
-                    .addComponent(cbxBus, 0, 211, Short.MAX_VALUE)
-                    .addComponent(txtIdViaje))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
-                .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAgregar))
-                .addGap(50, 50, 50))
+                    .addComponent(jLabel6))
+                .addGap(57, 57, 57)
+                .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCrudGestionViajesLayout.createSequentialGroup()
+                        .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtFechaHoraLlegada)
+                            .addComponent(txtFechaHoraSalida, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDestino, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtOrigen)
+                            .addComponent(cbxBus, 0, 260, Short.MAX_VALUE))
+                        .addGap(78, 78, 78)
+                        .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnAgregar)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtIdViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelCrudGestionViajesLayout.setVerticalGroup(
             panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,12 +199,12 @@ public class VistaGestionViajes extends javax.swing.JFrame {
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jButton3))
+                    .addComponent(btnEliminar))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFechaHoraSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jButton4))
+                    .addComponent(btnEditar))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFechaHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,7 +214,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(20, 20, 20))
+                .addGap(11, 11, 11))
         );
 
         tablaViajes.setModel(new javax.swing.table.DefaultTableModel(
@@ -243,7 +255,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             .addGroup(panelTablaGestionViajesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addContainerGap())
         );
@@ -319,6 +331,48 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+            String idViaje = txtIdViaje.getText().trim();
+            this.controladorVistaGestionViajes.eliminarViaje(idViaje);
+
+            for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
+                if(this.caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(idViaje)){
+                    this.caseta.getEmpresa().getBuses().get(i).setDisponibilidad(true);
+                    this.caseta.getEmpresa().getViajes().remove(i);
+                }
+            }
+
+            this.limpiarCampos();
+            this.llenarTabla();
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        try {
+            String idViaje = txtIdViaje.getText().trim();
+            String nuevoDestino = txtDestino.getText().trim();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime nuevaFechaHoraLlegada = LocalDateTime.parse(txtFechaHoraLlegada.getText().trim(), formatter);
+
+            this.controladorVistaGestionViajes.actualizarViaje(idViaje, nuevoDestino, nuevaFechaHoraLlegada);
+
+            for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
+                if(this.caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(idViaje)){
+                    this.caseta.getEmpresa().getViajes().get(i).setDestino(nuevoDestino);
+                    this.caseta.getEmpresa().getViajes().get(i).setFechaHoraLlegada(nuevaFechaHoraLlegada);
+                }
+            }
+
+            this.limpiarCampos();
+            this.llenarTabla();
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -356,10 +410,10 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cbxBus;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

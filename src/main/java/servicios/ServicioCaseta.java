@@ -8,7 +8,7 @@ public class ServicioCaseta {
     private ServicioCasetaDatos servicioCasetaDatos;
 
     public ServicioCaseta() {
-        this.servicioCasetaDatos = new ServicioCasetaDatos("DatosCaseta.bin");
+        this.servicioCasetaDatos = new ServicioCasetaDatos("DatosCasetas.bin");
         this.cargarDatos();
     }
 

@@ -21,6 +21,14 @@ public class ControladorVistaGestionViajes {
         this.servicioViaje.agregarViaje(idViaje, origen ,destino, horaSalida, horaLlegada, bus);
     }
 
+    public void eliminarViaje(String idViaje) {
+        this.servicioViaje.eliminarViaje(idViaje);
+    }
+
+    public void actualizarViaje(String idViaje, String nuevoDestino, LocalDateTime nuevaFechaHoraLlegada) {
+        this.servicioViaje.actualizarViaje(idViaje, nuevoDestino, nuevaFechaHoraLlegada);
+    }
+
     //Metodos de casetas
     public Caseta[][] obtenerCasetas(){
         return this.servicioCaseta.obtenerCasetas();

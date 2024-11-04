@@ -39,6 +39,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
         this.columna = columna;
         this.llenarTabla();
         this.actualizarPlazasDisponibles();
+        this.limpiarCampos();
     }
 
     public void actualizarPlazasDisponibles(){
@@ -63,6 +64,11 @@ public class VistaGestionBuses extends javax.swing.JFrame {
             }
         }
         tablaBuses.setModel(model);
+    }
+
+    private void limpiarCampos(){
+        txtPlaca.setText("");
+        txtCantidadPuestos.setText("");
     }
 
     /**
@@ -246,7 +252,8 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                 this.controladorVistaGestionBuses.agregarBus(placa, cantidadPuestos);
                 this.caseta.getEmpresa().getBuses().add(new Bus(placa, cantidadPuestos));
                 this.llenarTabla();
-                this.actualizarPlazasDisponibles(); 
+                this.actualizarPlazasDisponibles();
+                this.limpiarCampos();
             } else {
                 JOptionPane.showMessageDialog(null, "Maximo de plazas asignadas.");
             }
@@ -267,6 +274,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
             }
 
             this.llenarTabla();
+            this.limpiarCampos();
             this.actualizarPlazasDisponibles();
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
@@ -285,6 +293,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
             }
 
             this.controladorVistaGestionBuses.actualizarBus(placa, cantidadPuestos);
+            this.limpiarCampos();
             this.llenarTabla();
             this.actualizarPlazasDisponibles();
         } catch(RuntimeException e){

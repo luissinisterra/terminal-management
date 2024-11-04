@@ -10,7 +10,7 @@ public class ServicioBus {
     private ServicioBusDatos servicioBusDatos;
     public ServicioBus() {
         this.buses = new Lista<Bus>();
-        this.servicioBusDatos = new ServicioBusDatos("DatosBus.bin");
+        this.servicioBusDatos = new ServicioBusDatos("DatosBuses.bin");
         this.cargarDatos();
     }
 
