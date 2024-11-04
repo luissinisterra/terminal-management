@@ -6,6 +6,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaLogin.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaPrincipal.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaRegistro.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaReservarTiquete.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/AdministradorFlota.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/AdministradorTerminal.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Bus.java
@@ -23,6 +24,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioBus.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioCaseta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioEmpresa.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioReserva.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioTiquete.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioUsuario.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioVenta.java
@@ -30,6 +32,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServiciosReserva.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioBusDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioCasetaDatos.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioReservaDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioUsuarioDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioViajeDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/util/Cola.java
@@ -45,3 +48,4 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaLogin.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaPrincipal.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaRegistro.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaReservaTiquete.java

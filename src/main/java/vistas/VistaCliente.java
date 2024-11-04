@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.ControladorVistaLogin;
+import modelos.Cliente;
 import modelos.Usuario;
 
 import javax.swing.*;
@@ -16,16 +17,16 @@ import javax.swing.*;
 public class VistaCliente extends javax.swing.JFrame {
 
     ControladorVistaLogin controladorVistaLogin;
-    Usuario usuario;
+    Usuario usuarioLogeado;
 
     /**
      * Creates new form VistaCliente
      */
-    public VistaCliente(Usuario usuario) {
+    public VistaCliente(Usuario usuarioLogeado) {
         initComponents();
         setLocationRelativeTo(this);
         this.controladorVistaLogin = controladorVistaLogin != null ? controladorVistaLogin : new ControladorVistaLogin();
-        this.usuario = usuario;
+        this.usuarioLogeado = usuarioLogeado;
     }
 
     /**
@@ -68,6 +69,11 @@ public class VistaCliente extends javax.swing.JFrame {
         btnDevoluciones.setText("Devoluciones");
 
         btnReservar.setText("Reservar tiquete");
+        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservarActionPerformed(evt);
+            }
+        });
 
         btnCerrarSesion.setText("Cerrar sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -147,6 +153,12 @@ public class VistaCliente extends javax.swing.JFrame {
         vl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+        VistaReservaTiquete vrt = new VistaReservaTiquete((Cliente) this.usuarioLogeado);
+        vrt.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReservarActionPerformed
 
     /**
      * @param args the command line arguments

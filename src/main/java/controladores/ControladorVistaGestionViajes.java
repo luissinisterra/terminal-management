@@ -17,16 +17,16 @@ public class ControladorVistaGestionViajes {
     }
 
     //Metodos de viajes
-    public void agregarViaje(String idViaje, String origen, String destino, LocalDateTime horaSalida, LocalDateTime horaLlegada, Bus bus) {
-        this.servicioViaje.agregarViaje(idViaje, origen ,destino, horaSalida, horaLlegada, bus);
+    public void agregarViaje(String idViaje, String origen, String destino, LocalDateTime horaSalida, LocalDateTime horaLlegada, Bus bus, int valorUnitario) {
+        this.servicioViaje.agregarViaje(idViaje, origen ,destino, horaSalida, horaLlegada, bus, valorUnitario);
     }
 
     public void eliminarViaje(String idViaje) {
         this.servicioViaje.eliminarViaje(idViaje);
     }
 
-    public void actualizarViaje(String idViaje, String nuevoDestino, LocalDateTime nuevaFechaHoraLlegada) {
-        this.servicioViaje.actualizarViaje(idViaje, nuevoDestino, nuevaFechaHoraLlegada);
+    public void actualizarViaje(String idViaje, String nuevoDestino, LocalDateTime nuevaFechaHoraLlegada, int valorUnitario) {
+        this.servicioViaje.actualizarViaje(idViaje, nuevoDestino, nuevaFechaHoraLlegada, valorUnitario);
     }
 
     //Metodos de casetas

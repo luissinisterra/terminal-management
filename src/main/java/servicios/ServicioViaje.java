@@ -18,14 +18,14 @@ public class ServicioViaje {
         this.cargarDatos();
     }
 
-    public void agregarViaje(String idViaje, String origen, String destino, LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Bus bus) throws RuntimeException {
+    public void agregarViaje(String idViaje, String origen, String destino, LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Bus bus, int valorUnitario) throws RuntimeException {
         // Verificar que el id del viaje no exista en la lista de viajes
         if (buscarIdViaje(idViaje)) {
             throw new RuntimeException("El ID del viaje ya está registrado.");
         }
 
         // Agregar el viaje a la lista
-        Viaje viaje = new Viaje(idViaje, origen, destino, fechaHoraSalida, fechaHoraLlegada, bus);
+        Viaje viaje = new Viaje(idViaje, origen, destino, fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario);
         this.viajes.add(viaje);
         this.agregarDatos();
     }
@@ -42,7 +42,7 @@ public class ServicioViaje {
         this.agregarDatos();
     }
 
-    public void actualizarViaje(String idViaje, String nuevoDestino, LocalDateTime nuevaFechaHoraLlegada) throws RuntimeException {
+    public void actualizarViaje(String idViaje, String nuevoDestino, LocalDateTime nuevaFechaHoraLlegada, int valorUnitario) throws RuntimeException {
         if (!buscarIdViaje(idViaje)) {
             throw new RuntimeException("El ID del viaje no fue encontrado.");
         }
@@ -52,6 +52,7 @@ public class ServicioViaje {
             if (this.viajes.get(i).getIdViaje().equals(idViaje)) {
                 this.viajes.get(i).setDestino(nuevoDestino);
                 this.viajes.get(i).setFechaHoraLlegada(nuevaFechaHoraLlegada);
+                this.viajes.get(i).setValorUnitario(valorUnitario);
             }
         }
         this.agregarDatos();

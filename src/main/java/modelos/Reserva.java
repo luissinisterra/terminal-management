@@ -1,27 +1,28 @@
 package modelos;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Reserva {
-    private int idReserva;
+public class Reserva implements Serializable {
+    private String idReserva;
     private Viaje viaje;
     private Cliente cliente;
     private int cantidadReserva;
     private LocalDate fechaReserva;
 
-    public Reserva(int idReserva, Viaje viaje, Cliente cliente, int cantidadReserva, LocalDate fechaReserva) {
+    public Reserva(String idReserva, Viaje viaje, Cliente cliente, int cantidadReserva) {
         this.idReserva = idReserva;
         this.viaje = viaje;
         this.cliente = cliente;
         this.cantidadReserva = cantidadReserva;
-        this.fechaReserva = fechaReserva;
+        this.fechaReserva = LocalDate.now();
     }
 
-    public int getIdReserva() {
+    public String getIdReserva() {
         return idReserva;
     }
 
-    public void setIdReserva(int idReserva) {
+    public void setIdReserva(String idReserva) {
         this.idReserva = idReserva;
     }
 

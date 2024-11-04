@@ -40,11 +40,16 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         this.limpiarCampos();
         this.llenarTabla();
         this.alistarBox();
+
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+        for (int i = 0; i < viajes.size(); i++) {
+            System.out.println(viajes.get(i).getIdViaje());
+        }
     }
 
     public void llenarTabla(){
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus"});
+        model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus", "Valor unitario"});
 
         // Asegurarse de que la lista no sea null
         ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
@@ -56,7 +61,8 @@ public class VistaGestionViajes extends javax.swing.JFrame {
                         viajes.get(i).getDestino(),
                         viajes.get(i).getFechaHoraSalida(),
                         viajes.get(i).getFechaHoraLlegada(),
-                        viajes.get(i).getBus().getPlaca()
+                        viajes.get(i).getBus().getPlaca(),
+                        viajes.get(i).getValorUnitario()
                 });
             }
         }
@@ -69,6 +75,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         txtDestino.setText("");
         txtFechaHoraSalida.setText("");
         txtFechaHoraLlegada.setText("");
+        txtValorUnitario.setText("");
     }
 
     public void alistarBox(){
@@ -110,6 +117,8 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaViajes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtValorUnitario = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -254,11 +263,13 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             panelTablaGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaGestionViajesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addContainerGap())
         );
+
+        jLabel8.setText("Valor unitario:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -270,14 +281,24 @@ public class VistaGestionViajes extends javax.swing.JFrame {
                     .addComponent(panelTablaGestionViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCrudGestionViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(jLabel8)
+                .addGap(71, 71, 71)
+                .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelCrudGestionViajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelTablaGestionViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(panelTablaGestionViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -317,9 +338,10 @@ public class VistaGestionViajes extends javax.swing.JFrame {
                     break;
                 }
             }
+            int valorUnitario = Integer.parseInt(txtValorUnitario.getText());
 
-            this.controladorVistaGestionViajes.agregarViaje(txtIdViaje.getText().trim(), txtOrigen.getText().trim(), txtDestino.getText().trim(), fechaHoraSalida, fechaHoraLlegada, bus);
-            this.caseta.getEmpresa().getViajes().add(new Viaje(txtIdViaje.getText().trim(), txtOrigen.getText().trim(), txtDestino.getText().trim(), fechaHoraSalida, fechaHoraLlegada, bus));
+            this.controladorVistaGestionViajes.agregarViaje(txtIdViaje.getText().trim(), txtOrigen.getText().trim(), txtDestino.getText().trim(), fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario);
+            this.caseta.getEmpresa().getViajes().add(new Viaje(txtIdViaje.getText().trim(), txtOrigen.getText().trim(), txtDestino.getText().trim(), fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario));
 
             this.limpiarCampos();
             this.llenarTabla();
@@ -356,13 +378,14 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             String nuevoDestino = txtDestino.getText().trim();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime nuevaFechaHoraLlegada = LocalDateTime.parse(txtFechaHoraLlegada.getText().trim(), formatter);
-
-            this.controladorVistaGestionViajes.actualizarViaje(idViaje, nuevoDestino, nuevaFechaHoraLlegada);
+            int valorUnitario = Integer.parseInt(txtValorUnitario.getText());
+            this.controladorVistaGestionViajes.actualizarViaje(idViaje, nuevoDestino, nuevaFechaHoraLlegada, valorUnitario);
 
             for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
                 if(this.caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(idViaje)){
                     this.caseta.getEmpresa().getViajes().get(i).setDestino(nuevoDestino);
                     this.caseta.getEmpresa().getViajes().get(i).setFechaHoraLlegada(nuevaFechaHoraLlegada);
+                    this.caseta.getEmpresa().getViajes().get(i).setValorUnitario(valorUnitario);
                 }
             }
 
@@ -422,6 +445,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelCrudGestionViajes;
     private javax.swing.JPanel panelTablaGestionViajes;
@@ -431,5 +455,6 @@ public class VistaGestionViajes extends javax.swing.JFrame {
     private javax.swing.JTextField txtFechaHoraSalida;
     private javax.swing.JTextField txtIdViaje;
     private javax.swing.JTextField txtOrigen;
+    private javax.swing.JTextField txtValorUnitario;
     // End of variables declaration//GEN-END:variables
 }
