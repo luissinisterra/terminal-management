@@ -75,7 +75,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btnReservar" max="32767" attributes="0"/>
-                              <Component id="btnPuntosAcomulados" max="32767" attributes="0"/>
+                              <Component id="btnReservasActivas" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -89,7 +89,7 @@
                   <EmptySpace pref="70" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnResumenInformacion" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                      <Component id="btnPuntosAcomulados" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="btnReservasActivas" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -112,12 +112,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResumenInformacionActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnPuntosAcomulados">
+        <Component class="javax.swing.JButton" name="btnReservasActivas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Puntos acomulados"/>
+            <Property name="text" type="java.lang.String" value="Ver reservas activas"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPuntosAcomuladosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservasActivasActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDevoluciones">

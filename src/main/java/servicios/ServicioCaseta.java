@@ -8,6 +8,8 @@ public class ServicioCaseta {
     private ServicioCasetaDatos servicioCasetaDatos;
 
     public ServicioCaseta() {
+        this.crearMatrizIrregular();
+        this.initCasetas();
         this.servicioCasetaDatos = new ServicioCasetaDatos("DatosCasetas.bin");
         this.cargarDatos();
     }
@@ -38,12 +40,22 @@ public class ServicioCaseta {
         this.casetas = this.servicioCasetaDatos.cargarCasetasArchivo();
     }
 
-    private Caseta[][] crearMatrizIrregular() {
-        Caseta[][] matrizIrregular = new Caseta[4][];
-        matrizIrregular[0] = new Caseta[5];
-        for (int i = 1; i < matrizIrregular.length; i++) {
-            matrizIrregular[i] = new Caseta[2];
+    private void crearMatrizIrregular() {
+        this.casetas = new Caseta[4][];
+        this.casetas[0] = new Caseta[5];
+        for (int i = 1; i < casetas.length; i++) {
+            this.casetas[i] = new Caseta[2];
         }
-        return matrizIrregular;
     }
+
+    private void initCasetas() {
+        for (int i = 0; i < this.casetas.length; i++) {
+            for (int j = 0; j < this.casetas[i].length; j++) {
+                if (this.casetas[i][j] == null) {
+                    this.casetas[i][j] = new Caseta();
+                }
+            }
+        }
+    }
+
 }

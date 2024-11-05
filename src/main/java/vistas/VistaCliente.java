@@ -41,7 +41,7 @@ public class VistaCliente extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnResumenInformacion = new javax.swing.JButton();
-        btnPuntosAcomulados = new javax.swing.JButton();
+        btnReservasActivas = new javax.swing.JButton();
         btnDevoluciones = new javax.swing.JButton();
         btnReservar = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
@@ -59,10 +59,10 @@ public class VistaCliente extends javax.swing.JFrame {
             }
         });
 
-        btnPuntosAcomulados.setText("Puntos acomulados");
-        btnPuntosAcomulados.addActionListener(new java.awt.event.ActionListener() {
+        btnReservasActivas.setText("Ver reservas activas");
+        btnReservasActivas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPuntosAcomuladosActionPerformed(evt);
+                btnReservasActivasActionPerformed(evt);
             }
         });
 
@@ -99,7 +99,7 @@ public class VistaCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnReservar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPuntosAcomulados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnReservasActivas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(66, 66, 66))
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,7 +108,7 @@ public class VistaCliente extends javax.swing.JFrame {
                 .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnResumenInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPuntosAcomulados, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReservasActivas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -138,9 +138,11 @@ public class VistaCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPuntosAcomuladosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuntosAcomuladosActionPerformed
-        JOptionPane.showMessageDialog(null, "Tienes: " + "30000 puntos acomulados");
-    }//GEN-LAST:event_btnPuntosAcomuladosActionPerformed
+    private void btnReservasActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservasActivasActionPerformed
+        VistaGestionReservasActivas vgra = new VistaGestionReservasActivas((Cliente) this.usuarioLogeado);
+        vgra.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReservasActivasActionPerformed
 
     private void btnResumenInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumenInformacionActionPerformed
         /*VistaDevolucion vd = new VistaDevolucion(this.usuario);
@@ -198,8 +200,8 @@ public class VistaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnDevoluciones;
-    private javax.swing.JButton btnPuntosAcomulados;
     private javax.swing.JButton btnReservar;
+    private javax.swing.JButton btnReservasActivas;
     private javax.swing.JButton btnResumenInformacion;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;

@@ -2,6 +2,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaAdminFlota.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaCaseta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaGestionBuses.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaGestionReservas.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaGestionViajes.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaLogin.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/controladores/ControladorVistaPrincipal.java
@@ -29,7 +30,6 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioUsuario.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioVenta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioViaje.java
-/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServiciosReserva.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioBusDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioCasetaDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioReservaDatos.java
@@ -44,6 +44,7 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaCaseta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaCliente.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaGestionBuses.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaGestionReservasActivas.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaGestionViajes.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaLogin.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/vistas/VistaPrincipal.java
