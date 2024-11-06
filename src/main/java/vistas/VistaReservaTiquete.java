@@ -213,7 +213,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        try{
+        /*try{
             String idReserva = txtIdReserva.getText();
             String idViaje = txtIdViaje.getText();
             int cantidadReservas = Integer.parseInt(txtCantidadReservas.getText());
@@ -238,7 +238,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
             this.llenarTabla();
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
+        }*/
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

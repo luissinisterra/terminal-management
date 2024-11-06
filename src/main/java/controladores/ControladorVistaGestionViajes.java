@@ -29,6 +29,10 @@ public class ControladorVistaGestionViajes {
         this.servicioViaje.actualizarViaje(idViaje, nuevoDestino, nuevaFechaHoraLlegada, valorUnitario);
     }
 
+    public Bus obtenerBusPorId(String placa, Caseta caseta) {
+        return this.servicioViaje.obtenerBusPorId(placa, caseta);
+    }
+
     //Metodos de casetas
     public Caseta[][] obtenerCasetas(){
         return this.servicioCaseta.obtenerCasetas();
@@ -37,4 +41,6 @@ public class ControladorVistaGestionViajes {
     public void asignarCaseta(int fila, int columna, Caseta caseta) {
         this.servicioCaseta.asignarCaseta(fila, columna, caseta);
     }
+
+
 }

@@ -19,6 +19,7 @@ util/interfaces/ILista.class
 servicios/ServicioTiquete.class
 vistas/VistaGestionVentas.class
 vistas/VistaAdminFlota.class
+vistas/VistaGestionVentas$3.class
 controladores/ControladorVistaAdminFlota.class
 vistas/VistaLogin$1.class
 vistas/VistaAdminFlota$2.class

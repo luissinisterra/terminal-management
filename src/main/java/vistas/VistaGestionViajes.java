@@ -40,11 +40,6 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         this.limpiarCampos();
         this.llenarTabla();
         this.alistarBox();
-
-        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
-        for (int i = 0; i < viajes.size(); i++) {
-            System.out.println(viajes.get(i).getIdViaje());
-        }
     }
 
     public void llenarTabla(){
@@ -329,15 +324,12 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             LocalDateTime fechaHoraSalida = LocalDateTime.parse(txtFechaHoraSalida.getText().trim(), formatter);
             LocalDateTime fechaHoraLlegada = LocalDateTime.parse(txtFechaHoraLlegada.getText().trim(), formatter);
 
-            String busPlaca = String.valueOf(cbxBus.getSelectedItem()).trim();
-            Bus bus = null;
-            for (int i = 0; i < this.caseta.getEmpresa().getBuses().size(); i++) {
-                if (this.caseta.getEmpresa().getBuses().get(i).getPlaca().equals(busPlaca)) {
-                    this.caseta.getEmpresa().getBuses().get(i).setDisponibilidad(false);
-                    bus = this.caseta.getEmpresa().getBuses().get(i);
-                    break;
-                }
+            if(fechaHoraSalida.isAfter(fechaHoraLlegada)) {
+                JOptionPane.showMessageDialog(null, "La fecha de salida debe ser valida.");
             }
+
+            String busPlaca = String.valueOf(cbxBus.getSelectedItem()).trim();
+            Bus bus = this.controladorVistaGestionViajes.obtenerBusPorId(busPlaca, this.caseta);
             int valorUnitario = Integer.parseInt(txtValorUnitario.getText());
 
             this.controladorVistaGestionViajes.agregarViaje(txtIdViaje.getText().trim(), txtOrigen.getText().trim(), txtDestino.getText().trim(), fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario);

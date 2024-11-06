@@ -1,6 +1,7 @@
 package servicios;
 
 import modelos.Bus;
+import modelos.Caseta;
 import modelos.Viaje;
 import servicios.persistencia.ServicioViajeDatos;
 import util.Lista;
@@ -24,10 +25,20 @@ public class ServicioViaje {
             throw new RuntimeException("El ID del viaje ya está registrado.");
         }
 
-        // Agregar el viaje a la lista
-        Viaje viaje = new Viaje(idViaje, origen, destino, fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario);
-        this.viajes.add(viaje);
-        this.agregarDatos();
+        if(buscarBusEnViajes(bus) != null){
+            if(validarFechaDeViaje(fechaHoraSalida, fechaHoraLlegada, buscarBusEnViajes(bus))){
+                // Agregar el viaje a la lista
+                Viaje viaje = new Viaje(idViaje, origen, destino, fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario);
+                this.viajes.add(viaje);
+                this.agregarDatos();
+            }else {
+                throw new RuntimeException("El Bus esa ocupado durante esa fecha.");
+            }
+        } else {
+            Viaje viaje = new Viaje(idViaje, origen, destino, fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario);
+            this.viajes.add(viaje);
+            this.agregarDatos();
+        }
     }
 
     public void eliminarViaje(String idViaje) throws RuntimeException {
@@ -62,6 +73,17 @@ public class ServicioViaje {
         return this.viajes;
     }
 
+    public Bus obtenerBusPorId(String placa, Caseta caseta) throws RuntimeException {
+        for (int i = 0; i < caseta.getEmpresa().getBuses().size(); i++) {
+            if (caseta.getEmpresa().getBuses().get(i).getPlaca().equals(placa)) {
+                Bus bus = caseta.getEmpresa().getBuses().get(i);
+                bus.setDisponibilidad(false);
+                return bus;
+            }
+        }
+        throw new RuntimeException("El ID del bus no fue encontrado.");
+    }
+
     private boolean buscarIdViaje(String idViaje) {
         for (int i = 0; i < this.viajes.size(); i++) {
             if (this.viajes.get(i).getIdViaje().equals(idViaje)) {
@@ -91,4 +113,30 @@ public class ServicioViaje {
     private void cargarDatos() {
         this.viajes = this.servicioViajeDatos.cargarViajesArchivo();
     }
+
+    private Viaje buscarBusEnViajes(Bus bus) {
+        for (int i = 0; i < this.viajes.size(); i++) {
+            if (this.viajes.get(i).getBus().getPlaca().equals(bus.getPlaca())) {
+                return this.viajes.get(i);
+            }
+        }
+        return null;
+    }
+
+    private boolean validarFechaDeViaje(LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Viaje viaje) {
+        LocalDateTime fechaHoraSalidaViaje = viaje.getFechaHoraSalida();
+        LocalDateTime fechaHoraLlegadaViaje = viaje.getFechaHoraLlegada();
+
+        if (fechaHoraSalida.isAfter(fechaHoraLlegadaViaje.plusDays(1))) {
+            return true;
+        }
+
+        if (fechaHoraLlegada.isBefore(fechaHoraSalidaViaje)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
 }

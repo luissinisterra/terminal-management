@@ -45,7 +45,6 @@ public class VistaGestionBuses extends javax.swing.JFrame {
     public void actualizarPlazasDisponibles(){
         int op = this.caseta.getPlazasEstacionamiento() - this.caseta.getEmpresa().getBuses().size();
         lblPlazasDisponibles.setText(String.valueOf("Plazas disponibles: " + op + "/" + this.caseta.getPlazasEstacionamiento()));
-
     }
 
     public void llenarTabla(){
