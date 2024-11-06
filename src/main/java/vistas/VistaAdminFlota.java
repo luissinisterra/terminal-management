@@ -8,7 +8,6 @@ import controladores.ControladorVistaAdminFlota;
 import modelos.AdministradorFlota;
 import modelos.Caseta;
 
-import javax.swing.*;
 
 /**
  *
@@ -147,9 +146,9 @@ public class VistaAdminFlota extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGestionBusesActionPerformed
 
     private void btnVentaTiquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentaTiquetesActionPerformed
-        /*VistaGestionVentas vv = new VistaGestionVentas(this.controladorPrincipal, this.controladorBus, this.caseta, this.usuario);
+        VistaGestionVentas vv = new VistaGestionVentas(this.caseta, this.usuarioLogeado, this.fila, this.columna);
         vv.setVisible(true);
-        this.dispose();*/
+        this.dispose();
     }//GEN-LAST:event_btnVentaTiquetesActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed

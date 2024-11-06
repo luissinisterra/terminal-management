@@ -222,18 +222,19 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                     Caseta caseta = this.controladorVistaReservaTiquete.obtenerCasetas()[i][j];
                     if (caseta != null && caseta.getEmpresa() != null) {
                         ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
-                        if (viajes.get(i).getIdViaje().equals(idViaje)) {
-                            //caseta.getEmpresa().getReservas().get(i).getViaje().getBus().setCantidadPuestos(viajes.get(i).getBus().getCantidadPuestos() - cantidadReservas);
-                            caseta.getEmpresa().getReservas().add(new Reserva(idReserva, viajes.get(i), this.usuarioLogeado, cantidadReservas));
-                            this.controladorVistaReservaTiquete.agregarReserva(idReserva, viajes.get(i), this.usuarioLogeado, cantidadReservas);
+                        if (viajes.get(i).getIdViaje().equals(txtIdViaje.getText())) {
+                            // Linea sospechosa caseta.getEmpresa().getReservas().add(new Reserva(idReserva, viajes.get(i), this.usuarioLogeado, cantidadReservas));
                             this.caseta = caseta;
                             this.fila = i;
                             this.columna = j;
+                            System.out.println(this.caseta + " " + this.fila + " " + this.columna);
+                            //this.controladorVistaReservaTiquete.agregarReserva(idReserva, viajes.get(i), this.usuarioLogeado, cantidadReservas);
                         }
                     }
                 }
             }
-            JOptionPane.showMessageDialog(rootPane, "Tiquete reservado");
+            //this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
+            //JOptionPane.showMessageDialog(rootPane, "Tiquete reservado");
             this.llenarTabla();
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
@@ -241,7 +242,6 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
         VistaCliente vc = new VistaCliente(this.usuarioLogeado);
         vc.setVisible(true);
         this.dispose();

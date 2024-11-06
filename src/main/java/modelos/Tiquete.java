@@ -1,20 +1,21 @@
 package modelos;
 
 public class Tiquete {
-    private int idTiquete;
+    private String idTiquete;
     private Viaje viaje;
     private Cliente cliente;
 
-    public Tiquete(Viaje viaje, Cliente cliente) {
+    public Tiquete(String idTiquete, Viaje viaje, Cliente cliente) {
+        this.idTiquete = idTiquete;
         this.viaje = viaje;
         this.cliente = cliente;
     }
 
-    public int getIdTiquete() {
+    public String getIdTiquete() {
         return idTiquete;
     }
 
-    public void setIdTiquete(int idTiquete) {
+    public void setIdTiquete(String idTiquete) {
         this.idTiquete = idTiquete;
     }
 

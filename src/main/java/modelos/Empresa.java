@@ -13,7 +13,7 @@ public class Empresa implements Serializable {
     private ILista<Viaje> viajes;
     private ILista<Reserva> reservas;
 
-    public Empresa(String nit, String nombreEmpresa, AdministradorFlota administradorFlota) {
+public Empresa(String nit, String nombreEmpresa, AdministradorFlota administradorFlota) {
         this.nit = nit;
         this.nombreEmpresa = nombreEmpresa;
         this.administradorFlota = administradorFlota;

@@ -465,7 +465,7 @@ public class VistaCaseta extends javax.swing.JFrame {
             double canonArrendamiento = Double.parseDouble(txtCanonArrendamiento.getText());
             int plazasEstablecimiento = Integer.parseInt(txtPlazasEstacionamiento.getText());
             this.caseta = new Caseta(empresa, canonArrendamiento, plazasEstablecimiento);
-            this.controladorVistaCaseta.asignarCaseta(this.fila, this.columna, caseta);
+            this.controladorVistaCaseta.asignarCaseta(this.fila, this.columna, this.caseta);
 
             if (!this.caseta.isDisponibilidad()) {
                 btnDesocupar.setEnabled(false);

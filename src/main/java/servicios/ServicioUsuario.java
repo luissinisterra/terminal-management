@@ -103,6 +103,10 @@ public class ServicioUsuario {
         return null;
     }
 
+    public ILista<Usuario> obtenerUsuarios() throws RuntimeException {
+        return this.usuarios;
+    }
+
     private boolean validarContrasena(String documento, String contrasena){
         for(int i = 0; i < this.usuarios.size(); i++){
             if(this.usuarios.get(i).getDocumento().equals(documento) && this.usuarios.get(i).getContrasena().equals(contrasena)){
