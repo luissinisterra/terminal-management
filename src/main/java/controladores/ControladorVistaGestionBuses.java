@@ -13,6 +13,7 @@ public class ControladorVistaGestionBuses {
         this.servicioCaseta = new ServicioCaseta();
     }
 
+    //Metodos de buses
     public void agregarBus(String placa, int cantidadPuestos) {
         this.servicioBus.agregarBus(placa, cantidadPuestos);
     }

@@ -66,7 +66,8 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
     private void limpiarCampos(){
         txtIdViaje.setText("");
-        txtOrigen.setText("");
+        txtOrigen.setText("Armenia");
+        txtOrigen.setEnabled(false);
         txtDestino.setText("");
         txtFechaHoraSalida.setText("");
         txtFechaHoraLlegada.setText("");
@@ -102,18 +103,18 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         txtFechaHoraSalida = new javax.swing.JTextField();
         txtFechaHoraLlegada = new javax.swing.JTextField();
         cbxBus = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        txtIdViaje = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        txtValorUnitario = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        txtIdViaje = new javax.swing.JTextField();
         panelTablaGestionViajes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaViajes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        txtValorUnitario = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -130,6 +131,10 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         jLabel6.setText("Bus:");
 
         cbxBus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel7.setText("Id del viaje:");
+
+        jLabel8.setText("Valor unitario:");
 
         btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -154,71 +159,79 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
         jButton5.setText("Buscar");
 
-        jLabel7.setText("Id del viaje:");
-
         javax.swing.GroupLayout panelCrudGestionViajesLayout = new javax.swing.GroupLayout(panelCrudGestionViajes);
         panelCrudGestionViajes.setLayout(panelCrudGestionViajesLayout);
         panelCrudGestionViajesLayout.setHorizontalGroup(
             panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCrudGestionViajesLayout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(57, 57, 57)
+                .addGap(46, 46, 46)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCrudGestionViajesLayout.createSequentialGroup()
-                        .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtFechaHoraLlegada)
-                            .addComponent(txtFechaHoraSalida, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDestino, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtOrigen)
-                            .addComponent(cbxBus, 0, 260, Short.MAX_VALUE))
-                        .addGap(78, 78, 78)
+                        .addComponent(btnAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCrudGestionViajesLayout.createSequentialGroup()
                         .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnAgregar)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtIdViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8))
+                        .addGap(42, 42, 42)
+                        .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtIdViaje, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaHoraSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFechaHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxBus, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         panelCrudGestionViajesLayout.setVerticalGroup(
             panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCrudGestionViajesLayout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIdViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(txtIdViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(btnAgregar))
+                    .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(btnEliminar))
+                    .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaHoraSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(btnEditar))
+                    .addComponent(txtFechaHoraSalida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jButton5))
+                    .addComponent(txtFechaHoraLlegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(11, 11, 11))
+                    .addComponent(jLabel6)
+                    .addComponent(cbxBus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(92, 92, 92)
+                .addGroup(panelCrudGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnEditar)
+                    .addComponent(jButton5))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         tablaViajes.setModel(new javax.swing.table.DefaultTableModel(
@@ -246,54 +259,41 @@ public class VistaGestionViajes extends javax.swing.JFrame {
         panelTablaGestionViajesLayout.setHorizontalGroup(
             panelTablaGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaGestionViajesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTablaGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaGestionViajesLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRegresar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
                 .addContainerGap())
+            .addGroup(panelTablaGestionViajesLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelTablaGestionViajesLayout.setVerticalGroup(
             panelTablaGestionViajesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaGestionViajesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
                 .addContainerGap())
         );
-
-        jLabel8.setText("Valor unitario:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelTablaGestionViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelCrudGestionViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addComponent(jLabel8)
-                .addGap(71, 71, 71)
-                .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(panelCrudGestionViajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(panelTablaGestionViajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(panelCrudGestionViajes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(panelTablaGestionViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelTablaGestionViajes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -301,7 +301,6 @@ public class VistaGestionViajes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.controladorVistaGestionViajes.asignarCaseta(this.fila, this. columna, this.caseta);
         VistaAdminFlota vaf = new VistaAdminFlota((AdministradorFlota) this.usuarioLogeado, this.caseta, this.fila, this.columna);
         vaf.setVisible(true);
         this.dispose();
@@ -324,8 +323,9 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             LocalDateTime fechaHoraSalida = LocalDateTime.parse(txtFechaHoraSalida.getText().trim(), formatter);
             LocalDateTime fechaHoraLlegada = LocalDateTime.parse(txtFechaHoraLlegada.getText().trim(), formatter);
 
-            if(fechaHoraSalida.isAfter(fechaHoraLlegada)) {
+            if(fechaHoraSalida.isAfter(fechaHoraLlegada) && fechaHoraSalida.equals(fechaHoraLlegada)) {
                 JOptionPane.showMessageDialog(null, "La fecha de salida debe ser valida.");
+                return;
             }
 
             String busPlaca = String.valueOf(cbxBus.getSelectedItem()).trim();
@@ -334,6 +334,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
             this.controladorVistaGestionViajes.agregarViaje(txtIdViaje.getText().trim(), txtOrigen.getText().trim(), txtDestino.getText().trim(), fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario);
             this.caseta.getEmpresa().getViajes().add(new Viaje(txtIdViaje.getText().trim(), txtOrigen.getText().trim(), txtDestino.getText().trim(), fechaHoraSalida, fechaHoraLlegada, bus, valorUnitario));
+            this.controladorVistaGestionViajes.asignarCaseta(this.fila, this. columna, this.caseta);
 
             this.limpiarCampos();
             this.llenarTabla();
@@ -347,6 +348,10 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
+            if (txtIdViaje.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El campo del Id debe estar lleno.");
+                return;
+            }
             String idViaje = txtIdViaje.getText().trim();
             this.controladorVistaGestionViajes.eliminarViaje(idViaje);
 
@@ -357,6 +362,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
                 }
             }
 
+            this.controladorVistaGestionViajes.asignarCaseta(this.fila, this. columna, this.caseta);
             this.limpiarCampos();
             this.llenarTabla();
         } catch (RuntimeException e) {
@@ -366,6 +372,16 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
+            if (txtIdViaje.getText().trim().isEmpty() ||
+                    txtOrigen.getText().trim().isEmpty() ||
+                    txtDestino.getText().trim().isEmpty() ||
+                    txtFechaHoraSalida.getText().trim().isEmpty() ||
+                    txtFechaHoraLlegada.getText().trim().isEmpty() ||
+                    cbxBus.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben ser llenados.");
+                return;
+            }
+
             String idViaje = txtIdViaje.getText().trim();
             String nuevoDestino = txtDestino.getText().trim();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -381,10 +397,11 @@ public class VistaGestionViajes extends javax.swing.JFrame {
                 }
             }
 
+            this.controladorVistaGestionViajes.asignarCaseta(this.fila, this. columna, this.caseta);
             this.limpiarCampos();
             this.llenarTabla();
         } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

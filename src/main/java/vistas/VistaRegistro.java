@@ -241,7 +241,7 @@ public class VistaRegistro extends javax.swing.JFrame {
             vc.setVisible(true);
             this.dispose();
         } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnRegistrarseActionPerformed
 

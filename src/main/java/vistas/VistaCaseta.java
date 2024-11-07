@@ -477,7 +477,7 @@ public class VistaCaseta extends javax.swing.JFrame {
             this.bloquearCampos();
             JOptionPane.showMessageDialog(null, "Caseta asignada con exito.");
         }catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }                                                   
 

@@ -42,5 +42,4 @@ public class ControladorVistaGestionViajes {
         this.servicioCaseta.asignarCaseta(fila, columna, caseta);
     }
 
-
 }

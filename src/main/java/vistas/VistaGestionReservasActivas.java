@@ -238,7 +238,7 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
             this.controladorVistaGestionReservas.eliminarReserva(idReserva);
             this.llenarTabla();
         } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -277,7 +277,7 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
             }
             this.llenarTabla();
         } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

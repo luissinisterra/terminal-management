@@ -237,7 +237,6 @@ public class VistaGestionBuses extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
         VistaAdminFlota vaf = new VistaAdminFlota((AdministradorFlota) this.usuarioLogeado, this.caseta, this.fila, this.columna);
         vaf.setVisible(true);
         this.dispose();
@@ -245,24 +244,41 @@ public class VistaGestionBuses extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
-            if(this.caseta.getPlazasEstacionamiento() > this.caseta.getEmpresa().getBuses().size() ){
-                String placa = txtPlaca.getText();
-                int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText());
+            if (txtPlaca.getText().trim().isEmpty() || txtCantidadPuestos.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben ser llenados.");
+                return;
+            }
+
+            String placa = txtPlaca.getText().trim();
+            int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText().trim());
+
+            if (this.caseta.getPlazasEstacionamiento() > this.caseta.getEmpresa().getBuses().size()) {
                 this.controladorVistaGestionBuses.agregarBus(placa, cantidadPuestos);
                 this.caseta.getEmpresa().getBuses().add(new Bus(placa, cantidadPuestos));
+                this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
+
                 this.llenarTabla();
                 this.actualizarPlazasDisponibles();
                 this.limpiarCampos();
             } else {
-                JOptionPane.showMessageDialog(null, "Maximo de plazas asignadas.");
+                JOptionPane.showMessageDialog(null, "Máximo de plazas asignadas.");
+                this.limpiarCampos();
             }
-        } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La cantidad de puestos debe ser un número válido.");
+        } catch (RuntimeException e) {
+            // Mostrar mensaje de error si ocurre una excepción en otro lugar del código
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         try {
+            if (txtPlaca.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben ser llenados.");
+                return;
+            }
+
             String placa = txtPlaca.getText();
             this.controladorVistaGestionBuses.eliminarBus(placa);
 
@@ -272,6 +288,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                 }
             }
 
+            this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
             this.llenarTabla();
             this.limpiarCampos();
             this.actualizarPlazasDisponibles();
@@ -282,8 +299,13 @@ public class VistaGestionBuses extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            String placa = txtPlaca.getText();
-            int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText());
+            if (txtPlaca.getText().trim().isEmpty() || txtCantidadPuestos.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben ser llenados.");
+                return;
+            }
+
+            String placa = txtPlaca.getText().trim();
+            int cantidadPuestos = Integer.parseInt(txtCantidadPuestos.getText().trim());
 
             for(int i = 0; i < this.caseta.getEmpresa().getBuses().size(); i++){
                 if(this.caseta.getEmpresa().getBuses().get(i).getPlaca().equals(placa)){
@@ -292,9 +314,12 @@ public class VistaGestionBuses extends javax.swing.JFrame {
             }
 
             this.controladorVistaGestionBuses.actualizarBus(placa, cantidadPuestos);
+            this.controladorVistaGestionBuses.asignarCaseta(fila, columna, this.caseta);
             this.limpiarCampos();
             this.llenarTabla();
             this.actualizarPlazasDisponibles();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La cantidad de puestos debe ser un número válido.");
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }

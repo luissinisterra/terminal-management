@@ -1,6 +1,7 @@
 package servicios;
 
 import modelos.Bus;
+import modelos.Caseta;
 import servicios.persistencia.ServicioBusDatos;
 import util.Lista;
 import util.interfaces.ILista;
@@ -9,7 +10,7 @@ public class ServicioBus {
     private ILista <Bus> buses;
     private ServicioBusDatos servicioBusDatos;
     public ServicioBus() {
-        this.buses = new Lista<Bus>();
+        this.buses = new Lista<>();
         this.servicioBusDatos = new ServicioBusDatos("DatosBuses.bin");
         this.cargarDatos();
     }
@@ -32,6 +33,10 @@ public class ServicioBus {
             throw new RuntimeException("La placa ingresada no fue encontrada en la terminal.");
         }
 
+        if(obtenerBusPorPlaca(placa) != null && obtenerBusPorPlaca(placa).isDisponibilidad()){
+            throw new RuntimeException("El bus seleccionado se encuentra en viaje actualmente.");
+        }
+
         //Elimina el bus con el indice encontrado
         int indice = obtenerIndiceBus(placa);
         this.buses.remove(indice);
@@ -41,6 +46,10 @@ public class ServicioBus {
     public void actualizarBus(String placa, int nuevaCantidadPuestos) throws RuntimeException{
         if(!buscarPlaca(placa)){
             throw new RuntimeException("La placa ingresada no fue encontrada en la terminal.");
+        }
+
+        if(obtenerBusPorPlaca(placa) != null && obtenerBusPorPlaca(placa).isDisponibilidad()){
+            throw new RuntimeException("El bus seleccionado se encuentra en viaje actualmente.");
         }
 
         //Asigna los valores correspondientes
@@ -63,6 +72,16 @@ public class ServicioBus {
             }
         }
         return false;
+    }
+
+    private Bus obtenerBusPorPlaca(String placa){
+        for(int i = 0; i < this.buses.size(); i++){
+            if(this.buses.get(i).getPlaca().equals(placa)){
+                Bus bus = this.buses.get(i);
+                return bus;
+            }
+        }
+        return null;
     }
 
     private int obtenerIndiceBus(String placa){

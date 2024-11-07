@@ -11,6 +11,7 @@ public class Viaje implements Serializable {
     private LocalDateTime fechaHoraLlegada;
     private LocalTime fechaCreacion;
     private Bus bus;
+    private int cupos;
     private int valorUnitario;
 
     public Viaje(String idViaje, String origen, String destino, LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Bus bus, int valorUnitario) {
@@ -21,6 +22,7 @@ public class Viaje implements Serializable {
         this.fechaHoraLlegada = fechaHoraLlegada;
         this.fechaCreacion = LocalTime.now();
         this.bus = bus;
+        this.cupos = this.bus.getCantidadPuestos();
         this.valorUnitario = valorUnitario;
     }
 
@@ -78,6 +80,14 @@ public class Viaje implements Serializable {
 
     public void setBus(Bus bus) {
         this.bus = bus;
+    }
+
+    public int getCupos() {
+        return cupos;
+    }
+
+    public void setCupos(int cupos) {
+        this.cupos = cupos;
     }
 
     public int getValorUnitario() {

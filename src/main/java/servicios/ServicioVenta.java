@@ -12,7 +12,7 @@ public class ServicioVenta {
     private ILista<Venta> ventas;
 
     public ServicioVenta() {
-        this.ventas = new Lista<Venta>();
+        this.ventas = new Lista<>();
     }
 
     public void agregarVenta(Viaje viaje, Cliente cliente, int cantidadTiquetes, LocalDate fecha) throws RuntimeException {
