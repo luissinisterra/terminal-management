@@ -1,7 +1,9 @@
 package modelos;
+import util.Lista;
+import util.interfaces.ILista;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Viaje implements Serializable {
     private String idViaje;
@@ -9,10 +11,11 @@ public class Viaje implements Serializable {
     private String destino;
     private LocalDateTime fechaHoraSalida;
     private LocalDateTime fechaHoraLlegada;
-    private LocalTime fechaCreacion;
+    private LocalDateTime fechaCreacion;
     private Bus bus;
     private int cupos;
     private int valorUnitario;
+    private ILista<Tiquete> tiquetes;
 
     public Viaje(String idViaje, String origen, String destino, LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Bus bus, int valorUnitario) {
         this.idViaje = idViaje;
@@ -20,10 +23,11 @@ public class Viaje implements Serializable {
         this.destino = destino;
         this.fechaHoraSalida = fechaHoraSalida;
         this.fechaHoraLlegada = fechaHoraLlegada;
-        this.fechaCreacion = LocalTime.now();
+        this.fechaCreacion = LocalDateTime.now();
         this.bus = bus;
         this.cupos = this.bus.getCantidadPuestos();
         this.valorUnitario = valorUnitario;
+        this.tiquetes = new Lista<>();
     }
 
     public String getIdViaje() {
@@ -66,11 +70,11 @@ public class Viaje implements Serializable {
         this.fechaHoraLlegada = fechaHoraLlegada;
     }
 
-    public LocalTime getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalTime fechaCreacion) {
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -98,4 +102,11 @@ public class Viaje implements Serializable {
         this.valorUnitario = valorUnitario;
     }
 
+    public ILista<Tiquete> getTiquetes() {
+        return tiquetes;
+    }
+
+    public void setTiquetes(ILista<Tiquete> tiquetes) {
+        this.tiquetes = tiquetes;
+    }
 }

@@ -19,7 +19,7 @@ public class ServicioTiquete {
 
     public void agregarTiquete(String idTiquete, Viaje viaje, Cliente cliente) throws RuntimeException {
         // Verificar que el tiquete no exista en la lista
-        if (buscarTiquete(viaje, cliente)) {
+        if (buscarTiquete(idTiquete)) {
             throw new RuntimeException("El tiquete ya está registrado.");
         }
 
@@ -58,17 +58,17 @@ public class ServicioTiquete {
         return this.tiquetes;
     }
 
-    private boolean buscarTiquete(Viaje viaje, Cliente cliente) {
+    private boolean buscarTiquete(String idTiquete) {
         for (int i = 0; i < this.tiquetes.size(); i++) {
             Tiquete tiquete = this.tiquetes.get(i);
-            if (tiquete.getViaje().equals(viaje) && tiquete.getCliente().equals(cliente)) {
+            if (tiquete.getIdTiquete().equals(idTiquete)) {
                 return true;
             }
         }
         return false;
     }
 
-    private int obtenerIndiceTiquete(String idTiquete) {
+    public int obtenerIndiceTiquete(String idTiquete) {
         for (int i = 0; i < this.tiquetes.size(); i++) {
             if (this.tiquetes.get(i).getIdTiquete().equals(idTiquete)) {
                 return i;

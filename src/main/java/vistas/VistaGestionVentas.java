@@ -11,6 +11,9 @@ import util.interfaces.ILista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -37,13 +40,14 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         this.columna = columna;
         this.llenarTabla();
         this.alistarBox();
+        this.limpiarCampos();
     }
 
-    public void llenarTabla(){
+    private void llenarTabla(){
         ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
 
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus", "Valor unitario"});
+        model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus", "Cupos", "Valor unitario"});
 
         // Asegurarse de que la lista no sea null
         if (viajes != null) {
@@ -55,6 +59,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                         viajes.get(i).getFechaHoraSalida(),
                         viajes.get(i).getFechaHoraLlegada(),
                         viajes.get(i).getBus().getPlaca(),
+                        viajes.get(i).getCupos(),
                         viajes.get(i).getValorUnitario()
                 });
             }
@@ -62,7 +67,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         tablaViajes.setModel(model);
     }
 
-    public void alistarBox(){
+    private void alistarBox(){
         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>();
         for (int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++) {
             model2.addElement(this.caseta.getEmpresa().getViajes().get(i).getIdViaje());
@@ -80,9 +85,41 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         for (int i = 0; i < clientes.size(); i++) {
-            model.addElement(clientes.get(i).getDocumento() + "." + " " + clientes.get(i).getNombre());
+            model.addElement(clientes.get(i).getDocumento());
         }
         cbxCliente.setModel(model);
+    }
+
+    private void limpiarCampos(){
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        lblFechaVenta.setText(fechaHoraActual.format(formatter));
+        txtIdTiquete.setText("");
+        txtCantidadTiquetes.setText("");
+    }
+
+    private void agregarTiquetesEnTodaLaApp(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
+        for (int i = 0; i < cantidadTiquetes; i++) {
+            String idTiquete = idTiqueteBase + "-" + (i + 1);
+            int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
+
+            int cupos = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getCupos();
+            if(viaje.getCupos() == 0){
+                JOptionPane.showMessageDialog(null, "El viaje está lleno.");
+                return;
+            } else if ((cupos - cantidadTiquetes) <= 0){
+                JOptionPane.showMessageDialog(null, "NO hay cupos para la cantidad de tiquetes a comprar.");
+                return;
+            } else {
+                Tiquete tiquete = new Tiquete(idTiquete, viaje, cliente);
+
+                this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).setCupos(cupos - 1);
+                this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
+                this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
+                this.controladorVistaGestionVentas.agregarTiqueteCliente(idCliente, tiquete);
+
+            }
+        }
     }
 
     /**
@@ -102,17 +139,20 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cbxViaje = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtCantidadTiquetes = new javax.swing.JTextField();
         btnVender = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         cbxCliente = new javax.swing.JComboBox<>();
+        lblFechaVenta = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtIdTiquete = new javax.swing.JTextField();
         panelTablaGestionVentas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaViajes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         jTextField3.setText("jTextField3");
 
@@ -126,7 +166,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
         jLabel3.setText("Cantidad de tiquetes:");
 
-        jLabel4.setText("Fecha:");
+        jLabel4.setText("Fecha de venta:");
 
         cbxViaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -145,60 +185,76 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
         cbxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lblFechaVenta.setText("jLabel5");
+
+        jLabel5.setText("Id del tiquete:");
+
         javax.swing.GroupLayout panelCrudGestionVentasLayout = new javax.swing.GroupLayout(panelCrudGestionVentas);
         panelCrudGestionVentas.setLayout(panelCrudGestionVentasLayout);
         panelCrudGestionVentasLayout.setHorizontalGroup(
             panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
-                .addGap(102, 102, 102)
+                .addGap(51, 51, 51)
                 .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField4)
-                    .addComponent(cbxViaje, 0, 240, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbxCliente, javax.swing.GroupLayout.Alignment.TRAILING, 0, 240, Short.MAX_VALUE))
-                .addGap(75, 75, 75)
-                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(106, 106, 106))
+                    .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
+                        .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
+                                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
+                                .addGap(34, 34, 34)
+                                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cbxCliente, javax.swing.GroupLayout.Alignment.LEADING, 0, 240, Short.MAX_VALUE)
+                                    .addComponent(txtCantidadTiquetes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                    .addComponent(cbxViaje, javax.swing.GroupLayout.Alignment.LEADING, 0, 240, Short.MAX_VALUE)
+                                    .addComponent(lblFechaVenta, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtIdTiquete, javax.swing.GroupLayout.Alignment.LEADING)))
+                            .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
+                                .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(96, Short.MAX_VALUE))
+                    .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
+                        .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         panelCrudGestionVentasLayout.setVerticalGroup(
             panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(44, 44, 44)
+                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtIdTiquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(cbxViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVender))
+                    .addComponent(cbxViaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton2)
                     .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton3)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jButton5))
-                    .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtCantidadTiquetes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblFechaVenta))
+                .addGap(89, 89, 89)
+                .addGroup(panelCrudGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVender)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton5))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         tablaViajes.setModel(new javax.swing.table.DefaultTableModel(
@@ -221,26 +277,39 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setText("ver");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelTablaGestionVentasLayout = new javax.swing.GroupLayout(panelTablaGestionVentas);
         panelTablaGestionVentas.setLayout(panelTablaGestionVentasLayout);
         panelTablaGestionVentasLayout.setHorizontalGroup(
             panelTablaGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaGestionVentasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
+                .addGroup(panelTablaGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaGestionVentasLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRegresar)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTablaGestionVentasLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnRegresar))
+            .addGroup(panelTablaGestionVentasLayout.createSequentialGroup()
+                .addComponent(jButton6)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelTablaGestionVentasLayout.setVerticalGroup(
             panelTablaGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaGestionVentasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6)
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -249,18 +318,18 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCrudGestionVentas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelTablaGestionVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelCrudGestionVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelTablaGestionVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelCrudGestionVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelTablaGestionVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelTablaGestionVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCrudGestionVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -274,9 +343,53 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        
-        
+        try {
+            if (txtIdTiquete.getText().trim().isEmpty() ||
+                    cbxViaje.getSelectedItem() == null ||
+                    cbxCliente.getSelectedItem() == null ||
+                    txtCantidadTiquetes.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben ser llenados.");
+                return;
+            }
+
+            String idTiqueteBase = txtIdTiquete.getText().trim();
+            String idViaje = cbxViaje.getSelectedItem().toString();
+            String idCliente = cbxCliente.getSelectedItem().toString();
+            int cantidadTiquetes = Integer.parseInt(txtCantidadTiquetes.getText().trim());
+
+
+            Viaje viaje = this.controladorVistaGestionVentas.obtenerViajePorId(idViaje);
+            Cliente cliente = this.controladorVistaGestionVentas.obtenerClientePorId(idCliente);
+
+            if (viaje == null || cliente == null) {
+                JOptionPane.showMessageDialog(null, "El viaje o el cliente no se encontraron.");
+                return;
+            }
+
+            for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
+                System.out.println(this.caseta.getEmpresa().getViajes().get(i).getDestino());
+            }
+
+            this.agregarTiquetesEnTodaLaApp(cantidadTiquetes, idTiqueteBase, idViaje, idCliente, viaje, cliente);
+            this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
+            this.limpiarCampos();
+            this.llenarTabla();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La cantidad de tiquetes debe ser un número válido.");
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
+            System.out.println(this.caseta.getEmpresa().getViajes().get(i).getCupos());
+        }
+        System.out.println("*********************************************************************");
+        for(int i = 0; i < this.controladorVistaGestionVentas.obtenerTiquetes().size(); i++){
+            System.out.println(this.controladorVistaGestionVentas.obtenerTiquetes().get(i).getIdTiquete());
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,16 +435,19 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lblFechaVenta;
     private javax.swing.JPanel panelCrudGestionVentas;
     private javax.swing.JPanel panelTablaGestionVentas;
     private javax.swing.JTable tablaViajes;
+    private javax.swing.JTextField txtCantidadTiquetes;
+    private javax.swing.JTextField txtIdTiquete;
     // End of variables declaration//GEN-END:variables
 }

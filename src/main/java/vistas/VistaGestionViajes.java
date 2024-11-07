@@ -323,7 +323,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             LocalDateTime fechaHoraSalida = LocalDateTime.parse(txtFechaHoraSalida.getText().trim(), formatter);
             LocalDateTime fechaHoraLlegada = LocalDateTime.parse(txtFechaHoraLlegada.getText().trim(), formatter);
 
-            if(fechaHoraSalida.isAfter(fechaHoraLlegada) && fechaHoraSalida.equals(fechaHoraLlegada)) {
+            if(fechaHoraSalida.isBefore(fechaHoraLlegada) && fechaHoraSalida.equals(fechaHoraLlegada)) {
                 JOptionPane.showMessageDialog(null, "La fecha de salida debe ser valida.");
                 return;
             }

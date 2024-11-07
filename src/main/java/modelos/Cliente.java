@@ -3,7 +3,9 @@ package modelos;
 import util.Lista;
 import util.interfaces.ILista;
 
-public class Cliente extends Usuario {
+import java.io.Serializable;
+
+public class Cliente extends Usuario implements Serializable {
     private ILista<Notificacion> notificaciones;
     private ILista<Tiquete> tiquetes;
     private int puntos;

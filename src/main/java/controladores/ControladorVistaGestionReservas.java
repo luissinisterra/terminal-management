@@ -1,12 +1,10 @@
 package controladores;
 
 import modelos.Caseta;
-import modelos.Cliente;
 import modelos.Reserva;
 import modelos.Viaje;
 import servicios.ServicioCaseta;
 import servicios.ServicioReserva;
-import servicios.ServicioViaje;
 import util.interfaces.ILista;
 
 public class ControladorVistaGestionReservas {

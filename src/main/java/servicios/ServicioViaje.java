@@ -55,7 +55,7 @@ public class ServicioViaje {
             throw new RuntimeException("El ID del viaje no fue encontrado.");
         }
 
-        if(obtenerViajePorIdViaje(idViaje) != null && obtenerViajePorIdViaje(idViaje).getCupos() != obtenerViajePorIdViaje(idViaje).getBus().getCantidadPuestos()){
+        if(obtenerViajePorId(idViaje) != null && obtenerViajePorId(idViaje).getCupos() != obtenerViajePorId(idViaje).getBus().getCantidadPuestos()){
             throw new RuntimeException("El viaje posee puestos ocupados.");
         }
 
@@ -70,7 +70,7 @@ public class ServicioViaje {
             throw new RuntimeException("El ID del viaje no fue encontrado.");
         }
 
-        if(obtenerViajePorIdViaje(idViaje) != null && obtenerViajePorIdViaje(idViaje).getCupos() != obtenerViajePorIdViaje(idViaje).getBus().getCantidadPuestos()){
+        if(obtenerViajePorId(idViaje) != null && obtenerViajePorId(idViaje).getCupos() != obtenerViajePorId(idViaje).getBus().getCantidadPuestos()){
             throw new RuntimeException("El viaje posee puestos ocupados.");
         }
 
@@ -100,17 +100,6 @@ public class ServicioViaje {
         throw new RuntimeException("El ID del bus no fue encontrado.");
     }
 
-    public boolean validarBusEnTranscurso(LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Viaje viaje) throws RuntimeException {
-        LocalDateTime fechaHoraSalidaViaje = viaje.getFechaHoraSalida();
-        LocalDateTime fechaHoraLlegadaViaje = viaje.getFechaHoraLlegada();
-        LocalDateTime fechaActual = LocalDateTime.now();
-
-        if (fechaActual.isAfter(fechaHoraSalidaViaje) && fechaActual.isBefore(fechaHoraLlegadaViaje)) {
-            return true;
-        }
-        return false;
-    }
-
     private boolean buscarIdViaje(String idViaje) {
         for (int i = 0; i < this.viajes.size(); i++) {
             if (this.viajes.get(i).getIdViaje().equals(idViaje)) {
@@ -120,17 +109,17 @@ public class ServicioViaje {
         return false;
     }
 
-    private Viaje obtenerViajePorIdViaje(String idViaje) {
+    public Viaje obtenerViajePorId(String idViaje) throws RuntimeException{
         for (int i = 0; i < this.viajes.size(); i++) {
             if (this.viajes.get(i).getIdViaje().equals(idViaje)) {
                 Viaje viaje = this.viajes.get(i);
                 return viaje;
             }
         }
-        return null;
+        throw new RuntimeException("El viaje no fue encontrado en la terminal.");
     }
 
-    private int obtenerIndiceViaje(String idViaje) {
+    public int obtenerIndiceViaje(String idViaje) {
         for (int i = 0; i < this.viajes.size(); i++) {
             if (this.viajes.get(i).getIdViaje().equals(idViaje)) {
                 return i;
@@ -172,6 +161,17 @@ public class ServicioViaje {
             return true;
         }
 
+        return false;
+    }
+
+    private boolean validarBusEnTranscurso(LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Viaje viaje) throws RuntimeException {
+        LocalDateTime fechaHoraSalidaViaje = viaje.getFechaHoraSalida();
+        LocalDateTime fechaHoraLlegadaViaje = viaje.getFechaHoraLlegada();
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        if (fechaActual.isAfter(fechaHoraSalidaViaje) && fechaActual.isBefore(fechaHoraLlegadaViaje)) {
+            return true;
+        }
         return false;
     }
 

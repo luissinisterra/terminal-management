@@ -1,9 +1,6 @@
 package servicios;
 
-import modelos.AdministradorFlota;
-import modelos.AdministradorTerminal;
-import modelos.Cliente;
-import modelos.Usuario;
+import modelos.*;
 import servicios.persistencia.ServicioUsuarioDatos;
 import util.Lista;
 import util.interfaces.ILista;
@@ -13,7 +10,7 @@ public class ServicioUsuario {
     private ServicioUsuarioDatos servicioUsuarioDatos;
     public ServicioUsuario() {
         this.servicioUsuarioDatos = new ServicioUsuarioDatos("DatosUsuarios.bin");
-        this.usuarios = new Lista<Usuario>();
+        this.usuarios = new Lista<>();
         this.cargarDatos();
     }
 
@@ -107,6 +104,34 @@ public class ServicioUsuario {
         return this.usuarios;
     }
 
+    public Cliente obtenerClientePorId(String idCliente) throws RuntimeException {
+        for (int i = 0; i < this.usuarios.size(); i++) {
+            if (this.usuarios.get(i) instanceof Cliente) {
+                Cliente cliente = (Cliente) this.usuarios.get(i);
+                return cliente;
+            }
+        }
+        throw new RuntimeException("El documento ingresado no fue encontrado en la terminal");
+    }
+
+    public void agregarTiqueteCliente(String idCliente, Tiquete tiquete) throws RuntimeException {
+        int indice = this.obtenerIndiceUsuario(idCliente);
+
+        if (indice == -1) {
+            throw new RuntimeException("El documento ingresado no existe en la terminal");
+        }
+
+        Cliente cliente = (Cliente) this.usuarios.get(indice);
+
+        if (cliente != null) {
+            cliente.getTiquetes().add(tiquete);
+            return;
+        } else {
+            throw new RuntimeException("El cliente con ID " + idCliente + " no se ha encontrado.");
+        }
+    }
+
+
     private boolean validarContrasena(String documento, String contrasena){
         for(int i = 0; i < this.usuarios.size(); i++){
             if(this.usuarios.get(i).getDocumento().equals(documento) && this.usuarios.get(i).getContrasena().equals(contrasena)){
@@ -125,9 +150,9 @@ public class ServicioUsuario {
         return false;
     }
 
-    private int obtenerIndiceUsuario(String documento){
-        for(int i = 0; i < this.usuarios.size(); i++){
-            if(this.usuarios.get(i).getDocumento().equals(documento)){
+    private int obtenerIndiceUsuario(String documento) {
+        for (int i = 0; i < this.usuarios.size(); i++) {
+            if (this.usuarios.get(i).getDocumento().equals(documento)) {
                 return i;
             }
         }

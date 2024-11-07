@@ -1,8 +1,7 @@
 package controladores;
 
-import modelos.Cliente;
-import modelos.Usuario;
-import modelos.Viaje;
+import modelos.*;
+import servicios.ServicioCaseta;
 import servicios.ServicioTiquete;
 import servicios.ServicioUsuario;
 import servicios.ServicioViaje;
@@ -12,10 +11,12 @@ public class ControladorVistaGestionVentas {
     private ServicioTiquete servicioTiquete;
     private ServicioViaje servicioViaje;
     private ServicioUsuario servicioUsuario;
+    private ServicioCaseta servicioCaseta;
     public ControladorVistaGestionVentas() {
         this.servicioTiquete = new ServicioTiquete();
         this.servicioViaje = new ServicioViaje();
         this.servicioUsuario = new ServicioUsuario();
+        this.servicioCaseta = new ServicioCaseta();
     }
 
     //Metodos de tiquetes
@@ -23,9 +24,30 @@ public class ControladorVistaGestionVentas {
         this.servicioTiquete.agregarTiquete(idTiquete, viaje, cliente);
     }
 
+    public ILista<Tiquete> obtenerTiquetes() {
+        return this.servicioTiquete.obtenerTiquetes();
+    }
+
     //Metodos de viajes
     public ILista<Viaje> obtenerViajes() {
         return this.servicioViaje.obtenerViajes();
+    }
+
+    public Viaje obtenerViajePorId(String idViaje) {
+        return this.servicioViaje.obtenerViajePorId(idViaje);
+    }
+
+    public int obtenerIndiceViaje(String idViaje) {
+        return this.servicioViaje.obtenerIndiceViaje(idViaje);
+    }
+
+    public int obtenerViajeIndiceCaseta(Caseta caseta, String idViaje){
+        for(int i = 0; i < caseta.getEmpresa().getViajes().size(); i++){
+            if(caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(idViaje)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     //Metodos de usuarios
@@ -33,5 +55,17 @@ public class ControladorVistaGestionVentas {
         return this.servicioUsuario.obtenerUsuarios();
     }
 
+    public Cliente obtenerClientePorId(String idCliente) {
+        return this.servicioUsuario.obtenerClientePorId(idCliente);
+    }
+
+    public void agregarTiqueteCliente(String idCliente, Tiquete tiquete) {
+        this.servicioUsuario.agregarTiqueteCliente(idCliente, tiquete);
+    }
+
+    //Metodos de caseta
+    public void asignarCaseta(int fila, int columna, Caseta caseta) {
+        this.servicioCaseta.asignarCaseta(fila, columna, caseta);
+    }
 
 }
