@@ -5,6 +5,7 @@ vistas/VistaGestionReservasActivas$4.class
 servicios/ServicioEmpresa.class
 util/Nodo.class
 controladores/ControladorVistaGestionReservas.class
+vistas/VistaResumenInformacion$2.class
 vistas/VistaPrincipal.class
 vistas/VistaAdminFlota$4.class
 vistas/VistaGestionBuses$5.class
@@ -16,6 +17,7 @@ modelos/Empresa.class
 vistas/VistaCliente$5.class
 vistas/VistaRegistro$2.class
 util/interfaces/ILista.class
+vistas/VistaVerTiquetes$1.class
 servicios/ServicioTiquete.class
 vistas/VistaGestionVentas.class
 vistas/VistaAdminFlota.class
@@ -62,6 +64,7 @@ vistas/VistaCaseta$4.class
 modelos/Cliente.class
 vistas/VistaAdminFlota$3.class
 vistas/VistaGestionViajes$3.class
+vistas/VistaVerTiquetes.class
 modelos/Viaje.class
 vistas/VistaGestionBuses$4.class
 servicios/persistencia/ServicioBusDatos.class
@@ -77,11 +80,13 @@ modelos/Bus.class
 servicios/persistencia/ServicioTiqueteDatos.class
 vistas/VistaPrincipal$2.class
 vistas/VistaCliente$2.class
+vistas/VistaResumenInformacion.class
 util/Cola.class
 vistas/VistaReservaTiquete$2.class
 vistas/VistaGestionReservasActivas$3.class
 vistas/VistaLogin$4.class
 controladores/ControladorVistaRegistro.class
+vistas/VistaAdminFlota$6.class
 servicios/persistencia/ServicioReservaDatos.class
 modelos/Usuario.class
 vistas/VistaRegistro.class
@@ -92,6 +97,7 @@ controladores/ControladorVistaReservarTiquete.class
 modelos/Devolucion.class
 vistas/VistaCaseta$2.class
 vistas/VistaReservaTiquete$1.class
+vistas/VistaResumenInformacion$1.class
 vistas/VistaGestionReservasActivas.class
 servicios/ServicioCaseta.class
 vistas/VistaLogin$3.class

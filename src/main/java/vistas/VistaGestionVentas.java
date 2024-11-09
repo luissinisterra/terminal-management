@@ -107,7 +107,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             if(viaje.getCupos() == 0){
                 JOptionPane.showMessageDialog(null, "El viaje está lleno.");
                 return;
-            } else if ((cupos - cantidadTiquetes) <= 0){
+            } else if ((cupos - cantidadTiquetes) < 0){
                 JOptionPane.showMessageDialog(null, "NO hay cupos para la cantidad de tiquetes a comprar.");
                 return;
             } else {

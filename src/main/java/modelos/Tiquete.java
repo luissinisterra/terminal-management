@@ -8,12 +8,14 @@ public class Tiquete implements Serializable {
     private Viaje viaje;
     private Cliente cliente;
     private LocalDateTime fechaVenta;
+    private int precio;
     private static final long serialVersionUID = 1L;
 
     public Tiquete(String idTiquete, Viaje viaje, Cliente cliente) {
         this.idTiquete = idTiquete;
         this.viaje = viaje;
         this.cliente = cliente;
+        this.precio = viaje.getValorUnitario();
         this.fechaVenta = LocalDateTime.now();
     }
 
@@ -39,6 +41,22 @@ public class Tiquete implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public LocalDateTime getFechaVenta() {
+        return fechaVenta;
+    }
+
+    public void setFechaVenta(LocalDateTime fechaVenta) {
+        this.fechaVenta = fechaVenta;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 }
 

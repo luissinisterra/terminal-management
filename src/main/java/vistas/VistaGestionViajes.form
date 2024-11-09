@@ -159,12 +159,12 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hora de salida:"/>
+            <Property name="text" type="java.lang.String" value="Fecha/Hora de salida:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Hora de llegada:"/>
+            <Property name="text" type="java.lang.String" value="Fecha/Hora de llegada:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">

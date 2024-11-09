@@ -124,9 +124,9 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
         jLabel3.setText("Destino:");
 
-        jLabel4.setText("Hora de salida:");
+        jLabel4.setText("Fecha/Hora de salida:");
 
-        jLabel5.setText("Hora de llegada:");
+        jLabel5.setText("Fecha/Hora de llegada:");
 
         jLabel6.setText("Bus:");
 
@@ -323,8 +323,18 @@ public class VistaGestionViajes extends javax.swing.JFrame {
             LocalDateTime fechaHoraSalida = LocalDateTime.parse(txtFechaHoraSalida.getText().trim(), formatter);
             LocalDateTime fechaHoraLlegada = LocalDateTime.parse(txtFechaHoraLlegada.getText().trim(), formatter);
 
-            if(fechaHoraSalida.isBefore(fechaHoraLlegada) && fechaHoraSalida.equals(fechaHoraLlegada)) {
-                JOptionPane.showMessageDialog(null, "La fecha de salida debe ser valida.");
+            if(fechaHoraSalida.isAfter(fechaHoraLlegada)) {
+                JOptionPane.showMessageDialog(null, "La fecha de salida debe ser antes que la de llegada.");
+                return;
+            }
+
+            if(fechaHoraSalida.equals(fechaHoraLlegada)){
+                JOptionPane.showMessageDialog(null, "La fecha de salida y llegada no pueden ser iguales.");
+                return;
+            }
+
+            if(fechaHoraSalida.isBefore(LocalDateTime.now())){
+                JOptionPane.showMessageDialog(null, "La fecha de salida no puede ser pasada.");
                 return;
             }
 

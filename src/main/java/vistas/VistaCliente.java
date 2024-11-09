@@ -17,12 +17,12 @@ import javax.swing.*;
 public class VistaCliente extends javax.swing.JFrame {
 
     ControladorVistaLogin controladorVistaLogin;
-    Usuario usuarioLogeado;
+    Cliente usuarioLogeado;
 
     /**
      * Creates new form VistaCliente
      */
-    public VistaCliente(Usuario usuarioLogeado) {
+    public VistaCliente(Cliente usuarioLogeado) {
         initComponents();
         setLocationRelativeTo(this);
         this.controladorVistaLogin = controladorVistaLogin != null ? controladorVistaLogin : new ControladorVistaLogin();
@@ -139,15 +139,15 @@ public class VistaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservasActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservasActivasActionPerformed
-        VistaGestionReservasActivas vgra = new VistaGestionReservasActivas((Cliente) this.usuarioLogeado);
+        VistaGestionReservasActivas vgra = new VistaGestionReservasActivas(this.usuarioLogeado);
         vgra.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReservasActivasActionPerformed
 
     private void btnResumenInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResumenInformacionActionPerformed
-        /*VistaDevolucion vd = new VistaDevolucion(this.usuario);
-        vd.setVisible(true);
-        this.dispose();*/
+        VistaResumenInformacion vri = new VistaResumenInformacion(this.usuarioLogeado);
+        vri.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnResumenInformacionActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
@@ -157,7 +157,7 @@ public class VistaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        VistaReservaTiquete vrt = new VistaReservaTiquete((Cliente) this.usuarioLogeado);
+        VistaReservaTiquete vrt = new VistaReservaTiquete(this.usuarioLogeado);
         vrt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReservarActionPerformed

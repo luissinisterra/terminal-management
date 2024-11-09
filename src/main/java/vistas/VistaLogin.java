@@ -185,7 +185,7 @@ public class VistaLogin extends javax.swing.JFrame {
                 }
 
                 if(usuarioLogeado instanceof Cliente){
-                    VistaCliente vc = new VistaCliente(usuarioLogeado);
+                    VistaCliente vc = new VistaCliente((Cliente) usuarioLogeado);
                     vc.setVisible(true);
                     this.dispose();
                 }

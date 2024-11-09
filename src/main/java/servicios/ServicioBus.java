@@ -15,14 +15,14 @@ public class ServicioBus {
         this.cargarDatos();
     }
 
-    public void agregarBus(String placa, int cantidadPuestos) throws RuntimeException{
+    public void agregarBus(String placa, int cantidadPuestos, String modelo, int año, String conductor) throws RuntimeException{
         //Verificar que la placa no exista en lista de buses
         if(buscarPlaca(placa)){
             throw new RuntimeException("La placa de este vehiculo ya esta registrada en la terminal.");
         }
 
         //Agrega el bus a la lista
-        Bus bus = new Bus(placa, cantidadPuestos);
+        Bus bus = new Bus(placa, cantidadPuestos, modelo, año, conductor    );
         this.buses.add(bus);
         this.agregarDatos();
     }
@@ -43,7 +43,7 @@ public class ServicioBus {
         this.agregarDatos();
     }
 
-    public void actualizarBus(String placa, int nuevaCantidadPuestos) throws RuntimeException{
+    public void actualizarBus(String placa, int nuevaCantidadPuestos, String modelo, int año, String conductor) throws RuntimeException{
         if(!buscarPlaca(placa)){
             throw new RuntimeException("La placa ingresada no fue encontrada en la terminal.");
         }
@@ -56,6 +56,9 @@ public class ServicioBus {
         for(int i = 0; i < buses.size(); i++){
             if(this.buses.get(i).getPlaca().equals(placa)){
                 this.buses.get(i).setCantidadPuestos(nuevaCantidadPuestos);
+                this.buses.get(i).setModelo(modelo);
+                this.buses.get(i).setAño(año);
+                this.buses.get(i).setConductor(conductor);
             }
         }
         this.agregarDatos();

@@ -121,16 +121,14 @@ public class ServicioUsuario {
             throw new RuntimeException("El documento ingresado no existe en la terminal");
         }
 
-        Cliente cliente = (Cliente) this.usuarios.get(indice);
-
-        if (cliente != null) {
-            cliente.getTiquetes().add(tiquete);
+        if (this.usuarios.get(indice) != null) {
+            ((Cliente) this.usuarios.get(indice)).getTiquetes().add(tiquete);
+            ((Cliente) this.usuarios.get(indice)).actualizarPuntos();
             return;
         } else {
-            throw new RuntimeException("El cliente con ID " + idCliente + " no se ha encontrado.");
+            throw new RuntimeException("El cliente con ese Id no se ha encontrado.");
         }
     }
-
 
     private boolean validarContrasena(String documento, String contrasena){
         for(int i = 0; i < this.usuarios.size(); i++){

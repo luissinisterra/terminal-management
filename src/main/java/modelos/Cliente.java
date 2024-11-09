@@ -40,6 +40,15 @@ public class Cliente extends Usuario implements Serializable {
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
+
+    public void actualizarPuntos() {
+        int totalInvertido = 0;
+        for (int i = 0; i < this.tiquetes.size(); i++) {
+            totalInvertido += this.tiquetes.get(i).getPrecio();
+        }
+        int nuevosPuntos = (totalInvertido / 10000) * 3;
+        this.setPuntos(nuevosPuntos);
+    }
 }
 
 

@@ -49,6 +49,7 @@ public class VistaAdminFlota extends javax.swing.JFrame {
         btnGestionViajes = new javax.swing.JButton();
         btnVentaTiquetes = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        btnVerTiquetes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +83,13 @@ public class VistaAdminFlota extends javax.swing.JFrame {
             }
         });
 
+        btnVerTiquetes.setText("Ver tiquetes");
+        btnVerTiquetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerTiquetesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,7 +105,9 @@ public class VistaAdminFlota extends javax.swing.JFrame {
                 .addComponent(btnVentaTiquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnVerTiquetes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion))
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,10 +117,16 @@ public class VistaAdminFlota extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGestionBuses, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGestionViajes, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnVentaTiquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnVentaTiquetes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addComponent(btnCerrarSesion))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVerTiquetes)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -157,6 +173,12 @@ public class VistaAdminFlota extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnVerTiquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerTiquetesActionPerformed
+        VistaVerTiquetes vvt = new VistaVerTiquetes(this.caseta);
+        vvt.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVerTiquetesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -197,6 +219,7 @@ public class VistaAdminFlota extends javax.swing.JFrame {
     private javax.swing.JButton btnGestionBuses;
     private javax.swing.JButton btnGestionViajes;
     private javax.swing.JButton btnVentaTiquetes;
+    private javax.swing.JButton btnVerTiquetes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

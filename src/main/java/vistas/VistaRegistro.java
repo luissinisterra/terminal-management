@@ -5,6 +5,7 @@
 package vistas;
 
 import controladores.ControladorVistaRegistro;
+import modelos.Cliente;
 import modelos.Usuario;
 
 import javax.swing.*;
@@ -237,7 +238,7 @@ public class VistaRegistro extends javax.swing.JFrame {
             this.controladorVistaRegistro.agregarCliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
             Usuario usuario = this.controladorVistaRegistro.buscarUsuario(documento, contrasena);
 
-            VistaCliente vc = new VistaCliente(usuario);
+            VistaCliente vc = new VistaCliente((Cliente) usuario);
             vc.setVisible(true);
             this.dispose();
         } catch(RuntimeException e){

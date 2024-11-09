@@ -14,16 +14,16 @@ public class ControladorVistaGestionBuses {
     }
 
     //Metodos de buses
-    public void agregarBus(String placa, int cantidadPuestos) {
-        this.servicioBus.agregarBus(placa, cantidadPuestos);
+    public void agregarBus(String placa, int cantidadPuestos, String modelo, int año, String conductor) {
+        this.servicioBus.agregarBus(placa, cantidadPuestos, modelo, año, conductor);
     }
 
     public void eliminarBus(String placa) {
         this.servicioBus.eliminarBus(placa);
     }
 
-    public void actualizarBus(String placa, int nuevaCantidadPuestos) {
-        this.servicioBus.actualizarBus(placa, nuevaCantidadPuestos);
+    public void actualizarBus(String placa, int nuevaCantidadPuestos, String modelo, int año, String conductor) {
+        this.servicioBus.actualizarBus(placa, nuevaCantidadPuestos, modelo, año, conductor);
     }
 
     //Metodo de casetas

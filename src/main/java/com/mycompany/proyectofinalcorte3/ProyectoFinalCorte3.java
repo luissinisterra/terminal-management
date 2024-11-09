@@ -4,6 +4,8 @@
 
 package com.mycompany.proyectofinalcorte3;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author luis
@@ -11,6 +13,7 @@ package com.mycompany.proyectofinalcorte3;
 public class ProyectoFinalCorte3 {
 
     public static void main(String[] args) {
+        System.out.println(LocalDate.now().toString());
         System.out.println("Hello World!");
     }
 }
