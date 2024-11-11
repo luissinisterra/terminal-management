@@ -2,43 +2,79 @@ package servicios;
 
 import modelos.AdministradorFlota;
 import modelos.Empresa;
+import servicios.persistencia.ServicioEmpresaDatos;
 import util.Lista;
 import util.interfaces.ILista;
 
 public class ServicioEmpresa {
-
     private ILista<Empresa> empresas;
+    private ServicioEmpresaDatos servicioEmpresaDatos;
 
     public ServicioEmpresa() {
         this.empresas = new Lista<>();
+        this.servicioEmpresaDatos = new ServicioEmpresaDatos("DatosEmpresas.bin");
+        this.cargarDatos();
     }
 
-    public String agregarEmpresa(String nit, String nombreEmpresa, AdministradorFlota administradoFlota) {
-        this.empresas.add(new Empresa(nit, nombreEmpresa, administradoFlota));
-        return "Empresa agregada con exito";
+    // Agregar una nueva empresa
+    public void agregarEmpresa(String nit, String nombreEmpresa, AdministradorFlota administradorFlota) throws RuntimeException {
+        // Verificar que el NIT no exista en la lista de empresas
+        if (buscarNit(nit)) {
+            throw new RuntimeException("La empresa con este NIT ya está registrada.");
+        }
+
+        // Crear y agregar la empresa a la lista
+        Empresa empresa = new Empresa(nit, nombreEmpresa, administradorFlota);
+        this.empresas.add(empresa);
+        this.agregarDatos();
     }
 
-    public String eliminarEmpresa(String nit) {
-        for (int i = 0; i < this.empresas.size(); i++) {
+    // Eliminar una empresa por NIT
+    public void eliminarEmpresa(String nit) throws RuntimeException {
+        // Verificar si el NIT está en la lista de empresas
+        if (!buscarNit(nit)) {
+            throw new RuntimeException("La empresa con el NIT ingresado no fue encontrada.");
+        }
+
+        // Eliminar la empresa
+        int indice = obtenerIndiceEmpresa(nit);
+        this.empresas.remove(indice);
+        this.agregarDatos();
+    }
+
+    // Actualizar los detalles de una empresa
+    public void actualizarEmpresa(String nit, String nuevoNombreEmpresa, AdministradorFlota nuevoAdministradorFlota) throws RuntimeException {
+        if (!buscarNit(nit)) {
+            throw new RuntimeException("La empresa con el NIT ingresado no fue encontrada.");
+        }
+
+        // Buscar la empresa y actualizar sus datos
+        for (int i = 0; i < empresas.size(); i++) {
             if (this.empresas.get(i).getNit().equals(nit)) {
-                this.empresas.remove(i);
-                return "Empresa eliminada con exito";
+                this.empresas.get(i).setNombreEmpresa(nuevoNombreEmpresa);
+                this.empresas.get(i).setAdministradorFlota(nuevoAdministradorFlota);
             }
         }
-        return "Empresa no encontrada";
+        this.agregarDatos();
     }
 
-    public String editarEmpresa(String nit, String nombreEmpresa) {
+    // Obtener todas las empresas
+    public ILista<Empresa> obtenerEmpresas() throws RuntimeException {
+        return this.empresas;
+    }
+
+    // Buscar una empresa por NIT
+    private boolean buscarNit(String nit) {
         for (int i = 0; i < this.empresas.size(); i++) {
             if (this.empresas.get(i).getNit().equals(nit)) {
-                this.empresas.get(i).setNombreEmpresa(nombreEmpresa);
-                return "Empresa actualizada con exito";
+                return true;
             }
         }
-        return "Empresa no encontrada";
+        return false;
     }
 
-    public Empresa buscarEmpresa(String nit) {
+    // Obtener una empresa por NIT
+    private Empresa obtenerEmpresaPorNit(String nit) {
         for (int i = 0; i < this.empresas.size(); i++) {
             if (this.empresas.get(i).getNit().equals(nit)) {
                 return this.empresas.get(i);
@@ -47,4 +83,27 @@ public class ServicioEmpresa {
         return null;
     }
 
+    // Obtener el índice de una empresa por NIT
+    private int obtenerIndiceEmpresa(String nit) {
+        for (int i = 0; i < this.empresas.size(); i++) {
+            if (this.empresas.get(i).getNit().equals(nit)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // Persistir las empresas en el archivo
+    private void agregarDatos() {
+        try {
+            this.servicioEmpresaDatos.agregarEmpresaArchivo(this.empresas);
+        } catch (Exception e) {
+            System.out.println("Error al agregar datos: " + e.getMessage());
+        }
+    }
+
+    // Cargar las empresas desde el archivo
+    private void cargarDatos() {
+        this.empresas = this.servicioEmpresaDatos.cargarEmpresaArchivo();
+    }
 }

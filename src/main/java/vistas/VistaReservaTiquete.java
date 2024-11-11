@@ -39,7 +39,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
         ILista<Viaje> viajesGlobales = this.controladorVistaReservaTiquete.obtenerViajes();
 
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus", "Valor unitario"});
+        model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus", "Cupos", "Valor unitario"});
 
         // Asegurarse de que la lista no sea null
         if (viajesGlobales != null) {
@@ -51,6 +51,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                         viajesGlobales.get(i).getFechaHoraSalida(),
                         viajesGlobales.get(i).getFechaHoraLlegada(),
                         viajesGlobales.get(i).getBus().getPlaca(),
+                        viajesGlobales.get(i).getCupos(),
                         viajesGlobales.get(i).getValorUnitario()
                 });
             }
@@ -147,16 +148,19 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtIdReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnReservar))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnReservar)
-                        .addGap(18, 18, 18)
                         .addComponent(btnRegresar)))
                 .addContainerGap())
         );
@@ -182,13 +186,13 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReservar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReservar)
-                    .addComponent(btnRegresar))
+                .addComponent(btnRegresar)
                 .addContainerGap())
         );
 
@@ -213,32 +217,34 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        /*try{
+        try{
             String idReserva = txtIdReserva.getText();
             String idViaje = txtIdViaje.getText();
             int cantidadReservas = Integer.parseInt(txtCantidadReservas.getText());
+
             for (int i = 0; i < this.controladorVistaReservaTiquete.obtenerCasetas().length; i++) {
                 for (int j = 0; j < this.controladorVistaReservaTiquete.obtenerCasetas()[i].length; j++) {
                     Caseta caseta = this.controladorVistaReservaTiquete.obtenerCasetas()[i][j];
                     if (caseta != null && caseta.getEmpresa() != null) {
                         ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
-                        if (viajes.get(i).getIdViaje().equals(txtIdViaje.getText())) {
-                            // Linea sospechosa caseta.getEmpresa().getReservas().add(new Reserva(idReserva, viajes.get(i), this.usuarioLogeado, cantidadReservas));
+                        /*if (viajes.get(i).getIdViaje().equals(idViaje)) {
+                            System.out.println(viajes.get(i).getDestino());
+                            //Error null: caseta.getEmpresa().getReservas().add(new Reserva(idReserva, viajes.get(i), this.usuarioLogeado, cantidadReservas));
                             this.caseta = caseta;
                             this.fila = i;
                             this.columna = j;
                             System.out.println(this.caseta + " " + this.fila + " " + this.columna);
                             //this.controladorVistaReservaTiquete.agregarReserva(idReserva, viajes.get(i), this.usuarioLogeado, cantidadReservas);
-                        }
+                        }*/
                     }
                 }
             }
+
             //this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
-            //JOptionPane.showMessageDialog(rootPane, "Tiquete reservado");
             this.llenarTabla();
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }*/
+        }
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

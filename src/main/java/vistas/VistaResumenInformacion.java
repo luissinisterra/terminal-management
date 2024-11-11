@@ -33,7 +33,6 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
         lblTelefono.setText(cliente.getTelefono());
         lblCorreo.setText(cliente.getCorreo());
         lblContrasena.setText(cliente.getContrasena());
-        lblSueldo.setText(String.valueOf(cliente.getSueldo()));
         lblPuntos.setText(String.valueOf(cliente.getPuntos()));
     }
 
@@ -61,10 +60,8 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
         lblEdad = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         lblCorreo = new javax.swing.JLabel();
         lblContrasena = new javax.swing.JLabel();
-        lblSueldo = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         lblPuntos = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
@@ -101,13 +98,9 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
 
         jLabel14.setText("Contraseña:");
 
-        jLabel15.setText("Sueldo:");
-
         lblCorreo.setText("jLabel16");
 
         lblContrasena.setText("jLabel17");
-
-        lblSueldo.setText("jLabel18");
 
         jLabel19.setText("Puntos:");
 
@@ -126,47 +119,42 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
             panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelResumenInformacionLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelResumenInformacionLayout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11)
-                                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3)))))
+                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRegresar)
                     .addGroup(panelResumenInformacionLayout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel9))
-                .addGap(36, 36, 36)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblGenero)
-                    .addComponent(lblTelefono)
-                    .addGroup(panelResumenInformacionLayout.createSequentialGroup()
+                        .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelResumenInformacionLayout.createSequentialGroup()
+                                    .addGap(2, 2, 2)
+                                    .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel3)))))
+                            .addGroup(panelResumenInformacionLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel1)))
+                        .addGap(36, 36, 36)
                         .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDocumento)
                             .addComponent(lblNombre)
                             .addComponent(lblApellido)
-                            .addComponent(lblEdad))
+                            .addComponent(lblEdad)
+                            .addComponent(lblGenero))
                         .addGap(198, 198, 198)
                         .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
                             .addComponent(jLabel14)
-                            .addComponent(jLabel15)
-                            .addComponent(jLabel19))
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel9))
                         .addGap(41, 41, 41)
                         .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTelefono)
                             .addComponent(lblPuntos)
-                            .addComponent(lblSueldo)
                             .addComponent(lblContrasena)
                             .addComponent(lblCorreo))))
                 .addContainerGap(45, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelResumenInformacionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addContainerGap())
         );
         panelResumenInformacionLayout.setVerticalGroup(
             panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,20 +163,20 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
                 .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblDocumento)
-                    .addComponent(jLabel13)
-                    .addComponent(lblCorreo))
+                    .addComponent(jLabel9)
+                    .addComponent(lblTelefono))
                 .addGap(18, 18, 18)
                 .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(lblNombre)
-                    .addComponent(jLabel14)
-                    .addComponent(lblContrasena))
+                    .addComponent(jLabel13)
+                    .addComponent(lblCorreo))
                 .addGap(18, 18, 18)
                 .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblApellido)
-                    .addComponent(jLabel15)
-                    .addComponent(lblSueldo))
+                    .addComponent(jLabel14)
+                    .addComponent(lblContrasena))
                 .addGap(18, 18, 18)
                 .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -199,11 +187,7 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
                 .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(lblGenero))
-                .addGap(18, 18, 18)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(lblTelefono))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addContainerGap())
         );
@@ -229,7 +213,9 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        VistaCliente vc = new VistaCliente(this.cliente);
+        vc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
@@ -273,7 +259,6 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -287,7 +272,6 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblGenero;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPuntos;
-    private javax.swing.JLabel lblSueldo;
     private javax.swing.JLabel lblTelefono;
     private java.awt.Panel panelResumenInformacion;
     // End of variables declaration//GEN-END:variables

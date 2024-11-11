@@ -460,11 +460,11 @@ public class VistaCaseta extends javax.swing.JFrame {
 
             String nit = txtNit.getText();
             String nombreEmpresa = txtNombreEmpresa.getText();
-            Empresa empresa = new Empresa(nit, nombreEmpresa, this.adminFlota);
+            this.controladorVistaCaseta.agregarEmpresa(nit, nombreEmpresa, this.adminFlota);
 
             double canonArrendamiento = Double.parseDouble(txtCanonArrendamiento.getText());
             int plazasEstablecimiento = Integer.parseInt(txtPlazasEstacionamiento.getText());
-            this.caseta = new Caseta(empresa, canonArrendamiento, plazasEstablecimiento);
+            this.caseta = new Caseta(new Empresa(nit, nombreEmpresa, this.adminFlota), canonArrendamiento, plazasEstablecimiento);
             this.controladorVistaCaseta.asignarCaseta(this.fila, this.columna, this.caseta);
 
             if (!this.caseta.isDisponibilidad()) {

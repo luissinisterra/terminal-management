@@ -10,8 +10,8 @@ public class Cliente extends Usuario implements Serializable {
     private ILista<Tiquete> tiquetes;
     private int puntos;
 
-    public Cliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) {
-        super(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
+    public Cliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena) {
+        super(documento, nombre, apellido, edad, genero, telefono, correo, contrasena);
         this.notificaciones = new Lista<>();
         this.tiquetes = new Lista<>();
         this.puntos = 0;

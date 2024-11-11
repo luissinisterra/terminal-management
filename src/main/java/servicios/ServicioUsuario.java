@@ -38,18 +38,18 @@ public class ServicioUsuario {
         this.agregarDatos();
     }
 
-    public void agregarCliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) throws RuntimeException {
+    public void agregarCliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena) throws RuntimeException {
         //Verifica que el documento no sea repetido
         if(buscarDocumento(documento)){
             throw new RuntimeException("El documento ingresado ya existe en la terminal");
         }
 
-        Cliente cliente = new Cliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
+        Cliente cliente = new Cliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena);
         this.usuarios.add(cliente);
         this.agregarDatos();
     }
 
-    public void eliminarUsuario(String documento) throws RuntimeException {
+    /*public void eliminarUsuario(String documento) throws RuntimeException {
         //Verifica que el documento este en la terminal
         if(!buscarDocumento(documento)){
             throw new RuntimeException("El documento ingresado no fue encontrado en la terminal");
@@ -58,9 +58,9 @@ public class ServicioUsuario {
         int indice = obtenerIndiceUsuario(documento);
         this.usuarios.remove(indice);
         this.agregarDatos();
-    }
+    }*/
 
-    public void actualizarUsuario(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) throws RuntimeException {
+    /*public void actualizarUsuario(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) throws RuntimeException {
         //Verifica que el documento exista en la lista
         if(!buscarDocumento(documento)){
             throw new RuntimeException("El documento ingresado no fue encontrado en la terminal");
@@ -75,11 +75,10 @@ public class ServicioUsuario {
                 this.usuarios.get(i).setTelefono(telefono);
                 this.usuarios.get(i).setCorreo(correo);
                 this.usuarios.get(i).setContrasena(contrasena);
-                this.usuarios.get(i).setSueldo(sueldo);
             }
         }
         this.agregarDatos();
-    }
+    }*/
 
     public Usuario buscarUsuario(String documento, String contrasena) throws RuntimeException {
         //Verifica que el documento exista en la lista
@@ -124,7 +123,7 @@ public class ServicioUsuario {
         if (this.usuarios.get(indice) != null) {
             ((Cliente) this.usuarios.get(indice)).getTiquetes().add(tiquete);
             ((Cliente) this.usuarios.get(indice)).actualizarPuntos();
-            return;
+            this.agregarDatos();
         } else {
             throw new RuntimeException("El cliente con ese Id no se ha encontrado.");
         }

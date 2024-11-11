@@ -12,8 +12,9 @@ public class Empresa implements Serializable {
     private ILista<Bus> buses;
     private ILista<Viaje> viajes;
     private ILista<Reserva> reservas;
+    private static final long serialVersionUID = 1L;
 
-public Empresa(String nit, String nombreEmpresa, AdministradorFlota administradorFlota) {
+    public Empresa(String nit, String nombreEmpresa, AdministradorFlota administradorFlota) {
         this.nit = nit;
         this.nombreEmpresa = nombreEmpresa;
         this.administradorFlota = administradorFlota;

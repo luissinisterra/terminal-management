@@ -99,28 +99,29 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     }
 
     private void agregarTiquetesEnTodaLaApp(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
+        int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
+        int cupos = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getCupos();
+
+        if (cupos < cantidadTiquetes) {
+            JOptionPane.showMessageDialog(null, "NO hay cupos suficientes para la cantidad de tiquetes a comprar.");
+            return;
+        }
+
         for (int i = 0; i < cantidadTiquetes; i++) {
             String idTiquete = idTiqueteBase + "-" + (i + 1);
-            int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
 
-            int cupos = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getCupos();
-            if(viaje.getCupos() == 0){
-                JOptionPane.showMessageDialog(null, "El viaje está lleno.");
-                return;
-            } else if ((cupos - cantidadTiquetes) < 0){
-                JOptionPane.showMessageDialog(null, "NO hay cupos para la cantidad de tiquetes a comprar.");
-                return;
-            } else {
-                Tiquete tiquete = new Tiquete(idTiquete, viaje, cliente);
+            Tiquete tiquete = new Tiquete(idTiquete, viaje, cliente);
 
-                this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).setCupos(cupos - 1);
-                this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
-                this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
-                this.controladorVistaGestionVentas.agregarTiqueteCliente(idCliente, tiquete);
+            this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
 
-            }
+            this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
+            this.controladorVistaGestionVentas.agregarTiqueteCliente(idCliente, tiquete);
         }
+
+        System.out.println(cliente.getNombre() + "tiene puntos: " + cliente.getPuntos());
+        this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).setCupos(cupos - cantidadTiquetes);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -364,10 +365,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             if (viaje == null || cliente == null) {
                 JOptionPane.showMessageDialog(null, "El viaje o el cliente no se encontraron.");
                 return;
-            }
-
-            for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
-                System.out.println(this.caseta.getEmpresa().getViajes().get(i).getDestino());
             }
 
             this.agregarTiquetesEnTodaLaApp(cantidadTiquetes, idTiqueteBase, idViaje, idCliente, viaje, cliente);

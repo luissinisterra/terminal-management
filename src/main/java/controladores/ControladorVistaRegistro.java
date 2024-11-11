@@ -10,8 +10,8 @@ public class ControladorVistaRegistro {
     }
 
     //Metodos para acceder a los servicios de los usuarios
-    public void agregarCliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) {
-        this.servicioUsuario.agregarCliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
+    public void agregarCliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena) {
+        this.servicioUsuario.agregarCliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena);
     }
 
     public Usuario buscarUsuario(String documento, String contrasena){

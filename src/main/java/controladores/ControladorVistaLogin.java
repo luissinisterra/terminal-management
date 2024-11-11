@@ -23,17 +23,17 @@ public class ControladorVistaLogin {
         this.servicioUsuario.agregarAdmininistradorFlota(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
     }
 
-    public void agregarCliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) {
-        this.servicioUsuario.agregarCliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
+    public void agregarCliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena) {
+        this.servicioUsuario.agregarCliente(documento, nombre, apellido, edad, genero, telefono, correo, contrasena);
     }
 
-    public void eliminarUsuario(String documento) {
+    /*public void eliminarUsuario(String documento) {
         this.servicioUsuario.eliminarUsuario(documento);
-    }
+    }*/
 
-    public void actualizarUsuario(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) {
+    /*public void actualizarUsuario(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena, double sueldo) {
         this.servicioUsuario.actualizarUsuario(documento, nombre, apellido, edad, genero, telefono, correo, contrasena, sueldo);
-    }
+    }*/
 
     public Usuario buscarUsuario(String documento, String contrasena){
         return this.servicioUsuario.buscarUsuario(documento, contrasena);

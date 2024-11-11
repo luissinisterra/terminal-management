@@ -18,6 +18,7 @@ vistas/VistaCliente$5.class
 vistas/VistaRegistro$2.class
 util/interfaces/ILista.class
 vistas/VistaVerTiquetes$1.class
+servicios/persistencia/ServicioEmpresaDatos.class
 servicios/ServicioTiquete.class
 vistas/VistaGestionVentas.class
 vistas/VistaAdminFlota.class

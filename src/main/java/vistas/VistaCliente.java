@@ -16,7 +16,6 @@ import javax.swing.*;
  */
 public class VistaCliente extends javax.swing.JFrame {
 
-    ControladorVistaLogin controladorVistaLogin;
     Cliente usuarioLogeado;
 
     /**
@@ -25,7 +24,6 @@ public class VistaCliente extends javax.swing.JFrame {
     public VistaCliente(Cliente usuarioLogeado) {
         initComponents();
         setLocationRelativeTo(this);
-        this.controladorVistaLogin = controladorVistaLogin != null ? controladorVistaLogin : new ControladorVistaLogin();
         this.usuarioLogeado = usuarioLogeado;
     }
 
