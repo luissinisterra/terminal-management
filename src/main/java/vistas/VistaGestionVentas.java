@@ -59,7 +59,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                         viajes.get(i).getFechaHoraSalida(),
                         viajes.get(i).getFechaHoraLlegada(),
                         viajes.get(i).getBus().getPlaca(),
-                        viajes.get(i).getCupos(),
+                        viajes.get(i).getBus().getCantidadPuestos() - viajes.get(i).getTiquetes().size() - viajes.get(i).getReservas().size(),
                         viajes.get(i).getValorUnitario()
                 });
             }
@@ -100,7 +100,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
     private void agregarTiquetesEnTodaLaApp(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
         int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
-        int cupos = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getCupos();
+        int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
         if (cupos < cantidadTiquetes) {
             JOptionPane.showMessageDialog(null, "NO hay cupos suficientes para la cantidad de tiquetes a comprar.");
@@ -115,11 +115,9 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
 
             this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
-            this.controladorVistaGestionVentas.agregarTiqueteCliente(idCliente, tiquete);
+            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Compra");
         }
 
-        System.out.println(cliente.getNombre() + "tiene puntos: " + cliente.getPuntos());
-        this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).setCupos(cupos - cantidadTiquetes);
     }
 
 
@@ -153,7 +151,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaViajes = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
 
         jTextField3.setText("jTextField3");
 
@@ -278,13 +275,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("ver");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelTablaGestionVentasLayout = new javax.swing.GroupLayout(panelTablaGestionVentas);
         panelTablaGestionVentas.setLayout(panelTablaGestionVentasLayout);
         panelTablaGestionVentasLayout.setHorizontalGroup(
@@ -297,20 +287,15 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnRegresar)))
                 .addContainerGap())
-            .addGroup(panelTablaGestionVentasLayout.createSequentialGroup()
-                .addComponent(jButton6)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         panelTablaGestionVentasLayout.setVerticalGroup(
             panelTablaGestionVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTablaGestionVentasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addGap(20, 20, 20))
+                .addGap(49, 49, 49))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -378,16 +363,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVenderActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
-            System.out.println(this.caseta.getEmpresa().getViajes().get(i).getCupos());
-        }
-        System.out.println("*********************************************************************");
-        for(int i = 0; i < this.controladorVistaGestionVentas.obtenerTiquetes().size(); i++){
-            System.out.println(this.controladorVistaGestionVentas.obtenerTiquetes().get(i).getIdTiquete());
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -432,7 +407,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

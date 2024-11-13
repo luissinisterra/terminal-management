@@ -7,13 +7,15 @@ import java.io.Serializable;
 
 public class Cliente extends Usuario implements Serializable {
     private ILista<Notificacion> notificaciones;
-    private ILista<Tiquete> tiquetes;
+    private ILista<Transaccion> transacciones;
+    private ILista<Reserva> reservas;
     private int puntos;
 
     public Cliente(String documento, String nombre, String apellido, int edad, String genero, String telefono, String correo, String contrasena) {
         super(documento, nombre, apellido, edad, genero, telefono, correo, contrasena);
         this.notificaciones = new Lista<>();
-        this.tiquetes = new Lista<>();
+        this.transacciones = new Lista<>();
+        this.reservas = new Lista<>();
         this.puntos = 0;
     }
 
@@ -25,12 +27,20 @@ public class Cliente extends Usuario implements Serializable {
         this.notificaciones = notificaciones;
     }
 
-    public ILista<Tiquete> getTiquetes() {
-        return tiquetes;
+    public ILista<Transaccion> getTransacciones() {
+        return transacciones;
     }
 
-    public void setTiquetes(ILista<Tiquete> tiquetes) {
-        this.tiquetes = tiquetes;
+    public void setTransacciones(ILista<Transaccion> transacciones) {
+        this.transacciones = transacciones;
+    }
+
+    public ILista<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(ILista<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
     public int getPuntos() {
@@ -43,8 +53,12 @@ public class Cliente extends Usuario implements Serializable {
 
     public void actualizarPuntos() {
         int totalInvertido = 0;
-        for (int i = 0; i < this.tiquetes.size(); i++) {
-            totalInvertido += this.tiquetes.get(i).getPrecio();
+        for (int i = 0; i < this.transacciones.size(); i++) {
+            if(this.transacciones.get(i).getAccion().equals("Compra")){
+                totalInvertido += this.transacciones.get(i).getTiquete().getViaje().getValorUnitario();
+            } else if(this.transacciones.get(i).getAccion().equals("Devolucion")) {
+                totalInvertido -= this.transacciones.get(i).getTiquete().getViaje().getValorUnitario();
+            }
         }
         int nuevosPuntos = (totalInvertido / 10000) * 3;
         this.setPuntos(nuevosPuntos);

@@ -113,7 +113,7 @@ public class ServicioUsuario {
         throw new RuntimeException("El documento ingresado no fue encontrado en la terminal");
     }
 
-    public void agregarTiqueteCliente(String idCliente, Tiquete tiquete) throws RuntimeException {
+    public void transaccionCliente(String idCliente, Tiquete tiquete, String accion) throws RuntimeException {
         int indice = this.obtenerIndiceUsuario(idCliente);
 
         if (indice == -1) {
@@ -121,11 +121,24 @@ public class ServicioUsuario {
         }
 
         if (this.usuarios.get(indice) != null) {
-            ((Cliente) this.usuarios.get(indice)).getTiquetes().add(tiquete);
+            Transaccion transaccion = new Transaccion(tiquete, accion);
+            ((Cliente) this.usuarios.get(indice)).getTransacciones().add(transaccion);
             ((Cliente) this.usuarios.get(indice)).actualizarPuntos();
             this.agregarDatos();
-        } else {
-            throw new RuntimeException("El cliente con ese Id no se ha encontrado.");
+        }
+    }
+
+    public void agregarReservaCliente(String idReserva, int cantidadReservas, String idCliente, Viaje viaje){
+        int indice = this.obtenerIndiceUsuario(idCliente);
+
+        if (indice == -1) {
+            throw new RuntimeException("El documento ingresado no existe en la terminal");
+        }
+
+        if (this.usuarios.get(indice) != null) {
+            Reserva reserva = new Reserva(idReserva, viaje, ((Cliente) this.usuarios.get(indice)), cantidadReservas);
+            ((Cliente) this.usuarios.get(indice)).getReservas().add(reserva);
+            this.agregarDatos();
         }
     }
 

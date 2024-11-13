@@ -43,7 +43,7 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
         ILista<Reserva> reservasCliente = new Lista<>();
 
         for(int i = 0; i < reservasGlobales.size(); i++){
-            if(reservasGlobales.get(i).getCliente().equals(usuarioLogeado)){
+            if(reservasGlobales.get(i).getCliente().getDocumento().equals(usuarioLogeado.getDocumento())){
                 reservasCliente.add(reservasGlobales.get(i));
             }
         }
@@ -227,7 +227,7 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
                     if (caseta != null && caseta.getEmpresa() != null) {
                         ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
                         if (viajes.get(i).getIdViaje().equals(idViaje)) {
-                            caseta.getEmpresa().getReservas().remove(i);
+                            //caseta.getEmpresa().getReservas().remove(i);
                             this.caseta = caseta;
                             this.fila = i;
                             this.columna = j;
@@ -264,8 +264,8 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
                     if (caseta != null && caseta.getEmpresa() != null) {
                         ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
                         if (viajes.get(i).getIdViaje().equals(idViaje)) {
-                            caseta.getEmpresa().getReservas().get(i).setViaje(viajes.get(i));
-                            caseta.getEmpresa().getReservas().get(i).setCantidadReserva(cantidadReservas);
+                            //caseta.getEmpresa().getReservas().get(i).setViaje(viajes.get(i));
+                            //caseta.getEmpresa().getReservas().get(i).setCantidadReserva(cantidadReservas);
                             Viaje viaje = caseta.getEmpresa().getViajes().get(i);
                             this.controladorVistaGestionReservas.actualizarReserva(idReserva, viaje, cantidadReservas);
                             this.caseta = caseta;

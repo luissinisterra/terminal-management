@@ -55,8 +55,8 @@ public class ServicioViaje {
             throw new RuntimeException("El ID del viaje no fue encontrado.");
         }
 
-        if(obtenerViajePorId(idViaje) != null && obtenerViajePorId(idViaje).getCupos() != obtenerViajePorId(idViaje).getBus().getCantidadPuestos()){
-            throw new RuntimeException("El viaje posee puestos ocupados.");
+        if(obtenerViajePorId(idViaje) != null && (obtenerViajePorId(idViaje).getTiquetes().size() - obtenerViajePorId(idViaje).getReservas().size() - obtenerViajePorId(idViaje).getBus().getCantidadPuestos() < 0)){
+            throw new RuntimeException("El viaje posee todos los puestos ocupados.");
         }
 
         // Elimina el viaje con el índice encontrado
@@ -70,8 +70,8 @@ public class ServicioViaje {
             throw new RuntimeException("El ID del viaje no fue encontrado.");
         }
 
-        if(obtenerViajePorId(idViaje) != null && obtenerViajePorId(idViaje).getCupos() != obtenerViajePorId(idViaje).getBus().getCantidadPuestos()){
-            throw new RuntimeException("El viaje posee puestos ocupados.");
+        if(obtenerViajePorId(idViaje) != null && (obtenerViajePorId(idViaje).getTiquetes().size() - obtenerViajePorId(idViaje).getReservas().size() - obtenerViajePorId(idViaje).getBus().getCantidadPuestos() < 0)){
+            throw new RuntimeException("El viaje posee todos los puestos ocupados.");
         }
 
         // Actualizar los datos del viaje

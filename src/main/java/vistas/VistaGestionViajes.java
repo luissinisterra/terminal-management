@@ -367,7 +367,7 @@ public class VistaGestionViajes extends javax.swing.JFrame {
 
             for(int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++){
                 if(this.caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(idViaje)){
-                    this.caseta.getEmpresa().getBuses().get(i).setDisponibilidad(true);
+                    //this.caseta.getEmpresa().getBuses().get(i).setDisponibilidad(true);
                     this.caseta.getEmpresa().getViajes().remove(i);
                 }
             }

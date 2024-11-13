@@ -39,7 +39,6 @@ public class VistaPrincipal extends javax.swing.JFrame implements ActionListener
         int separado = 20;
         int ancho = 75;
         int alto = 75;
-        int texto = 1;
 
         this.botonesCasetas[0] = new JButton[5];
 
@@ -54,16 +53,14 @@ public class VistaPrincipal extends javax.swing.JFrame implements ActionListener
                 if(i == 1 && j >= 1 && j <= 3){
                     botonesCasetas[i][j].setBounds(ancho * j + (separado + (3 * ancho * j)), alto * i + separado, ancho, alto);
                 } else if(i == 3) {
-                    int columna = botonesCasetas[i].length - 1 - j;
+                    int columna = botonesCasetas[i].length - 2 + j;
                     botonesCasetas[i][j].setBounds(ancho * (columna + 3) + separado, alto * i + separado, ancho, alto);
                 } else {
                     botonesCasetas[i][j].setBounds(ancho * j + separado, alto * i + separado, ancho, alto);
                 }
 
                 botonesCasetas[i][j].addActionListener(this);
-                botonesCasetas[i][j].setText(String.valueOf(texto));
                 panelBotones.add(botonesCasetas[i][j]);
-                texto++;
             }
         }
 

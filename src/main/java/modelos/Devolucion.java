@@ -3,12 +3,22 @@ package modelos;
 import java.time.LocalDate;
 
 public class Devolucion {
+    private String idDevolucion;
     private Tiquete tiquete;
-    private LocalDate fecha;
+    private LocalDate fechaDevolucion;
 
-    public Devolucion(Tiquete tiquete, LocalDate fecha) {
+    public Devolucion(String idDevolucion, Tiquete tiquete, LocalDate fechaDevolucion) {
+        this.idDevolucion = idDevolucion;
         this.tiquete = tiquete;
-        this.fecha = fecha;
+        this.fechaDevolucion = fechaDevolucion;
+    }
+
+    public String getIdDevolucion() {
+        return idDevolucion;
+    }
+
+    public void setIdDevolucion(String idDevolucion) {
+        this.idDevolucion = idDevolucion;
     }
 
     public Tiquete getTiquete() {
@@ -19,11 +29,11 @@ public class Devolucion {
         this.tiquete = tiquete;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDate getFechaDevolucion() {
+        return fechaDevolucion;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
+    public void setFechaDevolucion(LocalDate fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
     }
 }

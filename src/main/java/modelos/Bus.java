@@ -8,15 +8,16 @@ public class Bus implements Serializable {
     private boolean disponibilidad;
     private String modelo;
     private int año;
-    private String conductor;
+    //private String marca;
+    private String nombreConductor;
 
-    public Bus(String placa, int cantidadPuestos, String modelo, int año, String conductor) {
+    public Bus(String placa, int cantidadPuestos, String modelo, int año, String nombreConductor) {
         this.placa = placa;
         this.cantidadPuestos = cantidadPuestos;
         this.disponibilidad = true;
         this.modelo = modelo;
         this.año = año;
-        this.conductor = conductor;
+        this.nombreConductor = nombreConductor;
     }
 
     public String getPlaca() {
@@ -59,12 +60,12 @@ public class Bus implements Serializable {
         this.año = año;
     }
 
-    public String getConductor() {
-        return conductor;
+    public String getNombreConductor() {
+        return nombreConductor;
     }
 
-    public void setConductor(String conductor) {
-        this.conductor = conductor;
+    public void setNombreConductor(String nombreConductor) {
+        this.nombreConductor = nombreConductor;
     }
 
     @Override
@@ -75,7 +76,7 @@ public class Bus implements Serializable {
                 ", disponibilidad=" + disponibilidad +
                 ", modelo='" + modelo + '\'' +
                 ", año=" + año +
-                ", conductor='" + conductor + '\'' +
+                ", conductor='" + nombreConductor + '\'' +
                 '}';
     }
 }

@@ -60,7 +60,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                         buses.get(i).getCantidadPuestos(),
                         buses.get(i).getModelo(),
                         buses.get(i).getAño(),
-                        buses.get(i).getConductor(),
+                        buses.get(i).getNombreConductor(),
                         buses.get(i).isDisponibilidad() != true ? "No disponible" : "Disponible"
                 });
             }
@@ -349,7 +349,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
                     this.caseta.getEmpresa().getBuses().get(i).setCantidadPuestos(cantidadPuestos);
                     this.caseta.getEmpresa().getBuses().get(i).setModelo(modelo);
                     this.caseta.getEmpresa().getBuses().get(i).setAño(año);
-                    this.caseta.getEmpresa().getBuses().get(i).setConductor(conductor);
+                    this.caseta.getEmpresa().getBuses().get(i).setNombreConductor(conductor);
                 }
             }
 

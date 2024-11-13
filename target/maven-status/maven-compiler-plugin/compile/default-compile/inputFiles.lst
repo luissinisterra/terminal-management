@@ -20,8 +20,8 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Persona.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Reserva.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Tiquete.java
+/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Transaccion.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Usuario.java
-/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Venta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/modelos/Viaje.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioBus.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioCaseta.java
@@ -29,7 +29,6 @@
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioReserva.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioTiquete.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioUsuario.java
-/home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioVenta.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/ServicioViaje.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioBusDatos.java
 /home/luis/NetBeansProjects/ProyectoFinalCorte3/src/main/java/servicios/persistencia/ServicioCasetaDatos.java

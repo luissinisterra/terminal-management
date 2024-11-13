@@ -58,7 +58,7 @@ public class ServicioBus {
                 this.buses.get(i).setCantidadPuestos(nuevaCantidadPuestos);
                 this.buses.get(i).setModelo(modelo);
                 this.buses.get(i).setAño(año);
-                this.buses.get(i).setConductor(conductor);
+                this.buses.get(i).setNombreConductor(conductor);
             }
         }
         this.agregarDatos();

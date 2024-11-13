@@ -13,6 +13,7 @@ vistas/VistaAdminFlota$1.class
 vistas/VistaGestionViajes$1.class
 vistas/VistaPrincipal$1.class
 controladores/ControladorVistaCaseta.class
+modelos/Transaccion.class
 modelos/Empresa.class
 vistas/VistaCliente$5.class
 vistas/VistaRegistro$2.class
@@ -29,7 +30,6 @@ vistas/VistaAdminFlota$2.class
 servicios/ServicioReserva.class
 servicios/ServicioUsuario.class
 vistas/VistaGestionBuses$3.class
-servicios/ServicioVenta.class
 com/mycompany/proyectofinalcorte3/ProyectoFinalCorte3.class
 servicios/persistencia/ServicioUsuarioDatos.class
 vistas/VistaCaseta$6.class
@@ -37,9 +37,7 @@ vistas/VistaRegistro$3.class
 modelos/AdministradorTerminal.class
 vistas/VistaLogin.class
 vistas/VistaGestionBuses$2.class
-vistas/VistaGestionVentas$4.class
 vistas/VistaGestionReservasActivas$5.class
-modelos/Venta.class
 servicios/ServicioBus.class
 vistas/VistaGestionBuses.class
 vistas/VistaGestionViajes$2.class
