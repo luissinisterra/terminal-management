@@ -1,7 +1,6 @@
 vistas/VistaReservaTiquete.class
 vistas/VistaGestionViajes$4.class
 vistas/VistaGestionReservasActivas$1.class
-vistas/VistaGestionReservasActivas$4.class
 servicios/ServicioEmpresa.class
 util/Nodo.class
 controladores/ControladorVistaGestionReservas.class
@@ -37,7 +36,6 @@ vistas/VistaRegistro$3.class
 modelos/AdministradorTerminal.class
 vistas/VistaLogin.class
 vistas/VistaGestionBuses$2.class
-vistas/VistaGestionReservasActivas$5.class
 servicios/ServicioBus.class
 vistas/VistaGestionBuses.class
 vistas/VistaGestionViajes$2.class

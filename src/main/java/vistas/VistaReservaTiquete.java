@@ -77,6 +77,28 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
         txtCantidadReservas.setText("");
     }
 
+
+    private void agregarReservasGeneradas(int cantidadReservas, String idReservaBase, String idViaje, Viaje viaje) {
+        int indiceViajeCaseta = this.controladorVistaReservaTiquete.obtenerViajeIndiceCaseta(this.caseta, idViaje);
+        int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
+
+        if (cupos < cantidadReservas) {
+            JOptionPane.showMessageDialog(null, "NO hay cupos suficientes para la cantidad de reservas.");
+            return;
+        }
+
+        for (int i = 0; i < cantidadReservas; i++) {
+            String idReserva = idReservaBase + "-" + (i + 1);
+
+            Reserva reserva = new Reserva(idReserva, viaje, this.usuarioLogeado);
+
+            this.controladorVistaReservaTiquete.agregarReserva(idReserva, viaje, this.usuarioLogeado);
+            this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().add(reserva);
+        }
+
+        this.controladorVistaReservaTiquete.asignarViajeBinario(idViaje, this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta));
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -237,34 +259,38 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
         try {
-            String idReserva = txtIdReserva.getText();
+            String idReservaBase = txtIdReserva.getText();
             String idViaje = cbxViaje.getSelectedItem().toString();
             int cantidadReservas = Integer.parseInt(txtCantidadReservas.getText());
+
+            Viaje viaje = this.controladorVistaReservaTiquete.obtenerViajePorId(idViaje);
 
             for (int i = 0; i < this.controladorVistaReservaTiquete.obtenerCasetas().length; i++) {
                 for (int j = 0; j < this.controladorVistaReservaTiquete.obtenerCasetas()[i].length; j++) {
                     Caseta caseta = this.controladorVistaReservaTiquete.obtenerCasetas()[i][j];
-                    if (caseta != null && caseta.getEmpresa() != null) {
-                        ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
 
-                        if(viajes != null) {
-                            if (viajes.get(j).getIdViaje().equals(idViaje)) {
-                                caseta.getEmpresa().getViajes().get(j).getReservas().add(new Reserva(idReserva, viajes.get(j), this.usuarioLogeado, cantidadReservas));
+                    if(caseta == null){
+                        continue;
+                    }
+
+                    ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
+                    if (viajes != null) {
+                        for(int k = 0; k < viajes.size(); k++) {
+                            if (viajes.get(k).getIdViaje().equals(idViaje)){
                                 this.caseta = caseta;
                                 this.fila = i;
                                 this.columna = j;
+                                this.agregarReservasGeneradas(cantidadReservas, idReservaBase, idViaje, viaje);
                                 break;
                             }
                         }
                     }
                 }
             }
-
             this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
             JOptionPane.showMessageDialog(null, "Reserva realizada con exito!");
             this.limpiarCampos();
             this.llenarTabla();
-
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }

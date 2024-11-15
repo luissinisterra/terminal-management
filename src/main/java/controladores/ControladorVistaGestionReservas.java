@@ -21,8 +21,8 @@ public class ControladorVistaGestionReservas {
         this.servicioReserva.eliminarReserva(idReserva);
     }
 
-    public void actualizarReserva(String idReserva, Viaje nuevoViaje, int nuevaCantidadReserva) {
-        this.servicioReserva.actualizarReserva(idReserva, nuevoViaje, nuevaCantidadReserva);
+    public void actualizarReserva(String idReserva, Viaje nuevoViaje) {
+        this.servicioReserva.actualizarReserva(idReserva, nuevoViaje);
     }
 
     public ILista<Reserva> obtenerReservas() {

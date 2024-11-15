@@ -98,7 +98,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         txtCantidadTiquetes.setText("");
     }
 
-    private void agregarTiquetesEnTodaLaApp(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
+    private void agregarTiquetessGenerados(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
         int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
@@ -117,7 +117,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
             this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Compra");
         }
-
     }
 
 
@@ -352,7 +351,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                 return;
             }
 
-            this.agregarTiquetesEnTodaLaApp(cantidadTiquetes, idTiqueteBase, idViaje, idCliente, viaje, cliente);
+            this.agregarTiquetessGenerados(cantidadTiquetes, idTiqueteBase, idViaje, idCliente, viaje, cliente);
             this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
             this.limpiarCampos();
             this.llenarTabla();

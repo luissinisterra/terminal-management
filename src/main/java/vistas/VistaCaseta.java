@@ -384,7 +384,7 @@ public class VistaCaseta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void llenarCampos(){
-        if(this.controladorVistaCaseta.obtenerCaseta(fila, columna) != null){
+        if(this.controladorVistaCaseta.obtenerCaseta(this.fila, this.columna) != null){
             Caseta caseta = this.controladorVistaCaseta.obtenerCaseta(fila, columna);
             AdministradorFlota admin = caseta.getEmpresa().getAdministradorFlota();
 

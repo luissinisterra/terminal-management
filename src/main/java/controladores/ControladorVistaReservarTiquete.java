@@ -19,13 +19,22 @@ public class ControladorVistaReservarTiquete {
     }
 
     //Metodos de reserva
-    public void agregarReserva(String idReserva, Viaje viaje, Cliente cliente, int cantidadReserva) {
-        this.servicioReserva.agregarReserva(idReserva, viaje, cliente, cantidadReserva);
+    public void agregarReserva(String idReserva, Viaje viaje, Cliente cliente) {
+        this.servicioReserva.agregarReserva(idReserva, viaje, cliente);
     }
 
     //Metodos de casetas
     public Caseta[][] obtenerCasetas(){
         return this.servicioCaseta.obtenerCasetas();
+    }
+
+    public int obtenerViajeIndiceCaseta(Caseta caseta, String idViaje){
+        for(int i = 0; i < caseta.getEmpresa().getViajes().size(); i++){
+            if(caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(idViaje)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void asignarCaseta(int fila, int columna, Caseta caseta) {
@@ -36,6 +45,15 @@ public class ControladorVistaReservarTiquete {
     public ILista<Viaje> obtenerViajes() {
         return this.servicioViajes.obtenerViajes();
     }
+
+    public Viaje obtenerViajePorId(String idViaje) {
+        return this.servicioViajes.obtenerViajePorId(idViaje);
+    }
+
+    public void asignarViajeBinario(String idViaje, Viaje viaje) {
+        this.servicioViajes.asignarViajeBinario(idViaje, viaje);
+    }
+
 
     //Metodos de empresas
     public ILista<Empresa> obtenerEmpresas() {

@@ -128,7 +128,7 @@ public class ServicioUsuario {
         }
     }
 
-    public void agregarReservaCliente(String idReserva, int cantidadReservas, String idCliente, Viaje viaje){
+    public void agregarReservaCliente(String idReserva, String idCliente, Viaje viaje){
         int indice = this.obtenerIndiceUsuario(idCliente);
 
         if (indice == -1) {
@@ -136,7 +136,7 @@ public class ServicioUsuario {
         }
 
         if (this.usuarios.get(indice) != null) {
-            Reserva reserva = new Reserva(idReserva, viaje, ((Cliente) this.usuarios.get(indice)), cantidadReservas);
+            Reserva reserva = new Reserva(idReserva, viaje, ((Cliente) this.usuarios.get(indice)));
             ((Cliente) this.usuarios.get(indice)).getReservas().add(reserva);
             this.agregarDatos();
         }

@@ -26,7 +26,7 @@ public class ServicioCasetaDatos {
             System.out.println("Archivo no encontrado, creando...");
             Caseta[][] casetasInicial = crearMatrizIrregular();
             this.agregarCasetasArchivo(casetasInicial);
-            return casetasInicial;
+            return casetasInicial; 
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
@@ -39,10 +39,19 @@ public class ServicioCasetaDatos {
 
     private Caseta[][] crearMatrizIrregular() {
         Caseta[][] matrizIrregular = new Caseta[4][];
+
         matrizIrregular[0] = new Caseta[5];
         for (int i = 1; i < 4; i++) {
             matrizIrregular[i] = new Caseta[2];
         }
+
+        /*for (int i = 0; i < matrizIrregular.length; i++) {
+            for (int j = 0; j < matrizIrregular[i].length; j++) {
+                matrizIrregular[i][j] = new Caseta();
+            }
+        }*/
+
         return matrizIrregular;
     }
+
 }

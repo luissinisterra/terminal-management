@@ -128,6 +128,12 @@ public class ServicioViaje {
         return -1;
     }
 
+    public void asignarViajeBinario(String idViaje, Viaje viaje) {
+        int indiceViaje = obtenerIndiceViaje(idViaje);
+        this.viajes.get(indiceViaje).setReservas(viaje.getReservas());
+        this.agregarDatos();
+    }
+
     private void agregarDatos() {
         try {
             this.servicioViajeDatos.agregarViajesArchivo(this.viajes);

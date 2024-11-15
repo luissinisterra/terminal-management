@@ -1,8 +1,11 @@
 package modelos;
 
+import util.Lista;
+
 import java.io.Serializable;
 
 public class Caseta implements Serializable{
+    //private Empresa empresa = new Empresa("", "", new AdministradorFlota("","","",0,"","","","",0.0));
     private Empresa empresa;
     private double canonArrendamiento;
     private int plazasEstacionamiento;
