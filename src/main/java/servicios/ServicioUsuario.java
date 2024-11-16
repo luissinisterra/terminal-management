@@ -113,7 +113,7 @@ public class ServicioUsuario {
         throw new RuntimeException("El documento ingresado no fue encontrado en la terminal");
     }
 
-    public void transaccionCliente(String idCliente, Tiquete tiquete, String accion) throws RuntimeException {
+    public void transaccionCliente(String idCliente, Tiquete tiquete, String accion, int puntos) throws RuntimeException {
         int indice = this.obtenerIndiceUsuario(idCliente);
 
         if (indice == -1) {
@@ -121,7 +121,7 @@ public class ServicioUsuario {
         }
 
         if (this.usuarios.get(indice) != null) {
-            Transaccion transaccion = new Transaccion(tiquete, accion);
+            Transaccion transaccion = new Transaccion(tiquete, accion, puntos);
             ((Cliente) this.usuarios.get(indice)).getTransacciones().add(transaccion);
             ((Cliente) this.usuarios.get(indice)).actualizarPuntos();
             System.out.println("Puntos: " + ((Cliente) this.usuarios.get(indice)).getPuntos());

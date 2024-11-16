@@ -166,7 +166,7 @@ public class VistaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionesActionPerformed
-        VistaHistorialCliente vhc = new VistaHistorialCliente();
+        VistaHistorialCliente vhc = new VistaHistorialCliente(this.usuarioLogeado);
         vhc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnDevolucionesActionPerformed

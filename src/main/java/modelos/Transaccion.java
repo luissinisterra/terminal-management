@@ -8,7 +8,7 @@ public class Transaccion implements Serializable {
     private int puntos;
     private static final long serialVersionUID = 1L;
 
-    public Transaccion(Tiquete tiquete, String accion) {
+    public Transaccion(Tiquete tiquete, String accion, int puntos) {
         this.tiquete = tiquete;
         this.accion = accion;
         this.puntos = puntos;
@@ -37,5 +37,4 @@ public class Transaccion implements Serializable {
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
-
 }

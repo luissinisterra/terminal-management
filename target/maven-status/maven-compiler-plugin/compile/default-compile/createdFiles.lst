@@ -35,6 +35,7 @@ servicios/persistencia/ServicioUsuarioDatos.class
 vistas/VistaCaseta$6.class
 vistas/VistaRegistro$3.class
 modelos/AdministradorTerminal.class
+vistas/VistaHistorialCliente$2.class
 vistas/VistaLogin.class
 vistas/VistaGestionBuses$2.class
 vistas/VistaGestionVentas$4.class

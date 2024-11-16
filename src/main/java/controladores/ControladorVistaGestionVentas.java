@@ -59,8 +59,8 @@ public class ControladorVistaGestionVentas {
         return this.servicioUsuario.obtenerClientePorId(idCliente);
     }
 
-    public void transaccionCliente(String idCliente, Tiquete tiquete, String accion) {
-        this.servicioUsuario.transaccionCliente(idCliente, tiquete, accion);
+    public void transaccionCliente(String idCliente, Tiquete tiquete, String accion, int puntos) {
+        this.servicioUsuario.transaccionCliente(idCliente, tiquete, accion, puntos);
     }
 
     //Metodos de caseta

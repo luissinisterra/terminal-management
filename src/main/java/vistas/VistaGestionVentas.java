@@ -135,6 +135,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
     private void agregarTiquetesGenerados(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
         int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
+        int puntosRedimidos = (viaje.getValorUnitario() / 10000) * 3;
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
         if (cupos < cantidadTiquetes) {
@@ -150,13 +151,14 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
 
             this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
-            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Compra");
+            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Compra", puntosRedimidos);
         }
         JOptionPane.showMessageDialog(null, "Venta realizada con exito.");
     }
 
     private void redirmirTiquetes(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente){
         int puntosRequeridos = (viaje.getValorUnitario() * cantidadTiquetes / 10000) * 3;
+        int puntosRedimidos = (viaje.getValorUnitario() / 10000) * 3;
         int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
@@ -183,7 +185,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
 
             this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
-            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Redencion");
+            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Redencion", puntosRedimidos);
         }
 
         JOptionPane.showMessageDialog(null, "Redencion realizada con exito.");
