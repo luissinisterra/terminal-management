@@ -105,7 +105,7 @@ public class ServicioUsuario {
 
     public Cliente obtenerClientePorId(String idCliente) throws RuntimeException {
         for (int i = 0; i < this.usuarios.size(); i++) {
-            if (this.usuarios.get(i) instanceof Cliente) {
+            if (this.usuarios.get(i).getDocumento().equals(idCliente) && this.usuarios.get(i) instanceof Cliente) {
                 Cliente cliente = (Cliente) this.usuarios.get(i);
                 return cliente;
             }

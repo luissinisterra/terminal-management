@@ -19,11 +19,8 @@ import javax.swing.table.DefaultTableModel;
 public class VistaGestionReservasActivas extends javax.swing.JFrame {
 
     ControladorVistaGestionReservas controladorVistaGestionReservas;
-    Caseta caseta;
     Cliente usuarioLogeado;
     ILista<Reserva> reservasCliente;
-    int fila;
-    int columna;
 
     /**
      * Creates new form VistaGestionReservasActivas
@@ -235,7 +232,6 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.controladorVistaGestionReservas.asignarCaseta(this.fila, this.columna, this.caseta);
         VistaCliente vc = new VistaCliente(this.usuarioLogeado);
         vc.setVisible(true);
         this.dispose();

@@ -149,6 +149,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             Tiquete tiquete = new Tiquete(idTiquete, viaje, cliente);
 
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
+            System.out.println(this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() + "tiquetes");
 
             this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
             this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Compra", puntosRedimidos);
@@ -157,8 +158,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     }
 
     private void redirmirTiquetes(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente){
-        int puntosRequeridos = (viaje.getValorUnitario() * cantidadTiquetes / 10000) * 3;
-        int puntosRedimidos = (viaje.getValorUnitario() / 10000) * 3;
         int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
@@ -167,13 +166,17 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             return;
         }
 
-        if(viaje.getValorUnitario() <= 30000){
+        if(viaje.getValorUnitario() > 30000){
             JOptionPane.showMessageDialog(null, "El valor unitario del vaije sobrepasa el monto minimo de una redencion por puntos.");
             return;
         }
 
-        if(cliente.getPuntos() < puntosRequeridos){
-            JOptionPane.showMessageDialog(null, "Puntos insuficientes para redimir un tiquete de este viaje.");
+        int puntosRequeridosPorTiquete = 90;
+        int puntosRequeridosTotales = puntosRequeridosPorTiquete * cantidadTiquetes;
+        System.out.println(cliente.getPuntos());
+
+        if (cliente.getPuntos() < puntosRequeridosTotales) {
+            JOptionPane.showMessageDialog(null, "Puntos insuficientes. El cliente necesita al menos " + puntosRequeridosTotales + " puntos para redimir estos tiquetes.");
             return;
         }
 
@@ -185,7 +188,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
 
             this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
-            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Redencion", puntosRedimidos);
+            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Redencion", puntosRequeridosPorTiquete);
         }
 
         JOptionPane.showMessageDialog(null, "Redencion realizada con exito.");
@@ -223,7 +226,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         panelCrudGestionVentas1 = new javax.swing.JPanel();
         cbxReserva = new javax.swing.JComboBox<>();
         btnHacerEfectiva = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -231,6 +233,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaReservas = new javax.swing.JTable();
         btnRegresar = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         jTextField3.setText("jTextField3");
 
@@ -364,8 +367,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Rechazar");
-
         jLabel10.setText("Id de la reserva:");
 
         jButton1.setText("Filtrar");
@@ -394,6 +395,8 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("jButton5");
+
         javax.swing.GroupLayout panelCrudGestionVentas1Layout = new javax.swing.GroupLayout(panelCrudGestionVentas1);
         panelCrudGestionVentas1.setLayout(panelCrudGestionVentas1Layout);
         panelCrudGestionVentas1Layout.setHorizontalGroup(
@@ -406,21 +409,21 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                             .addComponent(btnHacerEfectiva)
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
-                        .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton6)
-                            .addComponent(cbxReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbxReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(160, 160, 160)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCrudGestionVentas1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRegresar))
+                    .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(cbxViajeBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCrudGestionVentas1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRegresar)))
+                        .addComponent(jButton5)))
                 .addContainerGap())
         );
         panelCrudGestionVentas1Layout.setVerticalGroup(
@@ -428,9 +431,10 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
                     .addComponent(jLabel6)
-                    .addComponent(cbxViajeBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxViajeBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton5))
                 .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -438,15 +442,14 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(cbxReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36)
-                        .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnHacerEfectiva)
-                            .addComponent(jButton6))
-                        .addContainerGap(292, Short.MAX_VALUE))
+                        .addComponent(btnHacerEfectiva)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegresar))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegresar)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -467,7 +470,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                 .addComponent(panelCrudGestionVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelCrudGestionVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -601,7 +604,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

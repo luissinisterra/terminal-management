@@ -10,6 +10,7 @@ import modelos.Viaje;
 import util.Lista;
 import util.interfaces.ILista;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,36 +31,55 @@ public class VistaVerTiquetes extends javax.swing.JFrame {
         this.setLocationRelativeTo(this);
     }
 
-    private void llenarTabla(){
+    private void llenarTabla() {
+        // Obtener los viajes de la empresa
         ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
         ILista<Tiquete> tiquetes = new Lista<>();
 
+        // Configurar el modelo de la tabla
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Id tiquete", "Id viaje", "Id cliente", "Fecha venta", "Precio"});
 
-        if (viajes != null) {
+        // Verificar que la lista de viajes no sea nula ni vacía
+        if (viajes != null && !viajes.isEmpty()) {
+            // Iterar sobre los viajes y recoger los tiquetes
             for (int i = 0; i < viajes.size(); i++) {
-                if(viajes.get(i).getTiquetes().get(i) != null){
-                    Tiquete tiquete = viajes.get(i).getTiquetes().get(i);
-                    tiquetes.add(tiquete);
+                Viaje viaje = viajes.get(i);
+                ILista<Tiquete> tiquetesViaje = viaje.getTiquetes();
+
+                // Verificar que la lista de tiquetes del viaje no sea nula ni vacía
+                if (tiquetesViaje != null && !tiquetesViaje.isEmpty()) {
+                    for (int j = 0; j < tiquetesViaje.size(); j++) {
+                        Tiquete tiquete = tiquetesViaje.get(j);
+                        if (tiquete != null) {
+                            tiquetes.add(tiquete); // Agregar a la lista consolidada
+                        }
+                    }
                 }
             }
         }
 
-        // Asegurarse de que la lista no sea null
-        if (tiquetes != null) {
+        // Llenar el modelo de la tabla con los datos de los tiquetes
+        if (tiquetes != null && !tiquetes.isEmpty()) {
             for (int i = 0; i < tiquetes.size(); i++) {
+                Tiquete tiquete = tiquetes.get(i);
                 model.addRow(new Object[]{
-                        tiquetes.get(i).getIdTiquete(),
-                        tiquetes.get(i).getViaje().getIdViaje(),
-                        tiquetes.get(i).getCliente().getDocumento(),
-                        tiquetes.get(i).getFechaVenta(),
-                        tiquetes.get(i).getPrecio(),
+                        tiquete.getIdTiquete(),
+                        tiquete.getViaje().getIdViaje(),
+                        tiquete.getCliente().getDocumento(),
+                        tiquete.getFechaVenta(),
+                        tiquete.getPrecio(),
                 });
             }
         }
+
+        // Mostrar el número total de tiquetes
+        JOptionPane.showMessageDialog(null, tiquetes.size() + " tiquetes encontrados.");
+
+        // Asignar el modelo a la tabla
         tablaTiquetes.setModel(model);
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
