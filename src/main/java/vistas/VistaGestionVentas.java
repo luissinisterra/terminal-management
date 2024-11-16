@@ -133,7 +133,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         txtCantidadTiquetes.setText("");
     }
 
-    private void agregarTiquetessGenerados(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
+    private void agregarTiquetesGenerados(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente) {
         int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
@@ -153,6 +153,40 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Compra");
         }
         JOptionPane.showMessageDialog(null, "Venta realizada con exito.");
+    }
+
+    private void redirmirTiquetes(int cantidadTiquetes, String idTiqueteBase, String idViaje, String idCliente, Viaje viaje, Cliente cliente){
+        int puntosRequeridos = (viaje.getValorUnitario() * cantidadTiquetes / 10000) * 3;
+        int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
+        int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
+
+        if (cupos < cantidadTiquetes) {
+            JOptionPane.showMessageDialog(null, "NO hay cupos suficientes para la cantidad de tiquetes a comprar.");
+            return;
+        }
+
+        if(viaje.getValorUnitario() <= 30000){
+            JOptionPane.showMessageDialog(null, "El valor unitario del vaije sobrepasa el monto minimo de una redencion por puntos.");
+            return;
+        }
+
+        if(cliente.getPuntos() < puntosRequeridos){
+            JOptionPane.showMessageDialog(null, "Puntos insuficientes para redimir un tiquete de este viaje.");
+            return;
+        }
+
+        for (int i = 0; i < cantidadTiquetes; i++) {
+            String idTiquete = idTiqueteBase + "-" + (i + 1);
+
+            Tiquete tiquete = new Tiquete(idTiquete, viaje, cliente);
+
+            this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
+
+            this.controladorVistaGestionVentas.agregarTiquete(idTiquete, viaje, cliente);
+            this.controladorVistaGestionVentas.transaccionCliente(idCliente, tiquete, "Redencion");
+        }
+
+        JOptionPane.showMessageDialog(null, "Redencion realizada con exito.");
     }
 
 
@@ -177,7 +211,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         btnVender = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnRedimir = new javax.swing.JButton();
         cbxCliente = new javax.swing.JComboBox<>();
         lblFechaVenta = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -225,10 +259,10 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
         jButton3.setText("Editar");
 
-        jButton5.setText("Redimir");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnRedimir.setText("Redimir");
+        btnRedimir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnRedimirActionPerformed(evt);
             }
         });
 
@@ -275,7 +309,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                     .addGroup(panelCrudGestionVentasLayout.createSequentialGroup()
                         .addComponent(btnVender, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRedimir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
@@ -312,7 +346,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                     .addComponent(btnVender)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
-                    .addComponent(jButton5))
+                    .addComponent(btnRedimir))
                 .addContainerGap(81, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
@@ -461,7 +495,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                 return;
             }
 
-            this.agregarTiquetessGenerados(cantidadTiquetes, idTiqueteBase, idViaje, idCliente, viaje, cliente);
+            this.agregarTiquetesGenerados(cantidadTiquetes, idTiqueteBase, idViaje, idCliente, viaje, cliente);
             this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
             this.limpiarCampos();
             this.llenarTabla();
@@ -482,9 +516,40 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void btnRedimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedimirActionPerformed
+        try {
+            if (txtIdTiquete.getText().trim().isEmpty() ||
+                    cbxViaje.getSelectedItem() == null ||
+                    cbxCliente.getSelectedItem() == null ||
+                    txtCantidadTiquetes.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos deben ser llenados.");
+                return;
+            }
+
+            String idTiqueteBase = txtIdTiquete.getText().trim();
+            String idViaje = cbxViaje.getSelectedItem().toString();
+            String idCliente = cbxCliente.getSelectedItem().toString();
+            int cantidadTiquetes = Integer.parseInt(txtCantidadTiquetes.getText().trim());
+
+
+            Viaje viaje = this.controladorVistaGestionVentas.obtenerViajePorId(idViaje);
+            Cliente cliente = this.controladorVistaGestionVentas.obtenerClientePorId(idCliente);
+
+            if (viaje == null || cliente == null) {
+                JOptionPane.showMessageDialog(null, "El viaje o el cliente no se encontraron.");
+                return;
+            }
+
+            this.redirmirTiquetes(cantidadTiquetes, idTiqueteBase, idViaje, idCliente, viaje, cliente);
+            this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
+            this.limpiarCampos();
+            this.llenarTabla();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La cantidad de tiquetes debe ser un número válido.");
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnRedimirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -523,6 +588,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHacerEfectiva;
+    private javax.swing.JButton btnRedimir;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnVender;
     private javax.swing.JComboBox<String> cbxCliente;
@@ -533,7 +599,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

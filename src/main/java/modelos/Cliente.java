@@ -62,6 +62,8 @@ public class Cliente extends Usuario implements Serializable {
                 totalInvertido += valorUnitario;
             } else if (transaccion.getAccion().equals("Devolucion")) {
                 totalInvertido -= valorUnitario;
+            }else if (transaccion.getAccion().equals("Redencion")) {
+                totalInvertido -= valorUnitario;
             }
         }
 

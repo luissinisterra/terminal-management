@@ -27,6 +27,7 @@ controladores/ControladorVistaAdminFlota.class
 vistas/VistaLogin$1.class
 vistas/VistaAdminFlota$2.class
 servicios/ServicioReserva.class
+vistas/VistaCliente$6.class
 servicios/ServicioUsuario.class
 vistas/VistaGestionBuses$3.class
 com/mycompany/proyectofinalcorte3/ProyectoFinalCorte3.class
@@ -38,10 +39,12 @@ vistas/VistaLogin.class
 vistas/VistaGestionBuses$2.class
 vistas/VistaGestionVentas$4.class
 servicios/ServicioBus.class
+vistas/VistaHistorialCliente$1.class
 vistas/VistaGestionBuses.class
 vistas/VistaGestionViajes$2.class
 vistas/VistaCaseta$5.class
 modelos/Notificacion.class
+vistas/VistaHistorialCliente.class
 vistas/VistaCliente$4.class
 controladores/ControladorVistaPrincipal.class
 controladores/ControladorVistaGestionVentas.class
@@ -52,6 +55,7 @@ vistas/VistaCliente.class
 modelos/Persona.class
 vistas/VistaCliente$1.class
 servicios/ServicioViaje.class
+vistas/VistaGestionVentas$5.class
 vistas/VistaCaseta$1.class
 vistas/VistaCaseta.class
 vistas/VistaLogin$2.class

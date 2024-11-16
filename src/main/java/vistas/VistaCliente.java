@@ -64,7 +64,12 @@ public class VistaCliente extends javax.swing.JFrame {
             }
         });
 
-        btnDevoluciones.setText("Devoluciones");
+        btnDevoluciones.setText("Historial");
+        btnDevoluciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDevolucionesActionPerformed(evt);
+            }
+        });
 
         btnReservar.setText("Reservar tiquete");
         btnReservar.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +164,12 @@ public class VistaCliente extends javax.swing.JFrame {
         vrt.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDevolucionesActionPerformed
+        VistaHistorialCliente vhc = new VistaHistorialCliente();
+        vhc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDevolucionesActionPerformed
 
     /**
      * @param args the command line arguments
