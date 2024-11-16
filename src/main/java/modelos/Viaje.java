@@ -1,5 +1,7 @@
 package modelos;
+import util.Cola;
 import util.Lista;
+import util.interfaces.ICola;
 import util.interfaces.ILista;
 
 import java.io.Serializable;
@@ -16,6 +18,7 @@ public class Viaje implements Serializable {
     private int valorUnitario;
     private ILista<Tiquete> tiquetes;
     private ILista<Reserva> reservas;
+    private ICola<Cliente> colaEspera;
 
     public Viaje(String idViaje, String origen, String destino, LocalDateTime fechaHoraSalida, LocalDateTime fechaHoraLlegada, Bus bus, int valorUnitario) {
         this.idViaje = idViaje;
@@ -28,6 +31,7 @@ public class Viaje implements Serializable {
         this.valorUnitario = valorUnitario;
         this.tiquetes = new Lista<>();
         this.reservas = new Lista<>();
+        this.colaEspera = new Cola<>();
     }
 
     public String getIdViaje() {
@@ -108,5 +112,13 @@ public class Viaje implements Serializable {
 
     public void setReservas(ILista<Reserva> reservas) {
         this.reservas = reservas;
+    }
+
+    public ICola<Cliente> getColaEspera() {
+        return colaEspera;
+    }
+
+    public void setColaEspera(ICola<Cliente> colaEspera) {
+        this.colaEspera = colaEspera;
     }
 }

@@ -124,6 +124,7 @@ public class ServicioUsuario {
             Transaccion transaccion = new Transaccion(tiquete, accion);
             ((Cliente) this.usuarios.get(indice)).getTransacciones().add(transaccion);
             ((Cliente) this.usuarios.get(indice)).actualizarPuntos();
+            System.out.println("Puntos: " + ((Cliente) this.usuarios.get(indice)).getPuntos());
             this.agregarDatos();
         }
     }

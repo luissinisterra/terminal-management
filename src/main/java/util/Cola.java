@@ -2,7 +2,9 @@ package util;
 
 import util.interfaces.ICola;
 
-public class Cola<S> implements ICola<S> {
+import java.io.Serializable;
+
+public class Cola<S> implements ICola<S>, Serializable {
     private Nodo<S> primero;
 
     @Override

@@ -36,6 +36,7 @@ vistas/VistaRegistro$3.class
 modelos/AdministradorTerminal.class
 vistas/VistaLogin.class
 vistas/VistaGestionBuses$2.class
+vistas/VistaGestionVentas$4.class
 servicios/ServicioBus.class
 vistas/VistaGestionBuses.class
 vistas/VistaGestionViajes$2.class

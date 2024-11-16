@@ -53,16 +53,23 @@ public class Cliente extends Usuario implements Serializable {
 
     public void actualizarPuntos() {
         int totalInvertido = 0;
+
         for (int i = 0; i < this.transacciones.size(); i++) {
-            if(this.transacciones.get(i).getAccion().equals("Compra")){
-                totalInvertido += this.transacciones.get(i).getTiquete().getViaje().getValorUnitario();
-            } else if(this.transacciones.get(i).getAccion().equals("Devolucion")) {
-                totalInvertido -= this.transacciones.get(i).getTiquete().getViaje().getValorUnitario();
+            Transaccion transaccion = this.transacciones.get(i);
+            int valorUnitario = transaccion.getTiquete().getViaje().getValorUnitario();
+
+            if (transaccion.getAccion().equals("Compra")) {
+                totalInvertido += valorUnitario;
+            } else if (transaccion.getAccion().equals("Devolucion")) {
+                totalInvertido -= valorUnitario;
             }
         }
+
         int nuevosPuntos = (totalInvertido / 10000) * 3;
         this.setPuntos(nuevosPuntos);
     }
+
+
 }
 
 

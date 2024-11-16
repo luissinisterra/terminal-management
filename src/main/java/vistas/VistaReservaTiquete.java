@@ -83,6 +83,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
         if (cupos < cantidadReservas) {
+            //this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().enqueve(this.usuarioLogeado);
             JOptionPane.showMessageDialog(null, "NO hay cupos suficientes para la cantidad de reservas.");
             return;
         }
@@ -91,7 +92,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
             String idReserva = idReservaBase + "-" + (i + 1);
 
             Reserva reserva = new Reserva(idReserva, viaje, this.usuarioLogeado);
-
+            this.usuarioLogeado.getReservas().add(reserva);
             this.controladorVistaReservaTiquete.agregarReserva(idReserva, viaje, this.usuarioLogeado);
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().add(reserva);
         }
@@ -258,7 +259,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        try {
+        /*try {
             String idReservaBase = txtIdReserva.getText();
             String idViaje = cbxViaje.getSelectedItem().toString();
             int cantidadReservas = Integer.parseInt(txtCantidadReservas.getText());
@@ -293,8 +294,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
             this.llenarTabla();
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-
+        }*/
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

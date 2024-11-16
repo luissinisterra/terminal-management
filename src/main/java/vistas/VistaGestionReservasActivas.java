@@ -37,7 +37,7 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
         this.alistarBox();
     }
 
-    public void llenarTabla(){
+    /*public void llenarTabla(){
         ILista<Reserva> reservasGlobales = this.controladorVistaGestionReservas.obtenerReservas();
         ILista<Reserva> reservasCliente = new Lista<>();
 
@@ -46,6 +46,35 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
                 reservasCliente.add(reservasGlobales.get(i));
             }
         }
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Id reserva", "Origen", "Destino", "Salida", "Llegada", "Bus", "Valor unitario"});
+
+        // Asegurarse de que la lista no sea null
+        if (reservasCliente != null) {
+            for (int i = 0; i < reservasCliente.size(); i++) {
+                model.addRow(new Object[]{
+                        reservasCliente.get(i).getIdReserva(),
+                        reservasCliente.get(i).getViaje().getOrigen(),
+                        reservasCliente.get(i).getViaje().getDestino(),
+                        reservasCliente.get(i).getViaje().getFechaHoraSalida(),
+                        reservasCliente.get(i).getViaje().getFechaHoraLlegada(),
+                        reservasCliente.get(i).getViaje().getBus().getPlaca(),
+                        reservasCliente.get(i).getViaje().getValorUnitario(),
+                });
+            }
+        }
+        tablaReservas.setModel(model);
+    }*/
+
+    public void llenarTabla(){
+        ILista<Reserva> reservasCliente = this.usuarioLogeado.getReservas();
+
+        /*for(int i = 0; i < reservasGlobales.size(); i++){
+            if(reservasGlobales.get(i).getCliente().getDocumento().equals(usuarioLogeado.getDocumento())){
+                reservasCliente.add(reservasGlobales.get(i));
+            }
+        }*/
 
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Id reserva", "Origen", "Destino", "Salida", "Llegada", "Bus", "Valor unitario"});
