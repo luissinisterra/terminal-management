@@ -61,7 +61,7 @@ public class Cliente extends Usuario implements Serializable {
                 puntosTransaccion += transaccion.getPuntos();
             } else if (transaccion.getAccion().equals("Devolucion")) {
                 puntosTransaccion -= transaccion.getPuntos();
-            } else if (transaccion.getAccion().equals("Devolucion de puntos")) {
+            } else if (transaccion.getAccion().equals("Devolucion por puntos")) {
                 puntosTransaccion += transaccion.getPuntos();
             } else if (transaccion.getAccion().equals("Redencion")) {
                 puntosTransaccion -= transaccion.getPuntos();

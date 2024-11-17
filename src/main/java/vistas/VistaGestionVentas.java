@@ -290,7 +290,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
         int puntosRequeridosPorTiquete = 90;
         int puntosRequeridosTotales = puntosRequeridosPorTiquete * cantidadTiquetes;
-        System.out.println(cliente.getPuntos());
 
         if (cliente.getPuntos() < puntosRequeridosTotales) {
             JOptionPane.showMessageDialog(null, "Puntos insuficientes. El cliente necesita al menos " + puntosRequeridosTotales + " puntos para redimir estos tiquetes.");
@@ -811,18 +810,18 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
             Devolucion devolucion = new Devolucion(tiquete, LocalDate.now());
 
-            boolean devolucionExistente = false;
+            boolean redencionExistente = false;
             for (int i = 0; i < cliente.getTransacciones().size(); i++) {
                 Transaccion transaccion = cliente.getTransacciones().get(i);
                 if (transaccion.getTiquete().getIdTiquete().equals(idTiquete)) {
-                    if (transaccion.getAccion().equals("Devolucion")) {
-                        devolucionExistente = true;
+                    if (transaccion.getAccion().equals("Redencion")) {
+                        redencionExistente = true;
                         break;
                     }
                 }
             }
 
-            String accion = devolucionExistente ? "Devolucion por puntos" : "Devolucion";
+            String accion = redencionExistente ? "Devolucion por puntos" : "Devolucion";
             this.controladorVistaGestionVentas.transaccionCliente(tiquete.getCliente().getDocumento(), tiquete, accion, puntos);
 
             this.caseta.getEmpresa().getDevoluciones().add(devolucion);
