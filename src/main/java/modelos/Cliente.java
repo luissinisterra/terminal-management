@@ -70,6 +70,15 @@ public class Cliente extends Usuario implements Serializable {
         this.setPuntos(nuevosPuntos);
     }
 
+    public int getPuntosTransacion(String idTiquete){
+        for (int i = 0; i < this.transacciones.size(); i++) {
+            if(this.transacciones.get(i).getTiquete().getIdTiquete().equals(idTiquete)) {
+                return this.transacciones.get(i).getPuntos();
+            }
+        }
+        return 0;
+    }
+
 
 }
 

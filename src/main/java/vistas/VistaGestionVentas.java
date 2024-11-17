@@ -42,6 +42,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         this.llenarTablaReservas();
         this.alistarBox();
         this.limpiarCampos();
+        btnHacerDevolucion.setEnabled(false);
     }
 
     private void llenarTabla(){
@@ -50,7 +51,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus", "Cupos", "Valor unitario"});
 
-        // Asegurarse de que la lista no sea null
         if (viajes != null) {
             for (int i = 0; i < viajes.size(); i++) {
                 model.addRow(new Object[]{
@@ -91,6 +91,30 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         }
         cbxCliente.setModel(model);
 
+        DefaultComboBoxModel<String> model3 = new DefaultComboBoxModel<>();
+        model3.addElement("Reservas");
+        model3.addElement("Tiquetes");
+        cbxFiltroTabla.setModel(model3);
+
+
+        DefaultComboBoxModel<String> model4 = new DefaultComboBoxModel<>();
+        for (int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++) {
+            ILista<Reserva> reservas = this.caseta.getEmpresa().getViajes().get(i).getReservas();
+            for (int j = 0; j < reservas.size(); j++) {
+                model4.addElement(reservas.get(i).getIdReserva());
+            }
+        }
+        cbxReserva.setModel(model4);
+
+        DefaultComboBoxModel<String> model5 = new DefaultComboBoxModel<>();
+        for (int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++) {
+            ILista<Tiquete> tiquetes = this.caseta.getEmpresa().getViajes().get(i).getTiquetes();
+            for (int j = 0; j < tiquetes.size(); j++) {
+                model5.addElement(tiquetes.get(j).getIdTiquete()); // Cambiado de `tiquetes.get(i)` a `tiquetes.get(j)`
+            }
+        }
+        cbxTiquete.setModel(model5);
+
     }
 
     private void llenarTablaReservas() {
@@ -121,9 +145,101 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             }
         }
 
-        tablaReservas.setModel(model);
+        tablaFiltro.setModel(model);
     }
 
+    private void llenarTablaTiquetes() {
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+        ILista<Tiquete> tiquetes = new Lista<>();
+
+        for (int i = 0; i < viajes.size(); i++) {
+            if (viajes.get(i).getTiquetes() != null) {
+                for (int j = 0; j < viajes.get(i).getTiquetes().size(); j++) {
+                    tiquetes.add(viajes.get(i).getTiquetes().get(j));
+                }
+            }
+        }
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Id Tiquete", "Cliente", "Id Viaje", "Origen", "Destino", "Fecha Venta", "Precio"});
+
+        if (tiquetes != null) {
+            for (int i = 0; i < tiquetes.size(); i++) {
+                model.addRow(new Object[]{
+                        tiquetes.get(i).getIdTiquete(),
+                        tiquetes.get(i).getCliente().getNombre(),
+                        tiquetes.get(i).getViaje().getIdViaje(),
+                        tiquetes.get(i).getViaje().getOrigen(),
+                        tiquetes.get(i).getViaje().getDestino(),
+                        tiquetes.get(i).getFechaVenta(),
+                        tiquetes.get(i).getPrecio()
+                });
+            }
+        }
+
+        tablaFiltro.setModel(model);
+    }
+
+    private void llenarTablaReservasPorViaje(String idViaje) {
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+        ILista<Reserva> reservasFiltradas = new Lista<>();
+
+        for (int i = 0; i < viajes.size(); i++) {
+            if (viajes.get(i).getIdViaje().equals(idViaje) && viajes.get(i).getReservas() != null) {
+                for (int j = 0; j < viajes.get(i).getReservas().size(); j++) {
+                    reservasFiltradas.add(viajes.get(i).getReservas().get(j));
+                }
+                break;
+            }
+        }
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Id Reserva", "Cliente", "Id Viaje", "Origen", "Destino", "Fecha Reserva"});
+
+        for (int i = 0; i < reservasFiltradas.size(); i++) {
+            model.addRow(new Object[]{
+                    reservasFiltradas.get(i).getIdReserva(),
+                    reservasFiltradas.get(i).getCliente().getNombre(),
+                    reservasFiltradas.get(i).getViaje().getIdViaje(),
+                    reservasFiltradas.get(i).getViaje().getOrigen(),
+                    reservasFiltradas.get(i).getViaje().getDestino(),
+                    reservasFiltradas.get(i).getFechaReserva()
+            });
+        }
+
+        tablaFiltro.setModel(model);
+    }
+
+    private void llenarTablaTiquetesPorViaje(String idViaje) {
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+        ILista<Tiquete> tiquetesFiltrados = new Lista<>();
+
+        for (int i = 0; i < viajes.size(); i++) {
+            if (viajes.get(i).getIdViaje().equals(idViaje) && viajes.get(i).getTiquetes() != null) {
+                for (int j = 0; j < viajes.get(i).getTiquetes().size(); j++) {
+                    tiquetesFiltrados.add(viajes.get(i).getTiquetes().get(j));
+                }
+                break;
+            }
+        }
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Id Tiquete", "Cliente", "Id Viaje", "Origen", "Destino", "Fecha Venta", "Precio"});
+
+        for (int i = 0; i < tiquetesFiltrados.size(); i++) {
+            model.addRow(new Object[]{
+                    tiquetesFiltrados.get(i).getIdTiquete(),
+                    tiquetesFiltrados.get(i).getCliente().getNombre(),
+                    tiquetesFiltrados.get(i).getViaje().getIdViaje(),
+                    tiquetesFiltrados.get(i).getViaje().getOrigen(),
+                    tiquetesFiltrados.get(i).getViaje().getDestino(),
+                    tiquetesFiltrados.get(i).getFechaVenta(),
+                    tiquetesFiltrados.get(i).getPrecio()
+            });
+        }
+
+        tablaFiltro.setModel(model);
+    }
 
     private void limpiarCampos(){
         LocalDateTime fechaHoraActual = LocalDateTime.now();
@@ -194,6 +310,38 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Redencion realizada con exito.");
     }
 
+    private Tiquete obtenerTiquete(String idTiquete) {
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+
+        for (int i = 0; i < viajes.size(); i++) {
+            ILista<Tiquete> tiquetes = viajes.get(i).getTiquetes();
+
+            if (tiquetes != null) {
+                for (int j = 0; j < tiquetes.size(); j++) {
+                    if (tiquetes.get(j).getIdTiquete().equals(idTiquete)) {
+                        return tiquetes.get(j);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private void eliminarTiquete(String idTiquete) {
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+
+        for (int i = 0; i < viajes.size(); i++) {
+            ILista<Tiquete> tiquetes = viajes.get(i).getTiquetes();
+
+            if (tiquetes != null) {
+                for (int j = 0; j < tiquetes.size(); j++) {
+                    if (tiquetes.get(j).getIdTiquete().equals(idTiquete)) {
+                        tiquetes.remove(j);
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -206,6 +354,8 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
         jTextField3 = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jLabel14 = new javax.swing.JLabel();
         panelCrudGestionVentas = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -223,21 +373,39 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         txtIdTiquete = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaViajes = new javax.swing.JTable();
-        panelCrudGestionVentas1 = new javax.swing.JPanel();
+        panelCrudGestionVentas4 = new javax.swing.JPanel();
         cbxReserva = new javax.swing.JComboBox<>();
         btnHacerEfectiva = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        btnFiltrar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         cbxViajeBuscador = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaReservas = new javax.swing.JTable();
-        btnRegresar = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaFiltro = new javax.swing.JTable();
+        btnRegresar3 = new javax.swing.JButton();
+        cbxFiltroTabla = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        cbxTiquete = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        btnHacerDevolucion = new javax.swing.JButton();
+        btnMostrar = new javax.swing.JButton();
 
         jTextField3.setText("jTextField3");
 
         jButton4.setText("jButton4");
+
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jLabel14.setText("jLabel14");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -356,7 +524,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        panelCrudGestionVentas1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservas"));
+        panelCrudGestionVentas4.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservas"));
 
         cbxReserva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -367,15 +535,20 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setText("Id de la reserva:");
+        jLabel13.setText("Id de la reserva:");
 
-        jButton1.setText("Filtrar");
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
-        jLabel6.setText("Id viaje:");
+        jLabel9.setText("Id viaje:");
 
         cbxViajeBuscador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        tablaReservas.setModel(new javax.swing.table.DefaultTableModel(
+        tablaFiltro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -386,69 +559,106 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tablaReservas);
+        jScrollPane5.setViewportView(tablaFiltro);
 
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar3.setText("Regresar");
+        btnRegresar3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
 
-        jButton5.setText("jButton5");
+        cbxFiltroTabla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout panelCrudGestionVentas1Layout = new javax.swing.GroupLayout(panelCrudGestionVentas1);
-        panelCrudGestionVentas1.setLayout(panelCrudGestionVentas1Layout);
-        panelCrudGestionVentas1Layout.setHorizontalGroup(
-            panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
-                .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCrudGestionVentas1Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnHacerEfectiva)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addComponent(cbxReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(160, 160, 160)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCrudGestionVentas1Layout.createSequentialGroup()
+        jLabel6.setText("Mostrar:");
+
+        cbxTiquete.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel7.setText("Id del tiquete:");
+
+        btnHacerDevolucion.setText("Hacer devolucion");
+        btnHacerDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHacerDevolucionActionPerformed(evt);
+            }
+        });
+
+        btnMostrar.setText("Mostrar");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelCrudGestionVentas4Layout = new javax.swing.GroupLayout(panelCrudGestionVentas4);
+        panelCrudGestionVentas4.setLayout(panelCrudGestionVentas4Layout);
+        panelCrudGestionVentas4Layout.setHorizontalGroup(
+            panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCrudGestionVentas4Layout.createSequentialGroup()
+                .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCrudGestionVentas4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRegresar))
-                    .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
+                        .addComponent(btnRegresar3))
+                    .addGroup(panelCrudGestionVentas4Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnHacerEfectiva)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel7))
                         .addGap(18, 18, 18)
-                        .addComponent(cbxViajeBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton5)))
+                        .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxReserva, 0, 240, Short.MAX_VALUE)
+                            .addComponent(btnHacerDevolucion)
+                            .addComponent(cbxTiquete, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(160, 160, 160)
+                        .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCrudGestionVentas4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbxFiltroTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnMostrar)
+                                .addGap(177, 177, 177)
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbxViajeBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFiltrar))
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE))))
                 .addContainerGap())
         );
-        panelCrudGestionVentas1Layout.setVerticalGroup(
-            panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
+        panelCrudGestionVentas4Layout.setVerticalGroup(
+            panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCrudGestionVentas4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
                     .addComponent(cbxViajeBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton5))
-                .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
+                    .addComponent(btnFiltrar)
+                    .addComponent(cbxFiltroTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(btnMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCrudGestionVentas4Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addGroup(panelCrudGestionVentas1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
+                        .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
                             .addComponent(cbxReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addComponent(btnHacerEfectiva)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbxTiquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addGap(38, 38, 38)
+                        .addGroup(panelCrudGestionVentas4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHacerEfectiva)
+                            .addComponent(btnHacerDevolucion))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelCrudGestionVentas1Layout.createSequentialGroup()
+                    .addGroup(panelCrudGestionVentas4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnRegresar)
+                        .addComponent(btnRegresar3)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -459,7 +669,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelCrudGestionVentas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCrudGestionVentas4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCrudGestionVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -469,7 +679,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panelCrudGestionVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelCrudGestionVentas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelCrudGestionVentas4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -504,22 +714,13 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
             this.limpiarCampos();
             this.llenarTabla();
+            this.alistarBox();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad de tiquetes debe ser un número válido.");
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnVenderActionPerformed
-
-    private void btnHacerEfectivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerEfectivaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHacerEfectivaActionPerformed
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        VistaAdminFlota vaf = new VistaAdminFlota(this.usuarioLogeado, this.caseta, this.fila, this.columna);
-        vaf.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnRedimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedimirActionPerformed
         try {
@@ -549,12 +750,64 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
             this.limpiarCampos();
             this.llenarTabla();
+            this.alistarBox();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad de tiquetes debe ser un número válido.");
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnRedimirActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        VistaAdminFlota vaf = new VistaAdminFlota(this.usuarioLogeado, this.caseta, this.fila, this.columna);
+        vaf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnHacerEfectivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerEfectivaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHacerEfectivaActionPerformed
+
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
+        String filtro = cbxFiltroTabla.getSelectedItem().toString();
+        if(filtro.equals("Reservas")){
+            btnHacerDevolucion.setEnabled(false);
+            btnHacerEfectiva.setEnabled(true);
+            this.llenarTablaReservas();
+        } else {
+            btnHacerDevolucion.setEnabled(true);
+            btnHacerEfectiva.setEnabled(false);
+            this.llenarTablaTiquetes();
+        }
+    }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        String idViaje = cbxViaje.getSelectedItem().toString();
+        String filtro = cbxFiltroTabla.getSelectedItem().toString();
+
+        if(filtro.equals("Reservas")){
+            this.llenarTablaReservasPorViaje(idViaje);
+        } else {
+            this.llenarTablaTiquetesPorViaje(idViaje);
+        }
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
+    private void btnHacerDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerDevolucionActionPerformed
+        try{
+            String idTiquete = cbxTiquete.getSelectedItem().toString().trim();
+            Tiquete tiquete = this.obtenerTiquete(idTiquete);
+            Cliente cliente = this.controladorVistaGestionVentas.obtenerClientePorId(tiquete.getCliente().getDocumento());
+            int puntos = cliente.getPuntosTransacion(idTiquete);
+            this.controladorVistaGestionVentas.transaccionCliente(tiquete.getCliente().getDocumento(), tiquete, "Devolucion", puntos);
+            this.eliminarTiquete(idTiquete);
+            JOptionPane.showMessageDialog(null, "Devolucion concretada con exito.");
+            this.llenarTablaTiquetes();
+            this.alistarBox();
+        } catch(RuntimeException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnHacerDevolucionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -592,33 +845,40 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
+    private javax.swing.JButton btnHacerDevolucion;
     private javax.swing.JButton btnHacerEfectiva;
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnRedimir;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresar3;
     private javax.swing.JButton btnVender;
     private javax.swing.JComboBox<String> cbxCliente;
+    private javax.swing.JComboBox<String> cbxFiltroTabla;
     private javax.swing.JComboBox<String> cbxReserva;
+    private javax.swing.JComboBox<String> cbxTiquete;
     private javax.swing.JComboBox<String> cbxViaje;
     private javax.swing.JComboBox<String> cbxViajeBuscador;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblFechaVenta;
     private javax.swing.JPanel panelCrudGestionVentas;
-    private javax.swing.JPanel panelCrudGestionVentas1;
-    private javax.swing.JTable tablaReservas;
+    private javax.swing.JPanel panelCrudGestionVentas4;
+    private javax.swing.JTable tablaFiltro;
     private javax.swing.JTable tablaViajes;
     private javax.swing.JTextField txtCantidadTiquetes;
     private javax.swing.JTextField txtIdTiquete;

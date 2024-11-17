@@ -121,4 +121,5 @@ public class Viaje implements Serializable {
     public void setColaEspera(ICola<Cliente> colaEspera) {
         this.colaEspera = colaEspera;
     }
+
 }
