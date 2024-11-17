@@ -361,7 +361,7 @@ public class VistaGestionBuses extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad de puestos debe ser un número válido.");
         } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

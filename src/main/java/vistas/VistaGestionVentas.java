@@ -11,6 +11,7 @@ import util.interfaces.ILista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -793,20 +794,49 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     private void btnHacerDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerDevolucionActionPerformed
-        try{
+        try {
             String idTiquete = cbxTiquete.getSelectedItem().toString().trim();
+
             Tiquete tiquete = this.obtenerTiquete(idTiquete);
+            if (tiquete == null) {
+                throw new RuntimeException("No se encontró el tiquete con ID: " + idTiquete);
+            }
+
             Cliente cliente = this.controladorVistaGestionVentas.obtenerClientePorId(tiquete.getCliente().getDocumento());
+            if (cliente == null) {
+                throw new RuntimeException("No se encontró el cliente asociado al tiquete.");
+            }
+
             int puntos = cliente.getPuntosTransacion(idTiquete);
-            this.controladorVistaGestionVentas.transaccionCliente(tiquete.getCliente().getDocumento(), tiquete, "Devolucion", puntos);
+
+            Devolucion devolucion = new Devolucion(tiquete, LocalDate.now());
+
+            boolean devolucionExistente = false;
+            for (int i = 0; i < cliente.getTransacciones().size(); i++) {
+                Transaccion transaccion = cliente.getTransacciones().get(i);
+                if (transaccion.getTiquete().getIdTiquete().equals(idTiquete)) {
+                    if (transaccion.getAccion().equals("Devolucion")) {
+                        devolucionExistente = true;
+                        break;
+                    }
+                }
+            }
+
+            String accion = devolucionExistente ? "Devolucion por puntos" : "Devolucion";
+            this.controladorVistaGestionVentas.transaccionCliente(tiquete.getCliente().getDocumento(), tiquete, accion, puntos);
+
+            this.caseta.getEmpresa().getDevoluciones().add(devolucion);
             this.eliminarTiquete(idTiquete);
-            JOptionPane.showMessageDialog(null, "Devolucion concretada con exito.");
+
+            JOptionPane.showMessageDialog(null, "Devolución concretada con éxito.");
+
             this.llenarTablaTiquetes();
             this.alistarBox();
-        } catch(RuntimeException e){
+
+        } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
+
     }//GEN-LAST:event_btnHacerDevolucionActionPerformed
 
     /**

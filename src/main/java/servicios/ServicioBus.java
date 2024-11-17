@@ -49,7 +49,7 @@ public class ServicioBus {
         }
 
         if(obtenerBusPorPlaca(placa) != null && obtenerBusPorPlaca(placa).isDisponibilidad()){
-            throw new RuntimeException("El bus seleccionado se encuentra en viaje actualmente.");
+            throw new RuntimeException("El bus seleccionado se encuentra en uso actualmente.");
         }
 
         //Asigna los valores correspondientes

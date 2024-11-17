@@ -63,4 +63,11 @@ public class Empresa implements Serializable {
         this.viajes = viajes;
     }
 
+    public ILista<Devolucion> getDevoluciones() {
+        return devoluciones;
+    }
+
+    public void setDevoluciones(ILista<Devolucion> devoluciones) {
+        this.devoluciones = devoluciones;
+    }
 }

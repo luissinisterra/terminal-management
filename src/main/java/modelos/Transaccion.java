@@ -37,4 +37,5 @@ public class Transaccion implements Serializable {
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
+
 }
