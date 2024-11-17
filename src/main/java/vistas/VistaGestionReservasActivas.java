@@ -20,7 +20,6 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
 
     ControladorVistaGestionReservas controladorVistaGestionReservas;
     Cliente usuarioLogeado;
-    ILista<Reserva> reservasCliente;
 
     /**
      * Creates new form VistaGestionReservasActivas
@@ -34,49 +33,12 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
         this.alistarBox();
     }
 
-    /*public void llenarTabla(){
-        ILista<Reserva> reservasGlobales = this.controladorVistaGestionReservas.obtenerReservas();
-        ILista<Reserva> reservasCliente = new Lista<>();
-
-        for(int i = 0; i < reservasGlobales.size(); i++){
-            if(reservasGlobales.get(i).getCliente().getDocumento().equals(usuarioLogeado.getDocumento())){
-                reservasCliente.add(reservasGlobales.get(i));
-            }
-        }
-
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"Id reserva", "Origen", "Destino", "Salida", "Llegada", "Bus", "Valor unitario"});
-
-        // Asegurarse de que la lista no sea null
-        if (reservasCliente != null) {
-            for (int i = 0; i < reservasCliente.size(); i++) {
-                model.addRow(new Object[]{
-                        reservasCliente.get(i).getIdReserva(),
-                        reservasCliente.get(i).getViaje().getOrigen(),
-                        reservasCliente.get(i).getViaje().getDestino(),
-                        reservasCliente.get(i).getViaje().getFechaHoraSalida(),
-                        reservasCliente.get(i).getViaje().getFechaHoraLlegada(),
-                        reservasCliente.get(i).getViaje().getBus().getPlaca(),
-                        reservasCliente.get(i).getViaje().getValorUnitario(),
-                });
-            }
-        }
-        tablaReservas.setModel(model);
-    }*/
-
     public void llenarTabla(){
         ILista<Reserva> reservasCliente = this.usuarioLogeado.getReservas();
 
-        /*for(int i = 0; i < reservasGlobales.size(); i++){
-            if(reservasGlobales.get(i).getCliente().getDocumento().equals(usuarioLogeado.getDocumento())){
-                reservasCliente.add(reservasGlobales.get(i));
-            }
-        }*/
-
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Id reserva", "Origen", "Destino", "Salida", "Llegada", "Bus", "Valor unitario"});
 
-        // Asegurarse de que la lista no sea null
         if (reservasCliente != null) {
             for (int i = 0; i < reservasCliente.size(); i++) {
                 model.addRow(new Object[]{
@@ -94,18 +56,11 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
     }
 
     private void alistarBox(){
-        ILista<Reserva> reservasGlobales = this.controladorVistaGestionReservas.obtenerReservas();
-        this.reservasCliente = new Lista<>();
-
-        for(int i = 0; i < reservasGlobales.size(); i++){
-            if(reservasGlobales.get(i).getCliente().getDocumento().equals(usuarioLogeado.getDocumento())){
-                this.reservasCliente.add(reservasGlobales.get(i));
-            }
-        }
+        ILista<Reserva> reservasCliente = this.usuarioLogeado.getReservas();
 
         DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>();
-        for (int i = 0; i < reservasGlobales.size(); i++) {
-            model2.addElement(reservasGlobales.get(i).getIdReserva());
+        for (int i = 0; i < reservasCliente.size(); i++) {
+            model2.addElement(reservasCliente.get(i).getIdReserva());
         }
         cbxIdReserva.setModel(model2);
     }
@@ -216,11 +171,12 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         try{
+            ILista<Reserva> reservasCliente = this.usuarioLogeado.getReservas();
             String idReserva = cbxIdReserva.getSelectedItem().toString();
 
-            for(int i = 0; i < this.reservasCliente.size(); i++){
-                if(this.reservasCliente.get(i).getIdReserva().equals(idReserva)) {
-                    this.reservasCliente.remove(i);
+            for(int i = 0; i < reservasCliente.size(); i++){
+                if(reservasCliente.get(i).getIdReserva().equals(idReserva)) {
+                    reservasCliente.remove(i);
                 }
             }
 

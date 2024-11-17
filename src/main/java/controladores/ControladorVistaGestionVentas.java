@@ -63,6 +63,10 @@ public class ControladorVistaGestionVentas {
         this.servicioUsuario.transaccionCliente(idCliente, tiquete, accion, puntos);
     }
 
+    public void eliminarReservaCliente(String idReserva, String idCliente){
+        this.servicioUsuario.eliminarReservaCliente(idReserva, idCliente);
+    }
+
     //Metodos de caseta
     public void asignarCaseta(int fila, int columna, Caseta caseta) {
         this.servicioCaseta.asignarCaseta(fila, columna, caseta);

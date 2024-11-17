@@ -93,6 +93,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
 
             Reserva reserva = new Reserva(idReserva, viaje, this.usuarioLogeado);
             this.usuarioLogeado.getReservas().add(reserva);
+            this.controladorVistaReservaTiquete.agregarReservaCliente(idReserva, this.usuarioLogeado.getDocumento(), viaje);
             this.controladorVistaReservaTiquete.agregarReserva(idReserva, viaje, this.usuarioLogeado);
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().add(reserva);
         }
@@ -259,7 +260,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        /*try {
+        try {
             String idReservaBase = txtIdReserva.getText();
             String idViaje = cbxViaje.getSelectedItem().toString();
             int cantidadReservas = Integer.parseInt(txtCantidadReservas.getText());
@@ -282,19 +283,19 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                                 this.fila = i;
                                 this.columna = j;
                                 this.agregarReservasGeneradas(cantidadReservas, idReservaBase, idViaje, viaje);
+                                this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
                                 break;
                             }
                         }
                     }
                 }
             }
-            this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
             JOptionPane.showMessageDialog(null, "Reserva realizada con exito!");
             this.limpiarCampos();
             this.llenarTabla();
         } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }*/
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed

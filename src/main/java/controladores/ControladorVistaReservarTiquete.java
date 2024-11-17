@@ -65,4 +65,9 @@ public class ControladorVistaReservarTiquete {
         this.servicioUsuario.transaccionCliente(idCliente, tiquete, accion, puntos);
     }
 
+    public void agregarReservaCliente(String idReserva, String idCliente, Viaje viaje){
+        this.servicioUsuario.agregarReservaCliente(idReserva, idCliente, viaje);
+    }
+
+
 }

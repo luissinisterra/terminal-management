@@ -140,6 +140,24 @@ public class ServicioUsuario {
             ((Cliente) this.usuarios.get(indice)).getReservas().add(reserva);
             this.agregarDatos();
         }
+        System.out.println("Largo: " + ((Cliente) this.usuarios.get(indice)).getReservas().size());
+    }
+
+    public void eliminarReservaCliente(String idReserva, String idCliente){
+        int indice = this.obtenerIndiceUsuario(idCliente);
+
+        if (indice == -1) {
+            throw new RuntimeException("El documento ingresado no existe en la terminal");
+        }
+
+        if (this.usuarios.get(indice) != null) {
+            for (int i = 0; i < this.usuarios.size(); i++) {
+                if (((Cliente) this.usuarios.get(indice)).getReservas().get(i).getIdReserva().equals(idReserva)) {
+                    ((Cliente) this.usuarios.get(indice)).getReservas().remove(i);
+                    this.agregarDatos();
+                }
+            }
+        }
     }
 
     private boolean validarContrasena(String documento, String contrasena){

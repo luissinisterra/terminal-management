@@ -102,7 +102,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         for (int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++) {
             ILista<Reserva> reservas = this.caseta.getEmpresa().getViajes().get(i).getReservas();
             for (int j = 0; j < reservas.size(); j++) {
-                model4.addElement(reservas.get(i).getIdReserva());
+                model4.addElement(reservas.get(j).getIdReserva());
             }
         }
         cbxReserva.setModel(model4);
@@ -111,7 +111,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         for (int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++) {
             ILista<Tiquete> tiquetes = this.caseta.getEmpresa().getViajes().get(i).getTiquetes();
             for (int j = 0; j < tiquetes.size(); j++) {
-                model5.addElement(tiquetes.get(j).getIdTiquete()); // Cambiado de `tiquetes.get(i)` a `tiquetes.get(j)`
+                model5.addElement(tiquetes.get(j).getIdTiquete());
             }
         }
         cbxTiquete.setModel(model5);
@@ -337,6 +337,39 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                 for (int j = 0; j < tiquetes.size(); j++) {
                     if (tiquetes.get(j).getIdTiquete().equals(idTiquete)) {
                         tiquetes.remove(j);
+                    }
+                }
+            }
+        }
+    }
+
+    private Reserva obtenerReserva(String idReserva){
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+
+        for (int i = 0; i < viajes.size(); i++) {
+            ILista<Reserva> reservas = viajes.get(i).getReservas();
+
+            if (reservas != null) {
+                for (int j = 0; j < reservas.size(); j++) {
+                    if (reservas.get(j).getIdReserva().equals(idReserva)) {
+                        return reservas.get(j);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private void eliminarReserva(String idReserva) {
+        ILista<Viaje> viajes = this.caseta.getEmpresa().getViajes();
+
+        for (int i = 0; i < viajes.size(); i++) {
+            ILista<Reserva> reservas = viajes.get(i).getReservas();
+
+            if (reservas != null) {
+                for (int j = 0; j < reservas.size(); j++) {
+                    if (reservas.get(j).getIdReserva().equals(idReserva)) {
+                        reservas.remove(j);
                     }
                 }
             }
@@ -765,7 +798,25 @@ public class VistaGestionVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnHacerEfectivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHacerEfectivaActionPerformed
-        // TODO add your handling code here:
+        String idReserva = cbxReserva.getSelectedItem().toString().trim();
+        Reserva reserva = this.obtenerReserva(idReserva);
+
+        Tiquete tiquete = new Tiquete(reserva.getIdReserva(), reserva.getViaje(), reserva.getCliente());
+
+        int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, reserva.getViaje().getIdViaje());
+        this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().add(tiquete);
+
+        this.eliminarReserva(idReserva);
+
+        int puntos = (reserva.getViaje().getValorUnitario() / 10000) * 3;
+        this.controladorVistaGestionVentas.transaccionCliente(reserva.getCliente().getDocumento(), tiquete, "Compra", puntos);
+
+        this.controladorVistaGestionVentas.eliminarReservaCliente(idReserva, reserva.getCliente().getDocumento());
+        this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
+        this.llenarTablaTiquetes();
+        this.alistarBox();
+
+        JOptionPane.showMessageDialog(null, "El nuevo tiquete ha sido registrado.");
     }//GEN-LAST:event_btnHacerEfectivaActionPerformed
 
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
