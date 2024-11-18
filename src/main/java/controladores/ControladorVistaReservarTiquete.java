@@ -54,6 +54,9 @@ public class ControladorVistaReservarTiquete {
         this.servicioViajes.asignarViajeBinario(idViaje, viaje);
     }
 
+    public ILista<Viaje> filtrarViajesPorFecha(String filtro) {
+        return this.servicioViajes.filtrarViajesPorFecha(filtro);
+    }
 
     //Metodos de empresas
     public ILista<Empresa> obtenerEmpresas() {

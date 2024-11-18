@@ -140,7 +140,6 @@ public class ServicioUsuario {
             ((Cliente) this.usuarios.get(indice)).getReservas().add(reserva);
             this.agregarDatos();
         }
-        System.out.println("Largo: " + ((Cliente) this.usuarios.get(indice)).getReservas().size());
     }
 
     public void eliminarReservaCliente(String idReserva, String idCliente){
@@ -159,6 +158,21 @@ public class ServicioUsuario {
             }
         }
     }
+
+    public void enviarNotificacion(String idCliente, String idReserva){
+        int indice = this.obtenerIndiceUsuario(idCliente);
+
+        if (indice == -1) {
+            throw new RuntimeException("El documento ingresado no existe en la terminal");
+        }
+
+        if (this.usuarios.get(indice) != null) {
+            Notificacion notificacion = new Notificacion("Su reserva ha con id: " + idReserva + "ha sido efectiva a tiquete.", ((Cliente) this.usuarios.get(indice)));
+            ((Cliente) this.usuarios.get(indice)).getNotificaciones().add(notificacion);
+            this.agregarDatos();
+        }
+    }
+
 
     private boolean validarContrasena(String documento, String contrasena){
         for(int i = 0; i < this.usuarios.size(); i++){

@@ -3,24 +3,14 @@ package modelos;
 import java.time.LocalDateTime;
 
 public class Notificacion {
-    private int idNotificacion;
     private String mensaje;
     private LocalDateTime fechaCreacion;
     private Cliente cliente;
 
     public Notificacion(String mensaje, Cliente cliente) {
-        this.idNotificacion = idNotificacion;
         this.mensaje = mensaje;
         this.fechaCreacion = LocalDateTime.now();
         this.cliente = cliente;
-    }
-
-    public int getIdNotificacion() {
-        return idNotificacion;
-    }
-
-    public void setIdNotificacion(int idNotificacion) {
-        this.idNotificacion = idNotificacion;
     }
 
     public String getMensaje() {

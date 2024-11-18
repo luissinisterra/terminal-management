@@ -7,6 +7,7 @@ import servicios.persistencia.ServicioViajeDatos;
 import util.Lista;
 import util.interfaces.ILista;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ServicioViaje {
@@ -133,6 +134,39 @@ public class ServicioViaje {
         this.viajes.get(indiceViaje).setReservas(viaje.getReservas());
         this.agregarDatos();
     }
+
+    public ILista<Viaje> filtrarViajesPorFecha(String filtro) throws RuntimeException {
+        ILista<Viaje> viajesGlobales = this.viajes;
+        ILista<Viaje> viajesFiltrados = new Lista<>();
+        LocalDate fechaActual = LocalDate.now();
+
+        LocalDate fechaInicio = null;
+        switch (filtro) {
+            case "Dia":
+                fechaInicio = fechaActual.minusDays(1);
+                break;
+            case "Semana":
+                fechaInicio = fechaActual.minusWeeks(1);
+                break;
+            case "Mes":
+                fechaInicio = fechaActual.minusMonths(1);
+                break;
+            default:
+                throw new RuntimeException("Filtro no válido. Use 'Dia', 'Semana' o 'Mes'.");
+        }
+
+        for (int i = 0; i < viajesGlobales.size(); i++) {
+            Viaje viaje = viajesGlobales.get(i);
+            LocalDate fechaViaje = viaje.getFechaHoraSalida().toLocalDate();
+            if ((fechaViaje.isAfter(fechaInicio) || fechaViaje.isEqual(fechaInicio))
+                    && (fechaViaje.isBefore(fechaActual) || fechaViaje.isEqual(fechaActual))) {
+                viajesFiltrados.add(viaje);
+            }
+        }
+
+        return viajesFiltrados;
+    }
+
 
     private void agregarDatos() {
         try {

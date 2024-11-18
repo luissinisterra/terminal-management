@@ -690,9 +690,9 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                     .addGroup(panelCrudGestionVentas4Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRegresar3)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 6, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -811,6 +811,8 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         int puntos = (reserva.getViaje().getValorUnitario() / 10000) * 3;
         this.controladorVistaGestionVentas.transaccionCliente(reserva.getCliente().getDocumento(), tiquete, "Compra", puntos);
 
+
+        this.controladorVistaGestionVentas.enviarNotificacion(reserva.getCliente().getDocumento(), idReserva);
         this.controladorVistaGestionVentas.eliminarReservaCliente(idReserva, reserva.getCliente().getDocumento());
         this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
         this.llenarTablaTiquetes();
