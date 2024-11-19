@@ -63,6 +63,29 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
         tablaTransacciones.setModel(model);
     }
 
+    /*private void llenarTablaNotificaciones() {
+        ILista<Notificacion> notificaciones = this.usuarioLogeado.getNotificaciones();
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{
+                "Mensaje", "Cliente", "Fecha de Creación"
+        });
+
+        if (notificaciones != null && notificaciones.size() > 0) {
+            for (int i = 0; i < notificaciones.size(); i++) {
+                Notificacion notificacion = notificaciones.get(i);
+
+                model.addRow(new Object[]{
+                        notificacion.getMensaje(),
+                        notificacion.getCliente().getNombre(),
+                        notificacion.getFechaCreacion().toString()
+                });
+            }
+        }
+
+        tablaNotificaciones.setModel(model);
+    }*/
+
     private void llenarTablaNotificaciones() {
         ILista<Notificacion> notificaciones = this.usuarioLogeado.getNotificaciones();
 
@@ -84,7 +107,14 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
         }
 
         tablaNotificaciones.setModel(model);
+
+        if (tablaNotificaciones.getColumnModel().getColumnCount() > 0) {
+            tablaNotificaciones.getColumnModel().getColumn(0).setPreferredWidth(300); // Ancho para "Mensaje"
+            tablaNotificaciones.getColumnModel().getColumn(1).setPreferredWidth(100); // Ancho para "Cliente"
+            tablaNotificaciones.getColumnModel().getColumn(2).setPreferredWidth(150); // Ancho para "Fecha de Creación"
+        }
     }
+
 
     private void llenarTablaTransaccionesPorTipo(String tipoAccion) {
         ILista<Transaccion> transacciones = this.usuarioLogeado.getTransacciones();
@@ -179,13 +209,13 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
 
         tablaNotificaciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
         jScrollPane2.setViewportView(tablaNotificaciones);

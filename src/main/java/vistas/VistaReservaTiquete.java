@@ -89,8 +89,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
         if (cupos < cantidadReservas) {
-            //this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().enqueve(this.usuarioLogeado);
-            JOptionPane.showMessageDialog(null, "NO hay cupos suficientes para la cantidad de reservas.");
+            JOptionPane.showMessageDialog(null, "No hay asientos disponibles en este viaje.");
             return;
         }
 
@@ -382,12 +381,17 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                     ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
                     if (viajes != null) {
                         for(int k = 0; k < viajes.size(); k++) {
-                            if (viajes.get(k).getIdViaje().equals(idViaje)){
+                            if (viajes.get(k).getIdViaje().equals(idViaje)) {
                                 this.caseta = caseta;
                                 this.fila = i;
                                 this.columna = j;
                                 this.agregarReservasGeneradas(cantidadReservas, idReservaBase, idViaje, viaje);
-                                this.controladorVistaReservaTiquete.enviarNotificacion(this.usuarioLogeado.getDocumento(), idReservaBase, cantidadReservas);
+
+                                String mensaje = "Haz reservado " + cantidadReservas + " de tiquetes con id base: " + idReservaBase;
+                                Notificacion notificacion = new Notificacion(mensaje, this.usuarioLogeado);
+
+                                this.usuarioLogeado.getNotificaciones().add(notificacion);
+                                this.controladorVistaReservaTiquete.enviarNotificacion(this.usuarioLogeado.getDocumento(), mensaje);
                                 this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
                                 break;
                             }
@@ -395,7 +399,6 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "Reserva realizada con exito!");
             this.limpiarCampos();
             this.llenarTabla();
         } catch (RuntimeException e) {

@@ -9,7 +9,21 @@ public class Cola<S> implements ICola<S>, Serializable {
 
     @Override
     public void enqueve(S dato) {
-        Nodo<S> nuevo = new Nodo(dato);
+        System.out.println("Agregando dato: " + dato);
+        Nodo<S> nuevo = new Nodo<>(dato);
+        if (this.primero == null) {
+            this.primero = nuevo;
+            System.out.println("El primero ahora es: " + this.primero.dato);
+        } else {
+            Nodo<S> aux = this.primero;
+            while (aux.siguiente != null) {
+                aux = aux.siguiente;
+            }
+            aux.siguiente = nuevo;
+            System.out.println("Dato agregado al final: " + nuevo.dato);
+        }
+        
+        /*Nodo<S> nuevo = new Nodo(dato);
         if (this.primero == null) {
             this.primero = nuevo;
         } else {
@@ -18,7 +32,7 @@ public class Cola<S> implements ICola<S>, Serializable {
                 aux = aux.siguiente;
             }
             aux.siguiente = nuevo;
-        }
+        }*/
     }
 
     @Override

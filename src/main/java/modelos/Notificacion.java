@@ -1,8 +1,9 @@
 package modelos;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Notificacion {
+public class Notificacion implements Serializable {
     private String mensaje;
     private LocalDateTime fechaCreacion;
     private Cliente cliente;

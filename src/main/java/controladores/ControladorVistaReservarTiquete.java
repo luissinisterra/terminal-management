@@ -7,13 +7,13 @@ import util.interfaces.ILista;
 public class ControladorVistaReservarTiquete {
     private ServicioReserva servicioReserva;
     private ServicioCaseta servicioCaseta;
-    private ServicioViaje servicioViajes;
+    private ServicioViaje servicioViaje;
     private ServicioEmpresa servicioEmpresa;
     private ServicioUsuario servicioUsuario;
     public ControladorVistaReservarTiquete() {
         this.servicioReserva = new ServicioReserva();
         this.servicioCaseta = new ServicioCaseta();
-        this.servicioViajes = new ServicioViaje();
+        this.servicioViaje = new ServicioViaje();
         this.servicioEmpresa = new ServicioEmpresa();
         this.servicioUsuario = new ServicioUsuario();
     }
@@ -43,23 +43,23 @@ public class ControladorVistaReservarTiquete {
 
     //Metodo de viajes
     public ILista<Viaje> obtenerViajes() {
-        return this.servicioViajes.obtenerViajes();
+        return this.servicioViaje.obtenerViajes();
     }
 
     public Viaje obtenerViajePorId(String idViaje) {
-        return this.servicioViajes.obtenerViajePorId(idViaje);
+        return this.servicioViaje.obtenerViajePorId(idViaje);
     }
 
     public void asignarViajeBinario(String idViaje, Viaje viaje) {
-        this.servicioViajes.asignarViajeBinario(idViaje, viaje);
+        this.servicioViaje.asignarViajeBinario(idViaje, viaje);
     }
 
     public ILista<Viaje> filtrarViajesPorFecha(String filtro) {
-        return this.servicioViajes.filtrarViajesPorFecha(filtro);
+        return this.servicioViaje.filtrarViajesPorFecha(filtro);
     }
 
     public ILista<Viaje> filtrarViajePorDestino(String destinoBusqueda) {
-        return this.servicioViajes.filtrarViajePorDestino(destinoBusqueda);
+        return this.servicioViaje.filtrarViajePorDestino(destinoBusqueda);
     }
 
     //Metodos de empresas
@@ -68,16 +68,12 @@ public class ControladorVistaReservarTiquete {
     }
 
     //Metodos de usuarios
-    public void transaccionCliente(String idCliente, Tiquete tiquete, String accion, int puntos) {
-        this.servicioUsuario.transaccionCliente(idCliente, tiquete, accion, puntos);
-    }
-
     public void agregarReservaCliente(String idReserva, String idCliente, Viaje viaje){
         this.servicioUsuario.agregarReservaCliente(idReserva, idCliente, viaje);
     }
 
-    public void enviarNotificacion(String idCliente, String idReserva, int cantidadReservas){
-        this.servicioUsuario.enviarNotificacion(idCliente, idReserva, cantidadReservas);
+    public void enviarNotificacion(String idCliente, String mensaje){
+        this.servicioUsuario.enviarNotificacion(idCliente, mensaje);
     }
 
 

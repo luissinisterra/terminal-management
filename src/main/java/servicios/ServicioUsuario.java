@@ -159,7 +159,7 @@ public class ServicioUsuario {
         }
     }
 
-    public void enviarNotificacion(String idCliente, String idReserva, int cantidadReservas){
+    public void enviarNotificacion(String idCliente, String mensaje){
         int indice = this.obtenerIndiceUsuario(idCliente);
 
         if (indice == -1) {
@@ -167,7 +167,7 @@ public class ServicioUsuario {
         }
 
         if (this.usuarios.get(indice) != null) {
-            Notificacion notificacion = new Notificacion("Haz reservado " + cantidadReservas + " con id base: " + idReserva + "ha sido efectiva a tiquete.", ((Cliente) this.usuarios.get(indice)));
+            Notificacion notificacion = new Notificacion(mensaje, ((Cliente) this.usuarios.get(indice)));
             ((Cliente) this.usuarios.get(indice)).getNotificaciones().add(notificacion);
             this.agregarDatos();
         }

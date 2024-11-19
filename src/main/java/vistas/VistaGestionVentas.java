@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 /**
  *
@@ -256,7 +257,21 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
         if (cupos < cantidadTiquetes) {
-            JOptionPane.showMessageDialog(null, "NO hay cupos suficientes para la cantidad de tiquetes a comprar.");
+            int respuesta = JOptionPane.showConfirmDialog(
+                    null,
+                    "El viaje no tiene puestos disponibles. ¿Deseas ingresar al cliente en una cola de espera?",
+                    "Confirmación",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                for (int i = 0; i < cantidadTiquetes; i++){
+                    this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().enqueve(cliente);
+                }
+            } else if (respuesta == JOptionPane.NO_OPTION) {
+                return;
+            }
+
             return;
         }
 
@@ -373,6 +388,22 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                     }
                 }
             }
+        }
+    }
+
+    public void revisarCola(String idViaje){
+        int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
+        int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
+
+        if(cupos > this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos()){
+            Cliente cliente = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().dequeve();
+            Random random = new Random();
+            String idReserva = String.valueOf(random.nextInt(100));
+
+            Reserva reserva = new Reserva(idReserva, this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta), cliente);
+            this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().add(reserva);
+            this.controladorVistaGestionVentas.enviarNotificacion(cliente.getDocumento(), "Tienes un nuevo tiquete reservado con id: " + idReserva);
+            this.controladorVistaGestionVentas.agregarReservaCliente(idReserva, cliente.getDocumento(), this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta));
         }
     }
 
@@ -878,6 +909,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             this.caseta.getEmpresa().getDevoluciones().add(devolucion);
             this.eliminarTiquete(idTiquete);
 
+            this.revisarCola(tiquete.getViaje().getIdViaje());
             JOptionPane.showMessageDialog(null, "Devolución concretada con éxito.");
 
             this.llenarTablaTiquetes();
@@ -886,7 +918,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-
     }//GEN-LAST:event_btnHacerDevolucionActionPerformed
 
     /**

@@ -11,6 +11,7 @@ import util.interfaces.ILista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Random;
 
 /**
  *
@@ -20,6 +21,9 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
 
     ControladorVistaGestionReservas controladorVistaGestionReservas;
     Cliente usuarioLogeado;
+    Caseta caseta;
+    int fila;
+    int columna;
 
     /**
      * Creates new form VistaGestionReservasActivas
@@ -64,6 +68,24 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
         }
         cbxIdReserva.setModel(model2);
     }
+
+
+    public void revisarCola(String idViaje){
+        int indiceViajeCaseta = this.controladorVistaGestionReservas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
+        int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
+
+        if(cupos > this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos()){
+            Cliente cliente = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().dequeve();
+            Random random = new Random();
+            String idReserva = String.valueOf(random.nextInt(100));
+
+            Reserva reserva = new Reserva(idReserva, this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta), cliente);
+            this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().add(reserva);
+            this.controladorVistaGestionReservas.enviarNotificacion(cliente.getDocumento(), "Tienes un nuevo tiquete reservado con id: " + idReserva);
+            this.controladorVistaGestionReservas.agregarReservaCliente(idReserva, cliente.getDocumento(), this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta));
+        }
+    }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -172,16 +194,53 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
             ILista<Reserva> reservasCliente = this.usuarioLogeado.getReservas();
             String idReserva = cbxIdReserva.getSelectedItem().toString();
 
+            Reserva reserva = null;
             for(int i = 0; i < reservasCliente.size(); i++){
                 if(reservasCliente.get(i).getIdReserva().equals(idReserva)) {
+                    reserva = reservasCliente.get(i);
                     reservasCliente.remove(i);
                 }
             }
 
             this.controladorVistaGestionReservas.eliminarReserva(idReserva);
+
+            Viaje viaje = this.controladorVistaGestionReservas.obtenerViajePorId(reserva.getViaje().getIdViaje());
+
+            for (int i = 0; i < this.controladorVistaGestionReservas.obtenerCasetas().length; i++) {
+                for (int j = 0; j < this.controladorVistaGestionReservas.obtenerCasetas()[i].length; j++) {
+                    Caseta caseta = this.controladorVistaGestionReservas.obtenerCasetas()[i][j];
+
+                    if(caseta == null){
+                        continue;
+                    }
+
+                    ILista<Viaje> viajes = caseta.getEmpresa().getViajes();
+                    if (viajes != null) {
+                        for(int k = 0; k < viajes.size(); k++) {
+                            if (viajes.get(k).getIdViaje().equals(viaje.getIdViaje())) {
+                                this.caseta = caseta;
+                                this.fila = i;
+                                this.columna = j;
+
+                                for (int n = 0; n < viajes.size(); n++) {
+                                    if(viajes.get(k).getReservas().get(n).equals(idReserva)) {
+                                        viajes.remove(i);
+                                    }
+                                }
+
+                                this.revisarCola(viajes.get(i).getIdViaje());
+                                this.controladorVistaGestionReservas.asignarCaseta(this.fila, this.columna, this.caseta);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            this.llenarTabla();
+
             this.llenarTabla();
         } catch(RuntimeException e){
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
