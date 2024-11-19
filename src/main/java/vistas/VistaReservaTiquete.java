@@ -108,29 +108,25 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     }
 
     private void llenarTablaConFiltroDestino(String destinoBusqueda) {
-        ILista<Viaje> viajesGlobales = this.controladorVistaReservaTiquete.obtenerViajes();
+        ILista<Viaje> viajes = this.controladorVistaReservaTiquete.filtrarViajePorDestino(destinoBusqueda);
 
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"Id viaje", "Origen", "Destino", "Salida", "Llegada", "Bus", "Cupos", "Valor unitario"});
 
-        if (viajesGlobales != null) {
-            for (int i = 0; i < viajesGlobales.size(); i++) {
-                Viaje viaje = viajesGlobales.get(i);
+        if (viajes != null) {
+            for (int i = 0; i < viajes.size(); i++) {
+                Viaje viaje = viajes.get(i);
 
-                if (destinoBusqueda == null || destinoBusqueda.isEmpty() ||
-                        viaje.getDestino().toLowerCase().contains(destinoBusqueda.toLowerCase())) {
-
-                    model.addRow(new Object[]{
-                            viaje.getIdViaje(),
-                            viaje.getOrigen(),
-                            viaje.getDestino(),
-                            viaje.getFechaHoraSalida(),
-                            viaje.getFechaHoraLlegada(),
-                            viaje.getBus().getPlaca(),
-                            viaje.getBus().getCantidadPuestos() - viaje.getTiquetes().size() - viaje.getReservas().size(),
-                            viaje.getValorUnitario()
-                    });
-                }
+                model.addRow(new Object[]{
+                        viaje.getIdViaje(),
+                        viaje.getOrigen(),
+                        viaje.getDestino(),
+                        viaje.getFechaHoraSalida(),
+                        viaje.getFechaHoraLlegada(),
+                        viaje.getBus().getPlaca(),
+                        viaje.getBus().getCantidadPuestos() - viaje.getTiquetes().size() - viaje.getReservas().size(),
+                        viaje.getValorUnitario()
+                });
             }
         }
         tablaViajes.setModel(model);
@@ -391,6 +387,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
                                 this.fila = i;
                                 this.columna = j;
                                 this.agregarReservasGeneradas(cantidadReservas, idReservaBase, idViaje, viaje);
+                                this.controladorVistaReservaTiquete.enviarNotificacion(this.usuarioLogeado.getDocumento(), idReservaBase, cantidadReservas);
                                 this.controladorVistaReservaTiquete.asignarCaseta(this.fila, this.columna, this.caseta);
                                 break;
                             }
@@ -413,8 +410,13 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnBuscarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDestinoActionPerformed
-        String destinoBusqueda = txtBuscador.getText();
-        this.llenarTablaConFiltroDestino(destinoBusqueda);
+        try{
+            String destinoBusqueda = txtBuscador.getText();
+            this.llenarTablaConFiltroDestino(destinoBusqueda);
+        } catch(RuntimeException e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            this.llenarTabla();
+        }
     }//GEN-LAST:event_btnBuscarDestinoActionPerformed
 
     private void cbxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFiltroActionPerformed
@@ -424,7 +426,7 @@ public class VistaReservaTiquete extends javax.swing.JFrame {
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
         try{
             String filtro = cbxFiltro.getSelectedItem().toString();
-            this.controladorVistaReservaTiquete.filtrarViajesPorFecha(filtro);   
+            this.llenarTablaConFiltroFecha(filtro);
         } catch(RuntimeException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }

@@ -159,7 +159,7 @@ public class ServicioUsuario {
         }
     }
 
-    public void enviarNotificacion(String idCliente, String idReserva){
+    public void enviarNotificacion(String idCliente, String idReserva, int cantidadReservas){
         int indice = this.obtenerIndiceUsuario(idCliente);
 
         if (indice == -1) {
@@ -167,12 +167,11 @@ public class ServicioUsuario {
         }
 
         if (this.usuarios.get(indice) != null) {
-            Notificacion notificacion = new Notificacion("Su reserva ha con id: " + idReserva + "ha sido efectiva a tiquete.", ((Cliente) this.usuarios.get(indice)));
+            Notificacion notificacion = new Notificacion("Haz reservado " + cantidadReservas + " con id base: " + idReserva + "ha sido efectiva a tiquete.", ((Cliente) this.usuarios.get(indice)));
             ((Cliente) this.usuarios.get(indice)).getNotificaciones().add(notificacion);
             this.agregarDatos();
         }
     }
-
 
     private boolean validarContrasena(String documento, String contrasena){
         for(int i = 0; i < this.usuarios.size(); i++){

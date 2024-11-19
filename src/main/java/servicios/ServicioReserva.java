@@ -22,8 +22,8 @@ public class ServicioReserva {
 
     public void agregarReserva(String idReserva, Viaje viaje, Cliente cliente) throws RuntimeException {
         // Verificar que el id del viaje no exista en la lista de reservas
-        if (buscarIdReserva(idReserva)) {
-            throw new RuntimeException("El ID de la reserva ya está registrado.");
+        if (buscarIdReservaParaTiquete(idReserva)) {
+            throw new RuntimeException("El ID de la reserva para tiquete ya está registrado.");
         }
 
         // Agregar la reserva a la lista
@@ -63,9 +63,17 @@ public class ServicioReserva {
     }
 
     private boolean buscarIdReserva(String idReserva) {
-
-        for (int i = 0; i < this.servicioTiquete.obtenerTiquetes().size(); i++) {
+        for (int i = 0; i < this.reservas.size(); i++) {
             if (this.reservas.get(i).getIdReserva().equals(idReserva)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean buscarIdReservaParaTiquete(String idReserva) {
+        for (int i = 0; i < this.servicioTiquete.obtenerTiquetes().size(); i++) {
+            if (this.servicioTiquete.obtenerTiquetes().get(i).getIdTiquete().equals(idReserva)) {
                 return true;
             }
         }

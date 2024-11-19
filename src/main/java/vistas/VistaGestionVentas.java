@@ -811,8 +811,6 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         int puntos = (reserva.getViaje().getValorUnitario() / 10000) * 3;
         this.controladorVistaGestionVentas.transaccionCliente(reserva.getCliente().getDocumento(), tiquete, "Compra", puntos);
 
-
-        this.controladorVistaGestionVentas.enviarNotificacion(reserva.getCliente().getDocumento(), idReserva);
         this.controladorVistaGestionVentas.eliminarReservaCliente(idReserva, reserva.getCliente().getDocumento());
         this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
         this.llenarTablaTiquetes();

@@ -58,6 +58,10 @@ public class ControladorVistaReservarTiquete {
         return this.servicioViajes.filtrarViajesPorFecha(filtro);
     }
 
+    public ILista<Viaje> filtrarViajePorDestino(String destinoBusqueda) {
+        return this.servicioViajes.filtrarViajePorDestino(destinoBusqueda);
+    }
+
     //Metodos de empresas
     public ILista<Empresa> obtenerEmpresas() {
         return this.servicioEmpresa.obtenerEmpresas();
@@ -70,6 +74,10 @@ public class ControladorVistaReservarTiquete {
 
     public void agregarReservaCliente(String idReserva, String idCliente, Viaje viaje){
         this.servicioUsuario.agregarReservaCliente(idReserva, idCliente, viaje);
+    }
+
+    public void enviarNotificacion(String idCliente, String idReserva, int cantidadReservas){
+        this.servicioUsuario.enviarNotificacion(idCliente, idReserva, cantidadReservas);
     }
 
 

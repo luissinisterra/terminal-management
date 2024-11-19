@@ -9,6 +9,7 @@ import util.interfaces.ILista;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ServicioViaje {
     private ILista<Viaje> viajes;
@@ -136,35 +137,72 @@ public class ServicioViaje {
     }
 
     public ILista<Viaje> filtrarViajesPorFecha(String filtro) throws RuntimeException {
+
         ILista<Viaje> viajesGlobales = this.viajes;
         ILista<Viaje> viajesFiltrados = new Lista<>();
-        LocalDate fechaActual = LocalDate.now();
+        LocalDateTime fechaActual = LocalDateTime.now();
 
-        LocalDate fechaInicio = null;
         switch (filtro) {
             case "Dia":
-                fechaInicio = fechaActual.minusDays(1);
+                LocalDateTime fechaFiltroDia = fechaActual.minusDays(2);
+
+                for (int i = 0; i < viajesGlobales.size(); i++) {
+                    Viaje viaje = viajesGlobales.get(i);
+                    LocalDateTime fechaViaje = viaje.getFechaHoraSalida();
+                    if ((fechaViaje.isAfter(fechaFiltroDia) || fechaViaje.isEqual(fechaActual))) {
+                        viajesFiltrados.add(viaje);
+                    }
+                }
                 break;
+
             case "Semana":
-                fechaInicio = fechaActual.minusWeeks(1);
+                LocalDateTime fechaFiltroSemana = fechaActual.minusWeeks(1);
+
+                for (int i = 0; i < viajesGlobales.size(); i++) {
+                    Viaje viaje = viajesGlobales.get(i);
+                    LocalDateTime fechaViaje = viaje.getFechaHoraSalida();
+                    if ((fechaViaje.isAfter(fechaFiltroSemana) || fechaViaje.isEqual(fechaActual))) {
+                        viajesFiltrados.add(viaje);
+                    }
+                }
                 break;
+
             case "Mes":
-                fechaInicio = fechaActual.minusMonths(1);
+                LocalDateTime fechaFiltroMes = fechaActual.minusMonths(1);
+
+                for (int i = 0; i < viajesGlobales.size(); i++) {
+                    Viaje viaje = viajesGlobales.get(i);
+                    LocalDateTime fechaViaje = viaje.getFechaHoraSalida();
+                    if ((fechaViaje.isAfter(fechaFiltroMes) || fechaViaje.isEqual(fechaActual))) {
+                        viajesFiltrados.add(viaje);
+                    }
+                }
                 break;
-            default:
-                throw new RuntimeException("Filtro no válido. Use 'Dia', 'Semana' o 'Mes'.");
         }
 
-        for (int i = 0; i < viajesGlobales.size(); i++) {
-            Viaje viaje = viajesGlobales.get(i);
-            LocalDate fechaViaje = viaje.getFechaHoraSalida().toLocalDate();
-            if ((fechaViaje.isAfter(fechaInicio) || fechaViaje.isEqual(fechaInicio))
-                    && (fechaViaje.isBefore(fechaActual) || fechaViaje.isEqual(fechaActual))) {
-                viajesFiltrados.add(viaje);
-            }
+        if (viajesFiltrados.isEmpty()) {
+            throw new RuntimeException("No se encontro ventas hechas en esa fecha");
         }
 
         return viajesFiltrados;
+    }
+
+    public ILista<Viaje> filtrarViajePorDestino(String destinoBusqueda) throws RuntimeException {
+        ILista<Viaje> viajesGlobales = this.viajes;
+        ILista<Viaje> viajesFiltrados = new Lista<>();
+
+        for (int i = 0; i < viajesGlobales.size(); i++) {
+            if(viajesGlobales.get(i).getDestino().toLowerCase().contains(destinoBusqueda.toLowerCase())){
+                viajesFiltrados.add(viajesGlobales.get(i));
+            }
+        }
+
+        if (viajesFiltrados.isEmpty()) {
+            throw new RuntimeException("No se encontro ventas hechas en ese destino.");
+        }
+
+        return viajesFiltrados;
+
     }
 
 

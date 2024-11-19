@@ -6,6 +6,7 @@ util/Nodo.class
 controladores/ControladorVistaGestionReservas.class
 vistas/VistaResumenInformacion$2.class
 vistas/VistaPrincipal.class
+vistas/VistaReservaTiquete$7.class
 vistas/VistaAdminFlota$4.class
 vistas/VistaGestionBuses$5.class
 vistas/VistaReservaTiquete$4.class

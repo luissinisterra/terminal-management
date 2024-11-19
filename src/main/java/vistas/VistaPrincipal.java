@@ -10,6 +10,7 @@ import controladores.ControladorVistaPrincipal;
 import modelos.Caseta;
 import modelos.Usuario;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,9 +31,11 @@ public class VistaPrincipal extends javax.swing.JFrame implements ActionListener
         initComponents();
         setLocationRelativeTo(this);
         this.botonesCasetas = new JButton[4][];
+        setTitle("Vista Principal - Casetas");
         this.controladorVistaPrincipal = new ControladorVistaPrincipal();
         this.usuarioLogeado = usuarioLogeado;
         this.dibujarBotones();
+        this.revisarSiEstaOcupada();
     }
 
     private void dibujarBotones() {
@@ -65,6 +68,27 @@ public class VistaPrincipal extends javax.swing.JFrame implements ActionListener
         }
 
     }
+
+    private void revisarSiEstaOcupada(){
+        for (int i = 0; i < botonesCasetas.length; i++) {
+            for (int j = 0; j < botonesCasetas[i].length; j++) {
+                Caseta caseta = this.controladorVistaPrincipal.obtenerCaseta(i, j);
+
+                if(caseta == null){
+                    continue;
+                }
+
+                if(caseta.isDisponibilidad()){
+                    JButton button = botonesCasetas[i][j];
+                    button.setBackground(Color.ORANGE);
+                } else {
+                    JButton button = botonesCasetas[i][j];
+                    button.setBackground(Color.WHITE);
+                }
+            }
+        }
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
