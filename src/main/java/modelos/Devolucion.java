@@ -1,8 +1,9 @@
 package modelos;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Devolucion {
+public class Devolucion implements Serializable {
     private Tiquete tiquete;
     private LocalDate fechaDevolucion;
 

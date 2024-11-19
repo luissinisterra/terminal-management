@@ -58,6 +58,10 @@ public class ServicioReserva {
         this.agregarDatos();
     }
 
+    public boolean buscarReservaPorId(String idReserva) {
+        return this.buscarIdReserva(idReserva);
+    }
+
     public ILista<Reserva> obtenerReservas() {
         return this.reservas;
     }

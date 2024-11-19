@@ -26,6 +26,10 @@ public class ControladorVistaGestionReservas {
         this.servicioReserva.eliminarReserva(idReserva);
     }
 
+    public boolean buscarReservaPorId(String idReserva) {
+        return this.servicioReserva.buscarReservaPorId(idReserva);
+    }
+
     public void actualizarReserva(String idReserva, Viaje nuevoViaje) {
         this.servicioReserva.actualizarReserva(idReserva, nuevoViaje);
     }

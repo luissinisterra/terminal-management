@@ -395,10 +395,21 @@ public class VistaGestionVentas extends javax.swing.JFrame {
         int indiceViajeCaseta = this.controladorVistaGestionVentas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
         int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
-        if(cupos > this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos()){
+        if(cupos > 0){
             Cliente cliente = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().dequeve();
             Random random = new Random();
-            String idReserva = String.valueOf(random.nextInt(100));
+            String idReservaBase;
+            String idReserva;
+
+            boolean existeIdReserva;
+
+            int contador = 1;
+            do {
+                idReservaBase = String.valueOf(random.nextInt(100));
+                idReserva = idReservaBase + "-" + (contador + 1);
+                existeIdReserva = this.controladorVistaGestionVentas.buscarReservaPorId(idReserva);
+                contador++;
+            } while (existeIdReserva);
 
             Reserva reserva = new Reserva(idReserva, this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta), cliente);
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().add(reserva);
@@ -900,6 +911,12 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                         redencionExistente = true;
                         break;
                     }
+                }
+            }
+
+            for (int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++) {
+                if (this.caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(tiquete.getViaje().getIdViaje())){
+                    this.caseta.getEmpresa().getViajes().remove(i);
                 }
             }
 

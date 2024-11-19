@@ -1,10 +1,7 @@
 package controladores;
 
 import modelos.*;
-import servicios.ServicioCaseta;
-import servicios.ServicioTiquete;
-import servicios.ServicioUsuario;
-import servicios.ServicioViaje;
+import servicios.*;
 import util.interfaces.ILista;
 
 public class ControladorVistaGestionVentas {
@@ -12,11 +9,13 @@ public class ControladorVistaGestionVentas {
     private ServicioViaje servicioViaje;
     private ServicioUsuario servicioUsuario;
     private ServicioCaseta servicioCaseta;
+    private ServicioReserva servicioReserva;
     public ControladorVistaGestionVentas() {
         this.servicioTiquete = new ServicioTiquete();
         this.servicioViaje = new ServicioViaje();
         this.servicioUsuario = new ServicioUsuario();
         this.servicioCaseta = new ServicioCaseta();
+        this.servicioReserva = new ServicioReserva();
     }
 
     //Metodos de tiquetes
@@ -78,6 +77,11 @@ public class ControladorVistaGestionVentas {
     //Metodos de caseta
     public void asignarCaseta(int fila, int columna, Caseta caseta) {
         this.servicioCaseta.asignarCaseta(fila, columna, caseta);
+    }
+
+    //Metodos para reservas
+    public boolean buscarReservaPorId(String idReserva) {
+        return this.servicioReserva.buscarReservaPorId(idReserva);
     }
 
 }

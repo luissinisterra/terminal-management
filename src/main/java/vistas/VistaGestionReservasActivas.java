@@ -72,17 +72,36 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
 
     public void revisarCola(String idViaje){
         int indiceViajeCaseta = this.controladorVistaGestionReservas.obtenerViajeIndiceCaseta(this.caseta, idViaje);
-        int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() - this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
+        int cupos = (this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos() -
+                this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getTiquetes().size() -
+                this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().size());
 
-        if(cupos > this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getBus().getCantidadPuestos()){
+        System.out.println(idViaje);
+
+        if (cupos > 0) {
             Cliente cliente = this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().dequeve();
             Random random = new Random();
-            String idReserva = String.valueOf(random.nextInt(100));
+            String idReservaBase;
+            String idReserva;
+
+            boolean existeIdReserva;
+
+            int contador = 1;
+            do {
+                idReservaBase = String.valueOf(random.nextInt(100));
+                idReserva = idReservaBase + "-" + (contador + 1);
+                existeIdReserva = this.controladorVistaGestionReservas.buscarReservaPorId(idReserva);
+                contador++;
+            } while (existeIdReserva);
 
             Reserva reserva = new Reserva(idReserva, this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta), cliente);
             this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getReservas().add(reserva);
-            this.controladorVistaGestionReservas.enviarNotificacion(cliente.getDocumento(), "Tienes un nuevo tiquete reservado con id: " + idReserva);
-            this.controladorVistaGestionReservas.agregarReservaCliente(idReserva, cliente.getDocumento(), this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta));
+
+            this.controladorVistaGestionReservas.enviarNotificacion(cliente.getDocumento(),
+                    "Tienes un nuevo tiquete reservado con id: " + idReserva);
+
+            this.controladorVistaGestionReservas.agregarReservaCliente(idReserva,
+                    cliente.getDocumento(), this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta));
         }
     }
 
