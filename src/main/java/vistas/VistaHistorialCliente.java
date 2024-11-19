@@ -25,6 +25,8 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         this.usuarioLogeado = usuarioLogeado;
+        setTitle("Historial: " + this.usuarioLogeado.getNombre() + " " + this.usuarioLogeado.getApellido());
+        lblPuntosAcomulados.setText(String.valueOf(this.usuarioLogeado.getPuntos()));
         this.llenarTablaTransacciones();
         this.llenarTablaNotificaciones();
         this.alistarBox();
@@ -63,29 +65,6 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
         tablaTransacciones.setModel(model);
     }
 
-    /*private void llenarTablaNotificaciones() {
-        ILista<Notificacion> notificaciones = this.usuarioLogeado.getNotificaciones();
-
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{
-                "Mensaje", "Cliente", "Fecha de Creación"
-        });
-
-        if (notificaciones != null && notificaciones.size() > 0) {
-            for (int i = 0; i < notificaciones.size(); i++) {
-                Notificacion notificacion = notificaciones.get(i);
-
-                model.addRow(new Object[]{
-                        notificacion.getMensaje(),
-                        notificacion.getCliente().getNombre(),
-                        notificacion.getFechaCreacion().toString()
-                });
-            }
-        }
-
-        tablaNotificaciones.setModel(model);
-    }*/
-
     private void llenarTablaNotificaciones() {
         ILista<Notificacion> notificaciones = this.usuarioLogeado.getNotificaciones();
 
@@ -109,9 +88,9 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
         tablaNotificaciones.setModel(model);
 
         if (tablaNotificaciones.getColumnModel().getColumnCount() > 0) {
-            tablaNotificaciones.getColumnModel().getColumn(0).setPreferredWidth(300); // Ancho para "Mensaje"
-            tablaNotificaciones.getColumnModel().getColumn(1).setPreferredWidth(100); // Ancho para "Cliente"
-            tablaNotificaciones.getColumnModel().getColumn(2).setPreferredWidth(150); // Ancho para "Fecha de Creación"
+            tablaNotificaciones.getColumnModel().getColumn(0).setPreferredWidth(300);
+            tablaNotificaciones.getColumnModel().getColumn(1).setPreferredWidth(100); 
+            tablaNotificaciones.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
     }
 
@@ -182,6 +161,8 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
         btnFiltrar = new javax.swing.JButton();
         cbxFiltroTabla = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        lblPuntosAcomulados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -235,6 +216,11 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel3.setText("Puntos acomulados:");
+
+        lblPuntosAcomulados.setText("jLabel4");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -245,15 +231,21 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblPuntosAcomulados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(cbxFiltroTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
-                                .addComponent(btnFiltrar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 801, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnFiltrar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -270,7 +262,9 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(btnFiltrar)
-                    .addComponent(cbxFiltroTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxFiltroTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(lblPuntosAcomulados))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -351,10 +345,12 @@ public class VistaHistorialCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblPuntosAcomulados;
     private javax.swing.JTable tablaNotificaciones;
     private javax.swing.JTable tablaTransacciones;
     // End of variables declaration//GEN-END:variables

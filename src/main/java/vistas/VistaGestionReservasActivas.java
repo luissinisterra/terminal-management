@@ -143,6 +143,7 @@ public class VistaGestionReservasActivas extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel3.setText("Id de la reserva:");
 
         btnRegresar.setText("Regresar");

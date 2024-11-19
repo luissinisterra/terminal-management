@@ -170,7 +170,7 @@ public class VistaAdminFlota extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private void btnHistorialDevolucionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialDevolucionesActionPerformed
-        VistaDevolcionesEmpresa vde = new VistaDevolcionesEmpresa();
+        VistaDevolcionesEmpresa vde = new VistaDevolcionesEmpresa(this.caseta, this.usuarioLogeado, this.fila, this.columna);
         vde.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnHistorialDevolucionesActionPerformed

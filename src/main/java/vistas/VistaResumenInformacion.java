@@ -45,22 +45,22 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelResumenInformacion = new java.awt.Panel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblDocumento = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblApellido = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        lblEdad = new javax.swing.JLabel();
         lblGenero = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        lblTelefono = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        lblEdad = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        lblTelefono = new javax.swing.JLabel();
         lblCorreo = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         lblContrasena = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         lblPuntos = new javax.swing.JLabel();
@@ -68,40 +68,50 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelResumenInformacion.setBackground(new java.awt.Color(60, 63, 65));
+        jLabel2.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
+        jLabel2.setText("Informacion personal:");
 
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel1.setText("Documento:");
 
         lblDocumento.setText("jLabel2");
 
+        jLabel3.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel3.setText("Nombre:");
 
         lblNombre.setText("jLabel4");
 
+        jLabel5.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel5.setText("Apellido:");
 
         lblApellido.setText("jLabel6");
 
-        jLabel7.setText("Genero:");
-
-        lblGenero.setText("jLabel8");
-
-        jLabel9.setText("Telefono:");
-
-        lblTelefono.setText("jLabel10");
-
+        jLabel11.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel11.setText("Edad:");
+
+        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel7.setText("Genero:");
 
         lblEdad.setText("jLabel12");
 
+        lblGenero.setText("jLabel8");
+
+        jLabel9.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel9.setText("Telefono:");
+
+        jLabel13.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel13.setText("Correo:");
 
-        jLabel14.setText("Contraseña:");
+        lblTelefono.setText("jLabel10");
 
         lblCorreo.setText("jLabel16");
 
+        jLabel14.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
+        jLabel14.setText("Contraseña:");
+
         lblContrasena.setText("jLabel17");
 
+        jLabel19.setFont(new java.awt.Font("Liberation Sans", 1, 13)); // NOI18N
         jLabel19.setText("Puntos:");
 
         lblPuntos.setText("jLabel20");
@@ -113,99 +123,89 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelResumenInformacionLayout = new javax.swing.GroupLayout(panelResumenInformacion);
-        panelResumenInformacion.setLayout(panelResumenInformacionLayout);
-        panelResumenInformacionLayout.setHorizontalGroup(
-            panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResumenInformacionLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnRegresar)
-                    .addGroup(panelResumenInformacionLayout.createSequentialGroup()
-                        .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelResumenInformacionLayout.createSequentialGroup()
-                                    .addGap(2, 2, 2)
-                                    .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel3)))))
-                            .addGroup(panelResumenInformacionLayout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel1)))
-                        .addGap(36, 36, 36)
-                        .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDocumento)
-                            .addComponent(lblNombre)
-                            .addComponent(lblApellido)
-                            .addComponent(lblEdad)
-                            .addComponent(lblGenero))
-                        .addGap(198, 198, 198)
-                        .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel9))
-                        .addGap(41, 41, 41)
-                        .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTelefono)
-                            .addComponent(lblPuntos)
-                            .addComponent(lblContrasena)
-                            .addComponent(lblCorreo))))
-                .addContainerGap(45, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel7))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblGenero)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblDocumento)
+                                    .addComponent(lblNombre)
+                                    .addComponent(lblApellido)
+                                    .addComponent(lblEdad))
+                                .addGap(186, 186, 186)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel19)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblPuntos))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(jLabel13))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblCorreo, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblTelefono, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblContrasena)))))))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
-        panelResumenInformacionLayout.setVerticalGroup(
-            panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResumenInformacionLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel2)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblDocumento)
                     .addComponent(jLabel9)
                     .addComponent(lblTelefono))
                 .addGap(18, 18, 18)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(lblNombre)
                     .addComponent(jLabel13)
                     .addComponent(lblCorreo))
                 .addGap(18, 18, 18)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblApellido)
                     .addComponent(jLabel14)
                     .addComponent(lblContrasena))
                 .addGap(18, 18, 18)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(lblEdad)
                     .addComponent(jLabel19)
                     .addComponent(lblPuntos))
-                .addGap(20, 20, 20)
-                .addGroup(panelResumenInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(lblGenero))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelResumenInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelResumenInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -260,6 +260,7 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -273,6 +274,5 @@ public class VistaResumenInformacion extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPuntos;
     private javax.swing.JLabel lblTelefono;
-    private java.awt.Panel panelResumenInformacion;
     // End of variables declaration//GEN-END:variables
 }

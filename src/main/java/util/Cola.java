@@ -23,13 +23,14 @@ public class Cola<S> implements ICola<S>, Serializable {
 
     @Override
     public S dequeve() {
-        if (this.primero == null) {
+        if (this.primero == null) { //
             return null;
         }
         Nodo<S> aux = this.primero;
         this.primero = aux.siguiente;
-        return this.primero.dato;
+        return aux.dato;
     }
+
 
     @Override
     public S peek() {

@@ -268,6 +268,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
                 for (int i = 0; i < cantidadTiquetes; i++){
                     this.caseta.getEmpresa().getViajes().get(indiceViajeCaseta).getColaEspera().enqueve(cliente);
                 }
+                JOptionPane.showMessageDialog(null, "Ingresado a la cola de espera correctamente.");
             } else if (respuesta == JOptionPane.NO_OPTION) {
                 return;
             }
@@ -915,8 +916,10 @@ public class VistaGestionVentas extends javax.swing.JFrame {
             }
 
             for (int i = 0; i < this.caseta.getEmpresa().getViajes().size(); i++) {
-                if (this.caseta.getEmpresa().getViajes().get(i).getIdViaje().equals(tiquete.getViaje().getIdViaje())){
-                    this.caseta.getEmpresa().getViajes().remove(i);
+                for (int j = 0; j < this.caseta.getEmpresa().getViajes().get(i).getTiquetes().size(); j++) {
+                    if (this.caseta.getEmpresa().getViajes().get(i).getTiquetes().get(j).getIdTiquete().equals(tiquete.getIdTiquete())){
+                        this.caseta.getEmpresa().getViajes().get(i).getTiquetes().remove(j);
+                    }
                 }
             }
 
@@ -928,6 +931,7 @@ public class VistaGestionVentas extends javax.swing.JFrame {
 
             this.revisarCola(tiquete.getViaje().getIdViaje());
             JOptionPane.showMessageDialog(null, "Devolución concretada con éxito.");
+            this.controladorVistaGestionVentas.asignarCaseta(this.fila, this.columna, this.caseta);
 
             this.llenarTablaTiquetes();
             this.alistarBox();

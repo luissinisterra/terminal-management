@@ -2,18 +2,19 @@ package modelos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Reserva implements Serializable {
     private String idReserva;
     private Viaje viaje;
     private Cliente cliente;
-    private LocalDate fechaReserva;
+    private LocalDateTime fechaReserva;
 
     public Reserva(String idReserva, Viaje viaje, Cliente cliente) {
         this.idReserva = idReserva;
         this.viaje = viaje;
         this.cliente = cliente;
-        this.fechaReserva = LocalDate.now();
+        this.fechaReserva = LocalDateTime.now();
     }
 
     public String getIdReserva() {
@@ -40,11 +41,11 @@ public class Reserva implements Serializable {
         this.cliente = cliente;
     }
 
-    public LocalDate getFechaReserva() {
+    public LocalDateTime getFechaReserva() {
         return fechaReserva;
     }
 
-    public void setFechaReserva(LocalDate fechaReserva) {
+    public void setFechaReserva(LocalDateTime fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
 }

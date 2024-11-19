@@ -4,17 +4,31 @@
  */
 package vistas;
 
+import modelos.AdministradorFlota;
+import modelos.Caseta;
+
 /**
  *
  * @author luis
  */
 public class VistaDevolcionesEmpresa extends javax.swing.JFrame {
+    
+    Caseta caseta;
+    AdministradorFlota usuarioLogeado;
+    int fila;
+    int columna;
 
     /**
      * Creates new form VistaDevolcionesEmpresa
      */
-    public VistaDevolcionesEmpresa() {
+    public VistaDevolcionesEmpresa(Caseta caseta, AdministradorFlota usuarioLogeado, int fila, int columna) {
         initComponents();
+        setLocationRelativeTo(this);
+        this.caseta = caseta;
+        setTitle("Devoluciones: " + this.caseta.getEmpresa().getNombreEmpresa());
+        this.usuarioLogeado = usuarioLogeado;
+        this.fila = fila;
+        this.columna = columna;
     }
 
     /**
@@ -46,6 +60,11 @@ public class VistaDevolcionesEmpresa extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,6 +91,12 @@ public class VistaDevolcionesEmpresa extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        VistaAdminFlota vaf = new VistaAdminFlota(this.usuarioLogeado, this.caseta, this.fila, this.columna);
+        vaf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,7 +128,7 @@ public class VistaDevolcionesEmpresa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaDevolcionesEmpresa().setVisible(true);
+                new VistaDevolcionesEmpresa(null, null, 0, 0).setVisible(true);
             }
         });
     }
